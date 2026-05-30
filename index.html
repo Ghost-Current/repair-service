@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Inverter & Electronic Repair Services</title>
+    <title>VoltFix Electronics - Inverter & Power System Repair</title>
+    <!-- Tailwind CSS for modern, responsive styling -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-50 text-slate-900 font-sans antialiased">
 
+    <!-- Header / Navigation -->
     <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-2 text-xl font-bold tracking-tight text-slate-900">
@@ -25,6 +27,7 @@
         </div>
     </header>
 
+    <!-- Hero Section -->
     <section class="bg-slate-900 text-white py-24 px-6 relative overflow-hidden">
         <div class="absolute inset-0 bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:16px_16px] opacity-30"></div>
         <div class="max-w-4xl mx-auto text-center relative z-10">
@@ -36,7 +39,7 @@
                 <span class="text-amber-400">Restore Your Power</span> Instantly.
             </h1>
             <p class="text-lg md:text-xl text-slate-300 mb-10 max-w-2xl mx-auto font-normal">
-                Professional repair and maintenance for hybrid inverters, solar power systems, and complex electronic circuits. Fast diagnostics, reliable fixes, and guaranteed workmanship.
+                Professional repair and maintenance for hybrid inverters, stabilizers, solar setups, and complex circuits. Fast diagnostics and guaranteed workmanship.
             </p>
             <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
                 <a href="#contact" class="w-full sm:w-auto bg-amber-500 text-slate-900 px-8 py-4 rounded-lg font-bold shadow-md hover:bg-amber-400 transition text-center">
@@ -49,54 +52,79 @@
         </div>
     </section>
 
+    <!-- Services Section -->
     <section id="services" class="max-w-6xl mx-auto px-6 py-24">
         <div class="text-center mb-16">
             <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Our Specialized Services</h2>
-            <p class="mt-4 text-lg text-slate-600 max-w-xl mx-auto">From residential solar setups to complex industrial hardware, we handle repairs with microscopic precision.</p>
+            <p class="mt-4 text-lg text-slate-600 max-w-xl mx-auto">From household stabilizers to sophisticated hybrid inverters, we fix hardware down to the individual component.</p>
         </div>
         
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Service 1: Inverters -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col justify-between">
                 <div>
-                    <div class="bg-amber-100 text-amber-600 w-12 h-12 rounded-xl flex items-center justify-center text-2xl font-bold mb-6">🔌</div>
-                    <h3 class="text-xl font-bold text-slate-900 mb-3">Inverter Troubleshooting</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">
-                        Complete diagnostic and component-level repair for pure sine wave, hybrid, and solar inverters. Fixing charging issues, error codes, and blown MOSFETs/IGBTs.
-                    </p>
+                    <img src="https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?auto=format&fit=crop&w=500&q=80" alt="Inverter" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Inverter Repair</h3>
+                        <p class="text-slate-600 text-xs leading-relaxed">
+                            Complete diagnostic troubleshooting for pure sine wave and hybrid systems. Fixing blown MOSFETs, charging faults, and error codes.
+                        </p>
+                    </div>
                 </div>
-                <div class="mt-6 pt-4 border-t border-slate-100 text-xs font-semibold text-amber-600">Pure Sine & Hybrid Systems</div>
+                <div class="px-6 pb-6 text-xs font-semibold text-amber-600">Hybrid & Pure Sine Wave</div>
             </div>
 
-            <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+            <!-- Service 2: Solar Panels -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col justify-between">
                 <div>
-                    <div class="bg-amber-100 text-amber-600 w-12 h-12 rounded-xl flex items-center justify-center text-2xl font-bold mb-6">🛠️</div>
-                    <h3 class="text-xl font-bold text-slate-900 mb-3">PCB & Electronic Repair</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">
-                        Micro-soldering, trace repairs, and faulty component tracking on printed circuit boards (PCBs). We isolate and repair hardware down to the individual resistor and capacitor.
-                    </p>
+                    <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=500&q=80" alt="Solar Panels" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Solar Diagnostics</h3>
+                        <p class="text-slate-600 text-xs leading-relaxed">
+                            Isolating drop-in voltage output, testing charge controllers, panel circuit connections, and optimizing battery storage banks.
+                        </p>
+                    </div>
                 </div>
-                <div class="mt-6 pt-4 border-t border-slate-100 text-xs font-semibold text-amber-600">Micro-Soldering Expertise</div>
+                <div class="px-6 pb-6 text-xs font-semibold text-amber-600">Charge Controllers & Arrays</div>
             </div>
 
-            <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+            <!-- Service 3: Stabilizers / AVR -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col justify-between">
                 <div>
-                    <div class="bg-amber-100 text-amber-600 w-12 h-12 rounded-xl flex items-center justify-center text-2xl font-bold mb-6">⚙️</div>
-                    <h3 class="text-xl font-bold text-slate-900 mb-3">Preventative Maintenance</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">
-                        Extend the lifespan of your backup systems. Thermal paste reapplication, deep dust cleaning, cooling fan replacements, and full system load testing under professional conditions.
-                    </p>
+                    <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=500&q=80" alt="Voltage Regulator" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">AVR & Stabilizer Fixes</h3>
+                        <p class="text-slate-600 text-xs leading-relaxed">
+                            Fixing faulty relays, transformer issues, and calibration failures in Automatic Voltage Regulators to keep appliances safe.
+                        </p>
+                    </div>
                 </div>
-                <div class="mt-6 pt-4 border-t border-slate-100 text-xs font-semibold text-amber-600">System Optimization</div>
+                <div class="px-6 pb-6 text-xs font-semibold text-amber-600">Voltage Calibration</div>
+            </div>
+
+            <!-- Service 4: General Electronics -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col justify-between">
+                <div>
+                    <img src="https://images.unsplash.com/photo-1631553127988-3486df8160cf?auto=format&fit=crop&w=500&q=80" alt="Electronics Workshop" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">PCB Micro-Soldering</h3>
+                        <p class="text-slate-600 text-xs leading-relaxed">
+                            Tracking broken traces under microscopes, replacing bad capacitors, and precision board repair for commercial hardware.
+                        </p>
+                    </div>
+                </div>
+                <div class="px-6 pb-6 text-xs font-semibold text-amber-600">Circuit Board Precision</div>
             </div>
         </div>
     </section>
 
+    <!-- Why Choose Us Section -->
     <section id="why-us" class="bg-slate-100 py-24 border-t border-b border-slate-200">
         <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
             <div>
                 <h2 class="text-3xl font-bold text-slate-900 mb-6 tracking-tight">Engineered for Accuracy and Reliability</h2>
                 <p class="text-slate-600 mb-6 leading-relaxed">
-                    We don't rely on guesswork. Using advanced oscilloscopes, multimeters, and specialized circuit analyzer tools, we pinpoint the exact failure point on your equipment to ensure a permanent fix.
+                    We don't rely on guesswork. Using advanced diagnostic tools, we pinpoint the exact failure point on your power equipment to ensure a permanent fix.
                 </p>
                 <ul class="space-y-4 font-medium text-slate-700">
                     <li class="flex items-center"><span class="text-amber-500 mr-3">✔</span> OEM quality replacement parts</li>
@@ -115,12 +143,15 @@
         </div>
     </section>
 
+    <!-- Contact & Booking Section (WhatsApp Version) -->
     <section id="contact" class="max-w-md mx-auto px-6 py-24 text-center">
         <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
             <div class="text-emerald-500 text-4xl mb-4">💬</div>
             <h2 class="text-3xl font-bold text-slate-900 mb-2 tracking-tight">Instant Repair Booking</h2>
             <p class="text-slate-600 mb-8 text-sm">Skip the email delays. Chat directly with a technician on WhatsApp to get an instant diagnostic quote.</p>
             
+            <!-- WHATSAPP BUTTON -->
+            <!-- CRITICAL: Change 2348000000000 to your country code + your active WhatsApp phone number -->
             <a href="https://wa.me/2349128273169?text=Hello%20VoltFix,%20I%20need%20to%20book%20a%20repair%20diagnostics%20check%20for%20my%20inverter/electronics." 
                target="_blank"
                class="flex items-center justify-center space-x-3 w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-4 rounded-xl transition shadow-md text-lg">
@@ -138,6 +169,7 @@
         </div>
     </section>
 
+    <!-- Footer -->
     <footer class="bg-slate-950 text-slate-400 text-xs py-12 text-center border-t border-slate-900">
         <p class="mb-2 font-semibold text-slate-300">&copy; 2026 VoltFix Electronics. All Rights Reserved.</p>
         <p>Premium hardware engineering and system repair diagnostics.</p>
