@@ -3,302 +3,885 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Twins Father Supermarket | Fast Neighborhood Delivery</title>
+    <title>Twins Father Supermarket | Catalog</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-50 text-slate-900 font-sans antialiased pb-24">
+<body class="bg-slate-50 text-slate-900 font-sans antialiased pb-28">
 
-    <!-- HEADER & LOGO -->
     <header class="sticky top-0 z-50 bg-amber-500 text-slate-950 px-4 py-4 shadow-md">
         <div class="max-w-4xl mx-auto flex justify-between items-center">
             <div>
                 <h1 class="text-xl font-black tracking-tight">🏪 Twins Father</h1>
-                <p class="text-[10px] font-bold uppercase tracking-wider opacity-80">Supermarket & Delivery</p>
+                <p class="text-[10px] font-bold uppercase tracking-wider opacity-90">Supermarket Delivery Portal</p>
             </div>
-            <a href="#checkout-form-section" class="bg-slate-900 text-white text-xs font-bold px-4 py-2 rounded-lg shadow">
-                View List (<span id="cart-count">0</span>)
-            </a>
+            <div class="bg-slate-900 text-white text-xs font-bold px-3 py-2 rounded-lg">
+                Selected: <span id="header-cart-count" class="text-amber-400 font-black">0</span> items
+            </div>
         </div>
     </header>
 
-    <!-- PITCH BANNER -->
-    <section class="bg-white border-b border-slate-200 px-4 py-8 text-center">
-        <div class="max-w-xl mx-auto">
-            <h2 class="text-2xl font-extrabold tracking-tight text-slate-900">Skip the Queue. We Deliver to Your Door.</h2>
-            <p class="text-xs text-slate-500 mt-2">Select your daily provisions below, fill out your street landmark, and our dispatch rider will handle the rest.</p>
-        </div>
-    </section>
+    <main class="max-w-4xl mx-auto px-4 py-6 space-y-10">
 
-    <!-- GROCERY CATALOG -->
-    <!-- EXPANDED GROCERY CATALOG WITH PRICES -->
-    <main class="max-w-4xl mx-auto px-4 py-8">
-        
-        <!-- SECTION 1: BREAKFAST & PROVISIONS -->
-        <div class="mb-10">
-            <h3 class="text-xs font-black uppercase tracking-wider text-slate-400 mb-4 flex items-center">🥣 Provisions & Breakfast</h3>
-            <div class="grid grid-cols-2 gap-3">
-                
-                <!-- Product 1 -->
-                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-                    <div>
-                        <h4 class="text-sm font-bold text-slate-900">Milo Beverage (400g)</h4>
-                        <p class="text-xs text-slate-400 mt-0.5">Classic chocolate malt pouch</p>
-                        <p class="text-sm font-black text-amber-600 mt-2">₦4,200</p>
-                    </div>
-                    <button onclick="addToCart('Milo 400g (₦4,200)')" class="mt-3 w-full bg-slate-100 hover:bg-amber-500 hover:text-slate-900 text-slate-700 font-bold py-2 rounded-lg text-xs transition active:scale-95">+ Add to List</button>
-                </div>
-
-                <!-- Product 2 -->
-                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-                    <div>
-                        <h4 class="text-sm font-bold text-slate-900">Peak Milk Powder (350g)</h4>
-                        <p class="text-xs text-slate-400 mt-0.5">Instant rich cream milk pouch</p>
-                        <p class="text-sm font-black text-amber-600 mt-2">₦3,800</p>
-                    </div>
-                    <button onclick="addToCart('Peak Milk 350g (₦3,800)')" class="mt-3 w-full bg-slate-100 hover:bg-amber-500 hover:text-slate-900 text-slate-700 font-bold py-2 rounded-lg text-xs transition active:scale-95">+ Add to List</button>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- SECTION 2: COOKING ESSENTIALS (NEW CATEGORY) -->
-        <div class="mb-10">
-            <h3 class="text-xs font-black uppercase tracking-wider text-slate-400 mb-4 flex items-center">🍳 Cooking & Staples</h3>
-            <div class="grid grid-cols-2 gap-3">
-                
-                <!-- Product 3 (NEW) -->
-                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-                    <div>
-                        <span class="text-[9px] font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">New</span>
-                        <h4 class="text-sm font-bold text-slate-900 mt-1">Mamador Vegetable Oil (1L)</h4>
-                        <p class="text-xs text-slate-400 mt-0.5">Pure cholesterol-free cooking oil</p>
-                        <p class="text-sm font-black text-amber-600 mt-2">₦3,500</p>
-                    </div>
-                    <button onclick="addToCart('Mamador Oil 1L (₦3,500)')" class="mt-3 w-full bg-slate-100 hover:bg-amber-500 hover:text-slate-900 text-slate-700 font-bold py-2 rounded-lg text-xs transition active:scale-95">+ Add to List</button>
-                </div>
-
-                <!-- Product 4 (NEW) -->
-                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-                    <div>
-                        <span class="text-[9px] font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">New</span>
-                        <h4 class="text-sm font-bold text-slate-900 mt-1">Dangote Sugar (1kg)</h4>
-                        <p class="text-xs text-slate-400 mt-0.5">Fine granulated white sugar pack</p>
-                        <p class="text-sm font-black text-amber-600 mt-2">₦1,900</p>
-                    </div>
-                    <button onclick="addToCart('Dangote Sugar 1kg (₦1,900)')" class="mt-3 w-full bg-slate-100 hover:bg-amber-500 hover:text-slate-900 text-slate-700 font-bold py-2 rounded-lg text-xs transition active:scale-95">+ Add to List</button>
-                </div>
-
-                <!-- Product 5 (NEW) -->
-                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-                    <div>
-                        <span class="text-[9px] font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">New</span>
-                        <h4 class="text-sm font-bold text-slate-900 mt-1">Golden Penny Semovita (1kg)</h4>
-                        <p class="text-xs text-slate-400 mt-0.5">Premium quality swallow flour</p>
-                        <p class="text-sm font-black text-amber-600 mt-2">₦1,600</p>
-                    </div>
-                    <button onclick="addToCart('GP Semovita 1kg (₦1,600)')" class="mt-3 w-full bg-slate-100 hover:bg-amber-500 hover:text-slate-900 text-slate-700 font-bold py-2 rounded-lg text-xs transition active:scale-95">+ Add to List</button>
-                </div>
-
-                <!-- Product 6 -->
-                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-                    <div>
-                        <h4 class="text-sm font-bold text-slate-900">Golden Penny Spaghetti</h4>
-                        <p class="text-xs text-slate-400 mt-0.5">Long slim pasta slender strands</p>
-                        <p class="text-sm font-black text-amber-600 mt-2">₦950</p>
-                    </div>
-                    <button onclick="addToCart('GP Spaghetti (₦950)')" class="mt-3 w-full bg-slate-100 hover:bg-amber-500 hover:text-slate-900 text-slate-700 font-bold py-2 rounded-lg text-xs transition active:scale-95">+ Add to List</button>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- SECTION 3: DRINKS & HOUSEHOLD (NEW CATEGORY) -->
-        <div class="mb-10">
-            <h3 class="text-xs font-black uppercase tracking-wider text-slate-400 mb-4 flex items-center">🧼 Drinks & Household Care</h3>
-            <div class="grid grid-cols-2 gap-3">
-                
-                <!-- Product 7 (NEW) -->
-                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-                    <div>
-                        <span class="text-[9px] font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">New</span>
-                        <h4 class="text-sm font-bold text-slate-900 mt-1">Coca-Cola 60cl (Pack of 12)</h4>
-                        <p class="text-xs text-slate-400 mt-0.5">Chilled carbonated soft drink plastic bottles</p>
-                        <p class="text-sm font-black text-amber-600 mt-2">₦3,600</p>
-                    </div>
-                    <button onclick="addToCart('Coke 60cl x12 Pack (₦3,600)')" class="mt-3 w-full bg-slate-100 hover:bg-amber-500 hover:text-slate-900 text-slate-700 font-bold py-2 rounded-lg text-xs transition active:scale-95">+ Add to List</button>
-                </div>
-
-                <!-- Product 8 (NEW) -->
-                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-                    <div>
-                        <span class="text-[9px] font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">New</span>
-                        <h4 class="text-sm font-bold text-slate-900 mt-1">Sunlight Detergent (900g)</h4>
-                        <p class="text-xs text-slate-400 mt-0.5">Spring sensations clean washing powder</p>
-                        <p class="text-sm font-black text-amber-600 mt-2">₦2,400</p>
-                    </div>
-                    <button onclick="addToCart('Sunlight Powder 900g (₦2,400)')" class="mt-3 w-full bg-slate-100 hover:bg-amber-500 hover:text-slate-900 text-slate-700 font-bold py-2 rounded-lg text-xs transition active:scale-95">+ Add to List</button>
-                </div>
-
-                <!-- Product 9 -->
-                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-                    <div>
-                        <h4 class="text-sm font-bold text-slate-900">Indomie Noodles (Carton)</h4>
-                        <p class="text-xs text-slate-400 mt-0.5">Standard Chicken Flavor (40 packs)</p>
-                        <p class="text-sm font-black text-amber-600 mt-2">₦7,800</p>
-                    </div>
-                    <button onclick="addToCart('Indomie Carton (₦7,800)')" class="mt-3 w-full bg-slate-100 hover:bg-amber-500 hover:text-slate-900 text-slate-700 font-bold py-2 rounded-lg text-xs transition active:scale-95">+ Add to List</button>
-                </div>
-
-            </div>
-        </div>
-
-    </main>
-        
-        <!-- Category: Provisions -->
-        <div class="mb-10">
-            <h3 class="text-sm font-black uppercase tracking-wider text-slate-400 mb-4 flex items-center">🥣 Provisions & Breakfast</h3>
-            <div class="grid grid-cols-2 gap-3">
-                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-                    <div>
-                        <h4 class="text-sm font-bold text-slate-900">Milo Bournvita (400g)</h4>
-                        <p class="text-xs text-slate-400 mt-0.5">Rich chocolate malt beverage</p>
-                    </div>
-                    <button onclick="addToCart('Milo 400g')" class="mt-3 w-full bg-slate-100 hover:bg-amber-500 hover:text-slate-900 text-slate-700 font-bold py-2 rounded-lg text-xs transition active:scale-95">+ Add to List</button>
-                </div>
-                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-                    <div>
-                        <h4 class="text-sm font-bold text-slate-900">Peak Milk Powder (350g)</h4>
-                        <p class="text-xs text-slate-400 mt-0.5">Rich cream instant milk pouch</p>
-                    </div>
-                    <button onclick="addToCart('Peak Milk Pouch')" class="mt-3 w-full bg-slate-100 hover:bg-amber-500 hover:text-slate-900 text-slate-700 font-bold py-2 rounded-lg text-xs transition active:scale-95">+ Add to List</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Category: Staples & Foodstuffs -->
-        <div class="mb-10">
-            <h3 class="text-sm font-black uppercase tracking-wider text-slate-400 mb-4 flex items-center">🌾 Foodstuffs & Staples</h3>
-            <div class="grid grid-cols-2 gap-3">
-                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-                    <div>
-                        <h4 class="text-sm font-bold text-slate-900">Golden Penny Pasta</h4>
-                        <p class="text-xs text-slate-400 mt-0.5">Spaghetti / Macaroni (Per Pack)</p>
-                    </div>
-                    <button onclick="addToCart('GP Pasta Pack')" class="mt-3 w-full bg-slate-100 hover:bg-amber-500 hover:text-slate-900 text-slate-700 font-bold py-2 rounded-lg text-xs transition active:scale-95">+ Add to List</button>
-                </div>
-                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-                    <div>
-                        <h4 class="text-sm font-bold text-slate-900">Indomie Noodles (Case)</h4>
-                        <p class="text-xs text-slate-400 mt-0.5">Standard Chicken Flavor carton</p>
-                    </div>
-                    <button onclick="addToCart('Indomie Carton')" class="mt-3 w-full bg-slate-100 hover:bg-amber-500 hover:text-slate-900 text-slate-700 font-bold py-2 rounded-lg text-xs transition active:scale-95">+ Add to List</button>
-                </div>
-            </div>
-        </div>
-
-    </main>
-
-    <!-- FLOATING CART STATUS BAR -->
-    <div id="floating-summary" class="fixed bottom-0 left-0 right-0 bg-slate-900 text-white p-4 shadow-xl border-t border-slate-800 hidden items-center justify-between z-40">
         <div>
-            <p class="text-xs font-bold text-slate-400">Current Order List:</p>
-            <p id="cart-preview" class="text-sm font-black text-amber-400 truncate max-w-[220px]">Empty</p>
+            <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center">🍅 1. Fresh Produce</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=300&auto=format&fit=crop&q=60" alt="Tomato" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Tomato 1kg</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦800</p></div>
+                        <button onclick="addToCart('Tomato 1kg (₦800)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1618512496248-a07fe8376604?w=300&auto=format&fit=crop&q=60" alt="Onion Red" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Onion Red 1kg</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦650</p></div>
+                        <button onclick="addToCart('Onion Red 1kg (₦650)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1563565313-0e390632c63c?w=300&auto=format&fit=crop&q=60" alt="Bell Pepper" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Bell Pepper 500g</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦400</p></div>
+                        <button onclick="addToCart('Bell Pepper Green 500g (₦400)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=300&auto=format&fit=crop&q=60" alt="Irish Potato" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Irish Potato 1kg</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦700</p></div>
+                        <button onclick="addToCart('Irish Potato 1kg (₦700)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=300&auto=format&fit=crop&q=60" alt="Sweet Potato" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Sweet Potato 1kg</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦600</p></div>
+                        <button onclick="addToCart('Sweet Potato 1kg (₦600)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1449339854873-750e6df515d0?w=300&auto=format&fit=crop&q=60" alt="Cucumber" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Cucumber 3pcs</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦300</p></div>
+                        <button onclick="addToCart('Cucumber 3pcs (₦300)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1598170845058-32b996a69427?w=300&auto=format&fit=crop&q=60" alt="Carrot" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Carrot 1kg</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦550</p></div>
+                        <button onclick="addToCart('Carrot 1kg (₦550)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1611105637889-3dfa19360697?w=300&auto=format&fit=crop&q=60" alt="Cabbage" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Cabbage 1 head</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦450</p></div>
+                        <button onclick="addToCart('Cabbage 1 head (₦450)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1622484211148-716598e04042?w=300&auto=format&fit=crop&q=60" alt="Lettuce" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Lettuce 1 head</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦350</p></div>
+                        <button onclick="addToCart('Lettuce 1 head (₦350)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=300&auto=format&fit=crop&q=60" alt="Apple Red" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Apple Red 6pcs</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦2,400</p></div>
+                        <button onclick="addToCart('Apple Red 6pcs (₦2,400)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=300&auto=format&fit=crop&q=60" alt="Banana" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Banana 1kg</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦600</p></div>
+                        <button onclick="addToCart('Banana 1kg (₦600)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1547514701-42782101795e?w=300&auto=format&fit=crop&q=60" alt="Orange" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Orange 1kg</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦750</p></div>
+                        <button onclick="addToCart('Orange 1kg (₦750)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=300&auto=format&fit=crop&q=60" alt="Watermelon" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Watermelon 1pc</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦1,500</p></div>
+                        <button onclick="addToCart('Watermelon 1pc (₦1,500)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=300&auto=format&fit=crop&q=60" alt="Pineapple" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Pineapple 1pc</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦900</p></div>
+                        <button onclick="addToCart('Pineapple 1pc (₦900)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1553279768-865429fa0078?w=300&auto=format&fit=crop&q=60" alt="Mango" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Mango 4pcs</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦1,200</p></div>
+                        <button onclick="addToCart('Mango 4pcs (₦1,200)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=300&auto=format&fit=crop&q=60" alt="Avocado" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Avocado 3pcs</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦800</p></div>
+                        <button onclick="addToCart('Avocado 3pcs (₦800)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1540148426945-6cf22a6b2383?w=300&auto=format&fit=crop&q=60" alt="Garlic" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Garlic 250g</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦350</p></div>
+                        <button onclick="addToCart('Garlic 250g (₦350)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=300&auto=format&fit=crop&q=60" alt="Ginger" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Ginger 250g</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦300</p></div>
+                        <button onclick="addToCart('Ginger 250g (₦300)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1566393028639-d108a42c46a7?w=300&auto=format&fit=crop&q=60" alt="Plantain Ripe" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Plantain Ripe</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦900</p></div>
+                        <button onclick="addToCart('Plantain Ripe 6pcs (₦900)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1566393028639-d108a42c46a7?w=300&auto=format&fit=crop&q=60" alt="Plantain Unripe" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Plantain Unripe</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦850</p></div>
+                        <button onclick="addToCart('Plantain Unripe 6pcs (₦850)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <a href="#checkout-form-section" class="bg-amber-500 text-slate-900 font-black text-xs px-4 py-2.5 rounded-xl uppercase tracking-wider shadow">Complete Delivery</a>
+
+        <div>
+            <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center">🌾 2. Grains, Rice & Pasta</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?w=300&auto=format&fit=crop&q=60" alt="Rice" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Uncle Ben's 5kg</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦12,500</p></div>
+                        <button onclick="addToCart('Uncle Ben’s Rice 5kg (₦12,500)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1551462147-ff29053bfc14?w=300&auto=format&fit=crop&q=60" alt="Spaghetti" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Mama Gold 500g</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦850</p></div>
+                        <button onclick="addToCart('Mama Gold Spaghetti 500g (₦850)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=300&auto=format&fit=crop&q=60" alt="Semovita" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">GP Semovita 10kg</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦9,800</p></div>
+                        <button onclick="addToCart('GP Semovita 10kg (₦9,800)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1551462147-39881d9e904a?w=300&auto=format&fit=crop&q=60" alt="Beans" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Beans Brown 2kg</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦3,200</p></div>
+                        <button onclick="addToCart('Beans Brown 2kg (₦3,200)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?w=300&auto=format&fit=crop&q=60" alt="Garri" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Garri Ijebu 4kg</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦2,800</p></div>
+                        <button onclick="addToCart('Garri Ijebu 4kg (₦2,800)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=300&auto=format&fit=crop&q=60" alt="Indomie" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Indomie 40pk</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦6,500</p></div>
+                        <button onclick="addToCart('Indomie Noodles 40pk (₦6,500)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=300&auto=format&fit=crop&q=60" alt="Oats" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Quaker Oats 1kg</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦4,200</p></div>
+                        <button onclick="addToCart('Quaker Oats 1kg (₦4,200)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1583321500900-82807e458f3c?w=300&auto=format&fit=crop&q=60" alt="Cornflakes" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Cornflakes 500g</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦3,500</p></div>
+                        <button onclick="addToCart('Cornflakes 500g (₦3,500)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=300&auto=format&fit=crop&q=60" alt="Custard" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Custard 2kg</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦3,800</p></div>
+                        <button onclick="addToCart('Custard 2kg (₦3,800)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=300&auto=format&fit=crop&q=60" alt="Millet" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Millet 2kg</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦2,400</p></div>
+                        <button onclick="addToCart('Millet 2kg (₦2,400)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center">🌶️ 3. Oils & Seasonings</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=300&auto=format&fit=crop&q=60" alt="Devon Kings" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Devon Kings 5L</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦8,500</p></div>
+                        <button onclick="addToCart('Devon Kings Oil 5L (₦8,500)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=300&auto=format&fit=crop&q=60" alt="Golden Penny" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Golden Penny 3L</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦5,200</p></div>
+                        <button onclick="addToCart('Golden Penny Oil 3L (₦5,200)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=300&auto=format&fit=crop&q=60" alt="Maggi" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Maggi Chicken</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦3,000</p></div>
+                        <button onclick="addToCart('Maggi Chicken 400cubes (₦3,000)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=300&auto=format&fit=crop&q=60" alt="Knorr" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Knorr Cubes 40pk</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦1,200</p></div>
+                        <button onclick="addToCart('Knorr Cubes 40pk (₦1,200)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=300&auto=format&fit=crop&q=60" alt="Onga" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Onga Stew 200g</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦1,800</p></div>
+                        <button onclick="addToCart('Onga Stew 200g (₦1,800)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1584444248485-be456d2b3392?w=300&auto=format&fit=crop&q=60" alt="Mayonnaise" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Bama Mayo 1kg</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦2,500</p></div>
+                        <button onclick="addToCart('Bama Mayonnaise 1kg (₦2,500)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1607305387299-a3d9611cd46f?w=300&auto=format&fit=crop&q=60" alt="Ketchup" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Heinz Ketchup</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦1,900</p></div>
+                        <button onclick="addToCart('Heinz Ketchup 500ml (₦1,900)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1584444248485-be456d2b3392?w=300&auto=format&fit=crop&q=60" alt="Soy Sauce" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Soy Sauce 300ml</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦1,400</p></div>
+                        <button onclick="addToCart('Soy Sauce 300ml (₦1,400)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=300&auto=format&fit=crop&q=60" alt="Curry" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Curry Powder</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦600</p></div>
+                        <button onclick="addToCart('Curry Powder 100g (₦600)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=300&auto=format&fit=crop&q=60" alt="Thyme" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Thyme 50g</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦500</p></div>
+                        <button onclick="addToCart('Thyme 50g (₦500)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center">🍾 4. Beverages</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=300&auto=format&fit=crop&q=60" alt="Coke" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Coke 50cl x24</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦4,800</p></div>
+                        <button onclick="addToCart('Coke 50cl x24 (₦4,800)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1624514210352-7e4a77b79cc1?w=300&auto=format&fit=crop&q=60" alt="Fanta" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Fanta 50cl x24</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦4,800</p></div>
+                        <button onclick="addToCart('Fanta 50cl x24 (₦4,800)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=300&auto=format&fit=crop&q=60" alt="Pepsi" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Pepsi 35cl x24</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦4,200</p></div>
+                        <button onclick="addToCart('Pepsi 35cl x24 (₦4,200)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1608885898957-a599fb1698d6?w=300&auto=format&fit=crop&q=60" alt="Water" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Eva Water x12</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦2,400</p></div>
+                        <button onclick="addToCart('Eva Water 75cl x12 (₦2,400)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1600788886242-5c96aabe3757?w=300&auto=format&fit=crop&q=60" alt="Maltina" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Maltina x24</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦6,000</p></div>
+                        <button onclick="addToCart('Maltina 33cl x24 (₦6,000)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=300&auto=format&fit=crop&q=60" alt="Milo" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Milo 1.5kg</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦8,500</p></div>
+                        <button onclick="addToCart('Milo 1.5kg (₦8,500)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=300&auto=format&fit=crop&q=60" alt="Bournvita" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Bournvita 900g</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦4,800</p></div>
+                        <button onclick="addToCart('Bournvita 900g (₦4,800)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=300&auto=format&fit=crop&q=60" alt="Tea" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Lipton 100b</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦2,200</p></div>
+                        <button onclick="addToCart('Lipton Tea 100bags (₦2,200)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=300&auto=format&fit=crop&q=60" alt="Nescafe" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Nescafe 200g</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦3,800</p></div>
+                        <button onclick="addToCart('Nescafe 200g (₦3,800)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=300&auto=format&fit=crop&q=60" alt="Baileys" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Baileys 700ml</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦15,500</p></div>
+                        <button onclick="addToCart('Baileys 700ml (₦15,500)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center">🍦 5. Dairy & Frozen</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1563636619-e9143da7973b?w=300&auto=format&fit=crop&q=60" alt="Peak Milk" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Peak Milk 2.5kg</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦14,000</p></div>
+                        <button onclick="addToCart('Peak Milk 2.5kg (₦14,000)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1563636619-e9143da7973b?w=300&auto=format&fit=crop&q=60" alt="Cowbell" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Cowbell 400g</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦1,800</p></div>
+                        <button onclick="addToCart('Cowbell 400g (₦1,800)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1563636619-e9143da7973b?w=300&auto=format&fit=crop&q=60" alt="Loya Milk" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Loya Milk 400g</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦1,700</p></div>
+                        <button onclick="addToCart('Loya Milk 400g (₦1,700)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?w=300&auto=format&fit=crop&q=60" alt="Blue Band" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Blue Band 900g</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦3,200</p></div>
+                        <button onclick="addToCart('Blue Band 900g (₦3,200)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=300&auto=format&fit=crop&q=60" alt="Dano Cheese" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Dano Cheese</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦2,800</p></div>
+                        <button onclick="addToCart('Dano Cheese 250g (₦2,800)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1604503468506-a8da13d82791?w=300&auto=format&fit=crop&q=60" alt="Chicken" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Chicken Legs 1kg</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦3,500</p></div>
+                        <button onclick="addToCart('Chicken Drumsticks 1kg (₦3,500)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1534604973900-c43ab4c2e0ab?w=300&auto=format&fit=crop&q=60" alt="Fish" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Titus Fish 1kg</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦4,800</p></div>
+                        <button onclick="addToCart('Titus Fish 1kg (₦4,800)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=300&auto=format&fit=crop&q=60" alt="Sausage" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Sausage 500g</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦2,200</p></div>
+                        <button onclick="addToCart('Sausage 500g (₦2,200)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1501443712940-3de7704632f0?w=300&auto=format&fit=crop&q=60" alt="Ice Cream" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Ice Cream 4L</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦5,500</p></div>
+                        <button onclick="addToCart('Ice Cream 4L (₦5,500)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center">🍞 6. Bakery & Bread</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=300&auto=format&fit=crop&q=60" alt="Agege Bread" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Agege Bread</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦800</p></div>
+                        <button onclick="addToCart('Agege Bread 1 loaf (₦800)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=300&auto=format&fit=crop&q=60" alt="Coconut Bread" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Coconut Bread</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦1,200</p></div>
+                        <button onclick="addToCart('Coconut Bread 1 loaf (₦1,200)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1608039829572-78524f79c4c7?w=300&auto=format&fit=crop&q=60" alt="Meat Pie" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Meat Pie 2pcs</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦500</p></div>
+                        <button onclick="addToCart('Meat Pie 2pcs (₦500)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1608039829572-78524f79c4c7?w=300&auto=format&fit=crop&q=60" alt="Sausage Roll" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Sausage Roll 2p</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦500</p></div>
+                        <button onclick="addToCart('Sausage Roll 2pcs (₦500)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=300&auto=format&fit=crop&q=60" alt="Doughnut" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Doughnut 6pcs</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦900</p></div>
+                        <button onclick="addToCart('Doughnut 6pcs (₦900)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&auto=format&fit=crop&q=60" alt="Cake" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Cake 1kg</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦6,500</p></div>
+                        <button onclick="addToCart('Cake 1kg (₦6,500)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=300&auto=format&fit=crop&q=60" alt="Croissant" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Croissant 4pcs</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦1,500</p></div>
+                        <button onclick="addToCart('Croissant 4pcs (₦1,500)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center">🧹 7. Household Care</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?w=300&auto=format&fit=crop&q=60" alt="Omo" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Omo 2.5kg</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦4,800</p></div>
+                        <button onclick="addToCart('Omo Detergent 2.5kg (₦4,800)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?w=300&auto=format&fit=crop&q=60" alt="Ariel" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Ariel 1kg</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦2,200</p></div>
+                        <button onclick="addToCart('Ariel 1kg (₦2,200)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=300&auto=format&fit=crop&q=60" alt="Izal" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Izal 1L</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦1,800</p></div>
+                        <button onclick="addToCart('Izal 1L (₦1,800)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=300&auto=format&fit=crop&q=60" alt="Jik" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Jik Bleach 750ml</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦1,200</p></div>
+                        <button onclick="addToCart('Jik 750ml (₦1,200)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1584622781564-1d987f7333c1?w=300&auto=format&fit=crop&q=60" alt="Toilet Paper" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Toilet Paper 12r</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦2,500</p></div>
+                        <button onclick="addToCart('Toilet Paper 12rolls (₦2,500)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?w=300&auto=format&fit=crop&q=60" alt="Sponge" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Sponge 3pcs</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦600</p></div>
+                        <button onclick="addToCart('Sponge 3pcs (₦600)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=300&auto=format&fit=crop&q=60" alt="Mosquito Coil" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Mosquito Coil</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦700</p></div>
+                        <button onclick="addToCart('Mosquito Coil 10pk (₦700)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center">🧼 8. Personal Care</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1559592413-7ece7049e2f7?w=300&auto=format&fit=crop&q=60" alt="Close Up" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Close Up 150g</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦1,500</p></div>
+                        <button onclick="addToCart('Close Up 150g (₦1,500)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1559592413-7ece7049e2f7?w=300&auto=format&fit=crop&q=60" alt="Colgate" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Colgate 100g</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦1,400</p></div>
+                        <button onclick="addToCart('Colgate 100g (₦1,400)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1607006342445-ea4891145fa8?w=300&auto=format&fit=crop&q=60" alt="Soap" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Lux Soap 3pcs</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦900</p></div>
+                        <button onclick="addToCart('Lux Soap 3pcs (₦900)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1608248597481-496100c80836?w=300&auto=format&fit=crop&q=60" alt="Vaseline" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Vaseline 400ml</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦2,200</p></div>
+                        <button onclick="addToCart('Vaseline 400ml (₦2,200)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1608248597481-496100c80836?w=300&auto=format&fit=crop&q=60" alt="Lotion" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Nivea 400ml</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦3,500</p></div>
+                        <button onclick="addToCart('Nivea Lotion 400ml (₦3,500)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1608248597481-496100c80836?w=300&auto=format&fit=crop&q=60" alt="Shea Butter" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Jergens Shea</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦4,800</p></div>
+                        <button onclick="addToCart('Jergens Shea Butter 400ml (₦4,800)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1607006342445-ea4891145fa8?w=300&auto=format&fit=crop&q=60" alt="Dove" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Dove Soap 3pcs</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦1,800</p></div>
+                        <button onclick="addToCart('Dove Soap 3pcs (₦1,800)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1608248597481-496100c80836?w=300&auto=format&fit=crop&q=60" alt="Pads" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Lady's Choice 8p</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦1,200</p></div>
+                        <button onclick="addToCart('Lady’s Choice Pad 8pk (₦1,200)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1559592413-7ece7049e2f7?w=300&auto=format&fit=crop&q=60" alt="Toothbrush" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Toothbrush 3pc</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦800</p></div>
+                        <button onclick="addToCart('Toothbrush 3pcs (₦800)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center">👶 9. Baby & Kids</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=300&auto=format&fit=crop&q=60" alt="Pampers" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Pampers Sz3 42p</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦6,500</p></div>
+                        <button onclick="addToCart('Pampers Size 3 42pcs (₦6,500)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=300&auto=format&fit=crop&q=60" alt="Cerelac" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Cerelac 400g</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦2,800</p></div>
+                        <button onclick="addToCart('Cerelac 400g (₦2,800)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=300&auto=format&fit=crop&q=60" alt="Nan 1" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Nan 1 400g</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦7,200</p></div>
+                        <button onclick="addToCart('Nan 1 400g (₦7,200)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1627399270231-7d36245355a9?w=300&auto=format&fit=crop&q=60" alt="Baby Wipes" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Baby Wipes 72p</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦1,500</p></div>
+                        <button onclick="addToCart('Baby Wipes 72pcs (₦1,500)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=300&auto=format&fit=crop&q=60" alt="Baby Oil" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Johnson Oil</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦2,000</p></div>
+                        <button onclick="addToCart('Johnson Baby Oil 200ml (₦2,000)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center">🔌 10. Appliances</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=300&auto=format&fit=crop&q=60" alt="Microwave" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Hisense Micro</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦38,500</p></div>
+                        <button onclick="addToCart('Hisense 20L Microwave (₦38,500)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1584622781564-1d987f7333c1?w=300&auto=format&fit=crop&q=60" alt="Freezer" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Freezer 200L</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦125,000</p></div>
+                        <button onclick="addToCart('Haier Freezer 200L (₦125,000)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=300&auto=format&fit=crop&q=60" alt="Washer" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Hisense Washer</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦95,000</p></div>
+                        <button onclick="addToCart('Hisense 7.5kg Washer (₦95,000)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1618945997453-29ec12bfd8b8?w=300&auto=format&fit=crop&q=60" alt="Standing Fan" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Standing Fan 18"</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦18,500</p></div>
+                        <button onclick="addToCart('Standing Fan 18” (₦18,500)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=300&auto=format&fit=crop&q=60" alt="Extension" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Extension 4-way</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦3,500</p></div>
+                        <button onclick="addToCart('Extension 4-way (₦3,500)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1561149877-84d268ba65b8?w=300&auto=format&fit=crop&q=60" alt="LED Bulb" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">LED Bulb 4pcs</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦2,000</p></div>
+                        <button onclick="addToCart('Bulb LED 9W 4pcs (₦2,000)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center">🍫 11. Snacks & Sweets</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1581798459211-f51085078a43?w=300&auto=format&fit=crop&q=60" alt="Choco Milo" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Choco Milo x48</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦2,400</p></div>
+                        <button onclick="addToCart('Choco Milo 20g x48 (₦2,400)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1581798459211-f51085078a43?w=300&auto=format&fit=crop&q=60" alt="Toffee" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Toffee 1 pack</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦500</p></div>
+                        <button onclick="addToCart('Tofee 1pk (₦500)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1581798459211-f51085078a43?w=300&auto=format&fit=crop&q=60" alt="Chupa Chups" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Chupa Chups</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦2,500</p></div>
+                        <button onclick="addToCart('Chupa Chups 50pcs (₦2,500)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1566478431344-7e41629b5b2c?w=300&auto=format&fit=crop&q=60" alt="Lays Chips" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Lays Chips x10</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦2,000</p></div>
+                        <button onclick="addToCart('Lays Chips 50g x10 (₦2,000)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1566478431344-7e41629b5b2c?w=300&auto=format&fit=crop&q=60" alt="Gala" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Gala 1pc</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦100</p></div>
+                        <button onclick="addToCart('Gala 1pc (₦100)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1566478431344-7e41629b5b2c?w=300&auto=format&fit=crop&q=60" alt="Biscuits" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Digestive 200g</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦1,800</p></div>
+                        <button onclick="addToCart('Digestive Biscuits 200g (₦1,800)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center">📦 12. Pet Care & Stationery</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1589992469199-400dc9ebd1cc?w=300&auto=format&fit=crop&q=60" alt="Dog Food" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Dog Food 5kg</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦8,500</p></div>
+                        <button onclick="addToCart('Dog Food 5kg (₦8,500)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1589992469199-400dc9ebd1cc?w=300&auto=format&fit=crop&q=60" alt="Cat Litter" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Cat Litter 5kg</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦4,200</p></div>
+                        <button onclick="addToCart('Cat Litter 5kg (₦4,200)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1531346878377-a5be20888e57?w=300&auto=format&fit=crop&q=60" alt="Exercise Book" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Exercise Book</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦250</p></div>
+                        <button onclick="addToCart('Exercise Book 80 leaves (₦250)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=300&auto=format&fit=crop&q=60" alt="Biro" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Biro 10pcs</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦800</p></div>
+                        <button onclick="addToCart('Biro 10pcs (₦800)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1531346878377-a5be20888e57?w=300&auto=format&fit=crop&q=60" alt="Gift Wrap" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Gift Wrap 1roll</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦600</p></div>
+                        <button onclick="addToCart('Gift Wrap 1roll (₦600)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div class="h-28 bg-slate-100 overflow-hidden"><img src="https://images.unsplash.com/photo-1561149877-84d268ba65b8?w=300&auto=format&fit=crop&q=60" alt="Torchlight" class="w-full h-full object-cover"></div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div><h4 class="text-xs font-bold text-slate-800">Torchlight</h4><p class="text-xs font-black text-amber-600 mt-0.5">₦1,500</p></div>
+                        <button onclick="addToCart('Torchlight (₦1,500)')" class="mt-2 w-full bg-slate-100 hover:bg-amber-500 py-1.5 rounded-xl text-[11px] font-bold transition">+ Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="nav-summary-box" class="fixed bottom-0 left-0 right-0 bg-slate-900 text-white p-4 shadow-2xl border-t border-slate-800 hidden items-center justify-between z-50">
+        <div>
+            <p class="text-[10px] uppercase font-bold text-slate-400">Your Basket</p>
+            <p id="basket-preview" class="text-xs font-bold text-amber-400 truncate max-w-[200px]">0 Items</p>
+        </div>
+        <button onclick="navigateToDelivery()" class="bg-amber-500 text-slate-950 font-black text-xs px-5 py-3 rounded-xl uppercase tracking-wider shadow active:scale-95 transition">
+            Delivery Setup ➔
+        </button>
     </div>
 
-    <!-- DELIVERY CHECKOUT ENGINE -->
-    <section id="checkout-form-section" class="py-12 bg-white px-4 border-t border-slate-200">
-        <div class="max-w-md mx-auto bg-slate-50 p-6 rounded-2xl border border-slate-200 shadow-sm">
-            <h3 class="text-lg font-black text-slate-900 tracking-tight">🚚 Dispatch Setup</h3>
-            <p class="text-xs text-slate-500 mb-4">Complete your details. Payments are processed via cash or bank transfer directly to the rider upon arrival.</p>
-
-            <!-- FORM ACTION: Connect this to the Owner's email or your Trello token -->
-            <form action="https://formsubmit.co/chineduudeh2008+xhp2upd1ocd2sdnrmj9f@boards.trello.com" method="POST" class="space-y-4">
-                
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_subject" value="🛒 New Grocery Delivery Order for Twins Father!">
-
-                <!-- CRUCIAL HIDDEN INPUT: This holds the JavaScript-generated shopping list -->
-                <input type="hidden" name="CUSTOMER_SHOPPING_LIST" id="hidden-cart-input" required value="">
-
-                <!-- Visible Current Shopping List Status Box -->
-                <div class="bg-amber-50 border border-amber-200 p-3 rounded-xl">
-                    <label class="block text-[10px] font-black uppercase tracking-wider text-amber-700">Items Gathered</label>
-                    <textarea id="visible-cart-display" readonly class="w-full mt-1 bg-transparent border-none text-xs text-slate-800 font-bold font-mono focus:outline-none resize-none" rows="3" placeholder="No items selected yet. Tap '+ Add to List' above!"></textarea>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500">Customer Name</label>
-                    <input type="text" name="Client Name" required class="w-full mt-1 p-3 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-amber-500">
-                </div>
-
-                <div class="grid grid-cols-2 gap-2">
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500">Phone Line 1</label>
-                        <input type="tel" name="Contact Phone Main" required class="w-full mt-1 p-3 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-amber-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500">Phone Line 2</label>
-                        <input type="tel" name="Contact Phone Alt" class="w-full mt-1 p-3 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-amber-500">
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500">Street Address & Landmark</label>
-                    <textarea name="Logistics Target Address" required class="w-full mt-1 p-3 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-amber-500" rows="2" placeholder="Provide nearby landmarks like markets, plazas, or fuel stations."></textarea>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500">Add Any Special Request Items</label>
-                    <input type="text" name="Extra Custom Grocery Requests" placeholder="e.g., Add 2 loaves of fresh bread, 1 sachet detergent" class="w-full mt-1 p-3 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-amber-500">
-                </div>
-
-                <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-900 font-black py-4 rounded-xl text-xs uppercase tracking-widest shadow transition active:scale-95">
-                    Send Order to Shop
-                </button>
-            </form>
-        </div>
-    </section>
-
-    <!-- CART SYSTEM JAVASCRIPT HACK -->
     <script>
-        let shoppingList = {};
+        let currentBasket = {};
 
-        function addToCart(itemName) {
-            // Increase item count or add fresh item
-            if (shoppingList[itemName]) {
-                shoppingList[itemName]++;
+        // Reset previous logistics states to prevent cross-contamination leaks
+        localStorage.removeItem('tf_customer_delivery');
+
+        function addToCart(itemString) {
+            if (currentBasket[itemString]) {
+                currentBasket[itemString]++;
             } else {
-                shoppingList[itemName] = 1;
+                currentBasket[itemString] = 1;
             }
-            updateCartDisplay();
+            syncState();
         }
 
-        function updateCartDisplay() {
-            let totalItems = 0;
-            let listSummaryText = "";
+        function syncState() {
+            let totalCount = 0;
+            let descriptiveString = "";
 
-            // Loop through our gathered items array
-            for (let item in shoppingList) {
-                totalItems += shoppingList[item];
-                listSummaryText += `${shoppingList[item]}x ${item}\n`;
+            for (let product in currentBasket) {
+                totalCount += currentBasket[product];
+                descriptiveString += `${currentBasket[product]}x ${product}, `;
             }
 
-            // Update Header Count badge
-            document.getElementById('cart-count').innerText = totalItems;
+            document.getElementById('header-cart-count').innerText = totalCount;
+            let navBox = document.getElementById('nav-summary-box');
 
-            // Manage Floating summary box visibility
-            let summaryBox = document.getElementById('floating-summary');
-            if (totalItems > 0) {
-                summaryBox.classList.remove('hidden');
-                summaryBox.classList.add('flex');
-                document.getElementById('cart-preview').innerText = listSummaryText.replace(/\n/g, ", ");
+            if (totalCount > 0) {
+                navBox.classList.remove('hidden');
+                navBox.classList.add('flex');
+                document.getElementById('basket-preview').innerText = descriptiveString.replace(/,\s*$/, "");
+                localStorage.setItem('tf_shopping_cart_data', descriptiveString);
+            } else {
+                navBox.classList.remove('flex');
+                navBox.classList.add('hidden');
             }
+        }
 
-            // Inject the data directly into the input fields for FormSubmit to read
-            document.getElementById('visible-cart-display').value = listSummaryText;
-            document.getElementById('hidden-cart-input').value = listSummaryText;
+        function navigateToDelivery() {
+            // Explicit programmatic link straight to Page 2
+            window.location.href = "delivery.html";
         }
     </script>
 </body>
