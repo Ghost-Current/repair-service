@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twins Father | Delivery Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased py-8 px-4">
+
+    <div class="max-w-md mx-auto bg-white p-6 rounded-2xl shadow-xl border border-slate-200">
+        <div class="border-b border-slate-100 pb-4 mb-4">
+            <h2 class="text-xl font-black text-slate-900 tracking-tight">🚚 Step 2: Delivery Destination</h2>
+            <p class="text-xs text-slate-500 mt-0.5">Provide detailed landmark info to avoid dispatch tracking lag.</p>
+        </div>
+
+        <div class="bg-amber-50/60 border border-amber-200 rounded-xl p-3 mb-5">
+            <span class="text-[10px] font-black text-amber-800 uppercase tracking-wider block">Verifying Your Order Items:</span>
+            <p id="delivery-items-summary" class="text-xs font-bold text-slate-700 italic mt-1 leading-relaxed">Loading items...</p>
+        </div>
+
+        <form id="logisticsForm" onsubmit="captureLogistics(event)" class="space-y-4">
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500">Customer Full Name</label>
+                <input type="text" id="cust_name" required class="w-full mt-1 p-3 bg-slate-50/50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-amber-500">
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500">Primary Phone</label>
+                    <input type="tel" id="cust_phone1" required class="w-full mt-1 p-3 bg-slate-50/50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-amber-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500">Backup Phone</label>
+                    <input type="tel" id="cust_phone2" class="w-full mt-1 p-3 bg-slate-50/50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-amber-500">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500">Logistics Address & Nearest Landmark</label>
+                <textarea id="cust_address" required rows="3" placeholder="e.g., Shop 4, Plaza opposite the filling station..." class="w-full mt-1 p-3 bg-slate-50/50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-amber-500"></textarea>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500">Extra Requests or Notes</label>
+                <input type="text" id="cust_notes" placeholder="e.g., call when outside, add cold drinks" class="w-full mt-1 p-3 bg-slate-50/50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-amber-500">
+            </div>
+
+            <div class="pt-2 flex gap-3">
+                <a href="index.html" class="w-1/3 text-center border border-slate-200 text-slate-600 font-bold py-3 rounded-xl text-xs uppercase tracking-wider transition">
+                    Back
+                </a>
+                <button type="submit" class="w-2/3 bg-slate-900 hover:bg-slate-800 text-white font-black py-3 rounded-xl text-xs uppercase tracking-widest shadow transition">
+                    Payment Selection ➔
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Read cart data out of localStorage memory pipeline on window initialization
+        window.onload = function() {
+            let itemSummary = localStorage.getItem('tf_shopping_cart_data');
+            if (!itemSummary) {
+                alert("Your basket is empty. Returning to store catalog.");
+                window.location.href = "index.html";
+            } else {
+                document.getElementById('delivery-items-summary').innerText = itemSummary.replace(/,\s*$/, "");
+            }
+        };
+
+        function captureLogistics(e) {
+            e.preventDefault();
+
+            let deliveryData = {
+                name: document.getElementById('cust_name').value,
+                phone1: document.getElementById('cust_phone1').value,
+                phone2: document.getElementById('cust_phone2').value,
+                address: document.getElementById('cust_address').value,
+                notes: document.getElementById('cust_notes').value
+            };
+
+            // Save variables into local instance dictionary context
+            localStorage.setItem('tf_customer_delivery', JSON.stringify(deliveryData));
+            window.location.href = "payment.html";
+        }
+    </script>
+
+</body>
+</html>
