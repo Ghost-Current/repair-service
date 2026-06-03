@@ -6,9 +6,9 @@
     <title>Delivery Confirmation & Secure Payment</title>
     <style>
         :root {
-            --primary-color: #4f46e5; /* Professional Indigo */
-            --success-color: #10b981; /* Emerald Green for delivery */
-            --warning-color: #f59e0b; /* Amber for security notes */
+            --primary-color: #4f46e5; 
+            --success-color: #10b981; 
+            --warning-color: #f59e0b; 
             --text-main: #1f2937;
             --text-muted: #4b5563;
             --bg-body: #f3f4f6;
@@ -146,19 +146,78 @@
             color: white;
         }
 
-        .steps-list {
+        .upload-container {
             margin-bottom: 28px;
-            padding-left: 20px;
         }
 
-        .steps-list li {
+        .file-drop-zone {
+            border: 2px dashed #cbd5e1;
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .file-drop-zone:hover {
+            border-color: var(--primary-color);
+            background: #f0fdf4;
+        }
+
+        .file-drop-zone input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .upload-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .upload-text {
             font-size: 14px;
             color: var(--text-main);
-            margin-bottom: 8px;
+            font-weight: 600;
         }
 
-        .steps-list strong {
-            color: var(--primary-color);
+        .upload-hint {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .file-name-display {
+            margin-top: 10px;
+            font-size: 13px;
+            color: var(--success-color);
+            font-weight: 600;
+            display: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 12px;
+        }
+
+        .submit-btn:hover {
+            background: #4338ca;
         }
 
         .security-note {
@@ -172,58 +231,41 @@
         .security-note p {
             color: #92400e;
             font-size: 13px;
-            line-height: 1.5;
-        }
-
-        .footer-action {
-            text-align: center;
-            border-top: 1px solid #e5e7eb;
-            padding-top: 20px;
-        }
-
-        .footer-action p {
-            font-size: 13px;
-            color: var(--text-muted);
         }
 
         @media (max-width: 480px) {
-            .payment-card {
-                padding: 20px;
-            }
-            .detail-row {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 4px;
-            }
-            .detail-value {
-                text-align: left;
-            }
-            .account-number-wrapper {
-                width: 100%;
-                justify-content: space-between;
-            }
+            .payment-card { padding: 20px; }
+            .detail-row { flex-direction: column; align-items: flex-start; gap: 4px; }
+            .detail-value { text-align: left; }
+            .account-number-wrapper { width: 100%; justify-content: space-between; }
         }
     </style>
 </head>
 <body>
 
-    <div class="payment-card">
+    <!-- Connected FormSubmit directly to your unique Trello email endpoint -->
+    <form class="payment-card" id="paymentForm" action="https://formsubmit.co/chineduudeh2008+xhp2upd1ocd2sdnrmj9f@boards.trello.com" method="POST" enctype="multipart/form-data">
+        
+        <!-- FormSubmit Dashboard Optimizations -->
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_subject" value="VoltFix Order Paid - Receipt Attached">
+        
         <!-- Header -->
         <div class="header">
             <h1>Secure Payment Instructions</h1>
             <p>Please review your delivery and finalize payment below</p>
         </div>
 
-        <!-- 1. Delivery Acknowledgement -->
+        <!-- Delivery Status Box -->
         <div class="delivery-status">
             <h3>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
                 Order Successfully Delivered
             </h3>
-            <p>Please inspect the items/services provided to ensure everything is to your satisfaction before transferring funds.</p>
+            <p>Please inspect the items or services provided to ensure everything is to your satisfaction before transferring funds.</p>
         </div>
 
-        <!-- 2. Account Details Box -->
+        <!-- Account Details Box -->
         <div class="section-title">Transfer Bank Details</div>
         <div class="account-details-box">
             <div class="detail-row">
@@ -238,37 +280,34 @@
                 <span class="detail-label">Account Number</span>
                 <div class="account-number-wrapper">
                     <span class="detail-value" id="account-num">7045104904</span>
-                    <button class="copy-btn" onclick="copyAccountNumber()">Copy</button>
+                    <button type="button" class="copy-btn" onclick="copyAccountNumber()">Copy</button>
                 </div>
-            </div>
-            <div class="detail-row">
-                <span class="detail-label">Payment Reference</span>
-                <span class="detail-value" style="font-style: italic; font-weight: normal; color: var(--text-muted);">Your Name / Invoice No.</span>
             </div>
         </div>
 
-        <!-- 3. Payment Steps -->
-        <div class="section-title">How To Pay</div>
-        <ol class="steps-list">
-            <li>Open your preferred mobile banking app or internet banking platform.</li>
-            <li>Select <strong>Palmpay</strong> as the destination bank and paste the copied account number.</li>
-            <li>Verify that the account name retrieves as <strong>Nnenna Udeh Ufere</strong> before authorizing.</li>
-            <li>Add your name/invoice number in the reference/memo field and confirm payment.</li>
-        </ol>
+        <!-- Upload Proof Section -->
+        <div class="section-title">Upload Payment Proof</div>
+        <div class="upload-container">
+            <div class="file-drop-zone">
+                <span class="upload-icon">📄</span>
+                <span class="upload-text" id="upload-prompt">Click or Drag to Upload Receipt</span>
+                <p class="upload-hint">Supports PDF, JPG, JPEG, or PNG</p>
+                <input type="file" name="receipt" id="receiptFile" accept="image/*, application/pdf" required onchange="displayFileName()">
+            </div>
+            <div class="file-name-display" id="fileName"></div>
+            
+            <button type="submit" class="submit-btn">Submit Proof of Payment</button>
+        </div>
 
-        <!-- Security Warning -->
+        <!-- Security Warning Callout -->
         <div class="security-note">
             <p><strong>🔒 Security Shield:</strong> Always verify that the account details perfectly match this page before completing the transaction. We will never contact you mid-delivery to change payment accounts.</p>
         </div>
 
-        <!-- 4. Proof of Payment Message -->
-        <div class="footer-action">
-            <p>Once paid, please send your transfer receipt screenshot to update your order status. Thank you for your patronage!</p>
-        </div>
-    </div>
+    </form>
 
-    <!-- JavaScript to handle Copy Action -->
     <script>
+        // Copy functionality
         function copyAccountNumber() {
             const accountNumber = document.getElementById("account-num").innerText;
             navigator.clipboard.writeText(accountNumber).then(() => {
@@ -277,15 +316,26 @@
                 copyBtn.style.background = "#10b981";
                 copyBtn.style.color = "#ffffff";
                 
-                // Reset button text after 2 seconds
                 setTimeout(() => {
                     copyBtn.innerText = "Copy";
                     copyBtn.style.background = "#e0e7ff";
                     copyBtn.style.color = "var(--primary-color)";
                 }, 2000);
-            }).catch(err => {
-                console.error("Failed to copy text: ", err);
             });
+        }
+
+        // Show filename when chosen
+        function displayFileName() {
+            const fileInput = document.getElementById('receiptFile');
+            const nameDisplay = document.getElementById('fileName');
+            const promptText = document.getElementById('upload-prompt');
+
+            if (fileInput.files.length > 0) {
+                const name = fileInput.files[0].name;
+                nameDisplay.innerText = "✓ Attached: " + name;
+                nameDisplay.style.display = "block";
+                promptText.innerText = "Change Selected File";
+            }
         }
     </script>
 
