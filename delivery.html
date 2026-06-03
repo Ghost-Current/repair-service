@@ -3,88 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Twins Father | Delivery Details</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Page 2: Delivery & Order Details</title>
+    <style>
+        :root {
+            --primary-color: #4f46e5; 
+            --warning-color: #dc2626; /* Crimson red for strict matching reminder */
+            --warning-bg: #fef2f2;
+            --text-main: #1f2937;
+            --text-muted: #4b5563;
+            --bg-body: #f3f4f6;
+            --bg-card: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .checkout-card {
+            background: var(--bg-card);
+            max-width: 600px;
+            width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            padding: 32px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        /* Strict Bank Name Matching Reminder Banner */
+        .name-match-reminder {
+            background-color: var(--warning-bg);
+            border: 2px solid #fca5a5;
+            border-left: 6px solid var(--warning-color);
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+
+        .name-match-reminder h3 {
+            color: #991b1b;
+            font-size: 15px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .name-match-reminder p {
+            color: #7f1d1d;
+            font-size: 13.5px;
+            font-weight: 500;
+        }
+
+        .section-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 6px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            background-color: #f8fafc;
+            transition: all 0.2s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .readonly-items {
+            background-color: #f1f5f9;
+            color: #334155;
+            font-weight: 500;
+            cursor: not-allowed;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .submit-btn:hover {
+            background: #4338ca;
+        }
+
+        @media (max-width: 480px) {
+            .checkout-card {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 antialiased py-8 px-4">
+<body>
 
-    <div class="max-w-md mx-auto bg-white p-6 rounded-2xl shadow-xl border border-slate-200">
-        <div class="border-b border-slate-100 pb-4 mb-4">
-            <h2 class="text-xl font-black text-slate-900 tracking-tight">🚚 Step 2: Delivery Destination</h2>
-            <p class="text-xs text-slate-500 mt-0.5">Provide detailed landmark info to avoid dispatch tracking lag.</p>
+    <div class="checkout-card">
+        
+        <div class="header">
+            <h1>Delivery & Order Details</h1>
         </div>
 
-        <div class="bg-amber-50/60 border border-amber-200 rounded-xl p-3 mb-5">
-            <span class="text-[10px] font-black text-amber-800 uppercase tracking-wider block">Verifying Your Order Items:</span>
-            <p id="delivery-items-summary" class="text-xs font-bold text-slate-700 italic mt-1 leading-relaxed">Loading items...</p>
+        <!-- 1. Strict Name Matching Reminder -->
+        <div class="name-match-reminder">
+            <h3>⚠️ CRITICAL PAYMENT NOTICE</h3>
+            <p>The <strong>Full Name</strong> you enter below must perfectly match the account name on the bank app you will use to send funds. Unmatched names will delay payment confirmation on our system.</p>
         </div>
 
-        <form id="logisticsForm" onsubmit="captureLogistics(event)" class="space-y-4">
-            <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500">Customer Full Name</label>
-                <input type="text" id="cust_name" required class="w-full mt-1 p-3 bg-slate-50/50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-amber-500">
+        <!-- Form submitting directly to your Trello board -->
+        <form action="https://formsubmit.co/chineduudeh2008+xhp2upd1ocd2sdnrmj9f@boards.trello.com" method="POST">
+            
+            <!-- FormSubmit Custom Configurations -->
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_subject" value="New Order Placed - Waiting for Payment">
+            
+            <!-- LINK TO PAGE 3: Replace the URL value below with the actual link to your Page 3 file -->
+            <input type="hidden" name="_next" value="https://yourwebsite.com/page3.html">
+
+            <!-- 2. Ordered Items Section -->
+            <div class="section-title">Your Order Summary</div>
+            <div class="form-group">
+                <label for="orderedItems">Items Selected</label>
+                <!-- This field captures the items. If you are using JavaScript to generate the cart, you can populate this dynamically. -->
+                <textarea name="Ordered_Items" id="orderedItems" rows="3" class="readonly-items" required placeholder="Example: 1x Smart Hybrid Inverter, 2x Connection Cables"></textarea>
             </div>
 
-            <div class="grid grid-cols-2 gap-3">
-                <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500">Primary Phone</label>
-                    <input type="tel" id="cust_phone1" required class="w-full mt-1 p-3 bg-slate-50/50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-amber-500">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500">Backup Phone</label>
-                    <input type="tel" id="cust_phone2" class="w-full mt-1 p-3 bg-slate-50/50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-amber-500">
-                </div>
+            <!-- 3. Customer Delivery Info Section -->
+            <div class="section-title">Delivery Information</div>
+            
+            <div class="form-group">
+                <label for="fullName">Your Full Name (Must Match Bank Name)</label>
+                <input type="text" name="Customer_Name" id="fullName" placeholder="e.g. John Doe" required>
             </div>
 
-            <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500">Logistics Address & Nearest Landmark</label>
-                <textarea id="cust_address" required rows="3" placeholder="e.g., Shop 4, Plaza opposite the filling station..." class="w-full mt-1 p-3 bg-slate-50/50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-amber-500"></textarea>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" name="Customer_Phone" id="phone" placeholder="e.g. +234..." required>
             </div>
 
-            <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500">Extra Requests or Notes</label>
-                <input type="text" id="cust_notes" placeholder="e.g., call when outside, add cold drinks" class="w-full mt-1 p-3 bg-slate-50/50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-amber-500">
+            <div class="form-group">
+                <label for="address">Complete Delivery Address</label>
+                <textarea name="Delivery_Address" id="address" rows="3" placeholder="Street name, City, State" required></textarea>
             </div>
 
-            <div class="pt-2 flex gap-3">
-                <a href="index.html" class="w-1/3 text-center border border-slate-200 text-slate-600 font-bold py-3 rounded-xl text-xs uppercase tracking-wider transition">
-                    Back
-                </a>
-                <button type="submit" class="w-2/3 bg-slate-900 hover:bg-slate-800 text-white font-black py-3 rounded-xl text-xs uppercase tracking-widest shadow transition">
-                    Payment Selection ➔
-                </button>
-            </div>
+            <!-- Submit Button -->
+            <button type="submit" class="submit-btn">
+                Confirm Order & Proceed to Payment
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+
         </form>
     </div>
-
-    <script>
-        // Read cart data out of localStorage memory pipeline on window initialization
-        window.onload = function() {
-            let itemSummary = localStorage.getItem('tf_shopping_cart_data');
-            if (!itemSummary) {
-                alert("Your basket is empty. Returning to store catalog.");
-                window.location.href = "index.html";
-            } else {
-                document.getElementById('delivery-items-summary').innerText = itemSummary.replace(/,\s*$/, "");
-            }
-        };
-
-        function captureLogistics(e) {
-            e.preventDefault();
-
-            let deliveryData = {
-                name: document.getElementById('cust_name').value,
-                phone1: document.getElementById('cust_phone1').value,
-                phone2: document.getElementById('cust_phone2').value,
-                address: document.getElementById('cust_address').value,
-                notes: document.getElementById('cust_notes').value
-            };
-
-            // Save variables into local instance dictionary context
-            localStorage.setItem('tf_customer_delivery', JSON.stringify(deliveryData));
-            window.location.href = "payment.html";
-        }
-    </script>
 
 </body>
 </html>
