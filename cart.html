@@ -3,43 +3,54 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Product - MyStore</title>
+<title>Cart - MyStore</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header>
   <div class="nav">
-    <a href="javascript:history.back()" style="color:white">← Back</a>
-    <h2>Product</h2>
-    <a href="cart.html" style="color:white">Cart <span class="cart-count">0</span></a>
+    <a href="index.html" style="color:white">← Continue Shopping</a>
+    <h2>Your Cart</h2>
+    <span style="color:white">Items: <span class="cart-count">0</span></span>
   </div>
 </header>
 
 <div class="container">
-  <div class="product-page" id="productDetail"></div>
+  <div id="cartItems"></div>
+  <h3 id="total" style="margin-top:20px"></h3>
+  <button class="btn" onclick="checkout()">Checkout via WhatsApp</button>
 </div>
 
 <script src="app.js"></script>
 <script>
-const id = new URLSearchParams(window.location.search).get('id');
-const allProducts = {
- 1:{name:"Uncle Ben's Rice 5kg", price:12500, desc:"Premium long grain rice. Perfect for jollof."},
- 2:{name:"Devon Kings Oil 5L", price:8500, desc:"100% pure vegetable cooking oil."},
- 3:{name:"Milo 1.5kg", price:8500, desc:"Energy drink for the whole family."}
-};
-const p = allProducts[id] || {name:"Product", price:0, desc:"Description here"};
+function showCart() {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  if(cart.length == 0) {
+    document.getElementById('cartItems').innerHTML = '<p>Your cart is empty</p>';
+    return;
+  }
+  let html = '';
+  let total = 0;
+  cart.forEach(item => {
+    total += item.price * item.qty;
+    html += `<div class="card" style="margin-bottom:10px">
+      <h3>${item.name}</h3>
+      <p>Qty: ${item.qty} x ₦${item.price.toLocaleString()}</p>
+      <p class="price">₦${(item.price * item.qty).toLocaleString()}</p>
+    </div>`;
+  });
+  document.getElementById('cartItems').innerHTML = html;
+  document.getElementById('total').textContent = 'Total: ₦' + total.toLocaleString();
+}
 
-document.getElementById('productDetail').innerHTML = `
-  <img src="https://via.placeholder.com/400x400" alt="${p.name}">
-  <div>
-    <h1>${p.name}</h1>
-    <div class="price">₦${p.price.toLocaleString()}</div>
-    <p>${p.desc}</p>
-    <button class="btn" onclick="addToCart(${id},'${p.name}',${p.price})">Add to Cart</button>
-    <a class="btn" style="background:#25D366; display:block; text-align:center; text-decoration:none; margin-top:8px"
-       href="https://wa.me/2349062873274?text=Order%20${encodeURIComponent(p.name)}">Order via WhatsApp</a>
-  </div>
-`;
+function checkout() {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  let msg = 'Hello, I want to order:%0A';
+  cart.forEach(i => msg += `${i.qty}x ${i.name}%0A`);
+  window.location = 'https://wa.me/2349062873274?text=' + msg;
+}
+
+showCart();
 </script>
 </body>
 </html>
