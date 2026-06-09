@@ -1,49 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MyStore - Nigeria's Online Shop</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ServiceHub | Find Local Experts Near You</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
-<header>
-  <div class="nav">
-    <h2><a href="index.html" style="color:white; text-decoration:none">MyStore</a></h2>
-    <input type="text" placeholder="Search for products...">
-    <a href="cart.html" style="color:white">Cart <span class="cart-count">0</span></a>
-  </div>
-</header>
+<body class="bg-gray-50 text-gray-800 font-sans">
 
-<div class="container">
-  <h2>Shop by Category</h2>
-  <div class="grid">
-    <a href="category.html?cat=groceries" class="card cat"><h3>Groceries</h3></a>
-    <a href="category.html?cat=electronics" class="card cat"><h3>Electronics</h3></a>
-    <a href="category.html?cat=baby" class="card cat"><h3>Baby Products</h3></a>
-  </div>
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-blue-600 flex items-center gap-2">
+                        <i class="fa-solid fa-handshake-angle"></i> ServiceHub
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="text-gray-700 hover:text-blue-600 font-medium">Find Services</a>
+                    <a href="register-provider.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition">Join as a Provider</a>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-  <h2 style="margin-top:30px">Today's Deals</h2>
-  <div class="grid" id="deals"></div>
-</div>
+    <header class="bg-gradient-to-r align-middle from-blue-600 to-indigo-700 text-white py-16 px-4 text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Find the Perfect Professional, Right Next Door</h1>
+        <p class="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto mb-8">Discover trusted local experts for repairs, cleaning, tech support, and more, filtered instantly by your location.</p>
+        
+        <div class="bg-white p-4 rounded-xl shadow-xl max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 text-gray-800">
+            <div class="relative">
+                <i class="fa-solid fa-briefcase absolute left-3 top-3.5 text-gray-400"></i>
+                <select id="serviceFilter" class="w-full pl-10 pr-3 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-white">
+                    <option value="">All Services</option>
+                    <option value="Electrical">Electrical Repairs</option>
+                    <option value="Plumbing">Plumbing</option>
+                    <option value="Web Development">Web Development</option>
+                    <option value="Cleaning">Home Cleaning</option>
+                </select>
+            </div>
+            <div class="relative">
+                <i class="fa-solid fa-location-dot absolute left-3 top-3.5 text-gray-400"></i>
+                <input type="text" id="locationFilter" placeholder="Enter City or Area..." class="w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <button onclick="filterServices()" class="bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition flex items-center justify-center gap-2">
+                <i class="fa-solid fa-magnifying-glass"></i> Search Closest
+            </button>
+        </div>
+    </header>
 
-<script src="app.js"></script>
-<script>
-const deals = [
-  {id:1, name:"Uncle Ben's Rice 5kg", price:12500},
-  {id:2, name:"Devon Kings Oil 5L", price:8500},
-  {id:3, name:"Milo 1.5kg", price:8500},
-  {id:4, name:"Golden Penny Spaghetti", price:850}
-];
-document.getElementById('deals').innerHTML = deals.map(p => `
-  <div class="card">
-    <img src="https://via.placeholder.com/200x180" alt="${p.name}">
-    <h3>${p.name}</h3>
-    <div class="price">₦${p.price.toLocaleString()}</div>
-    <button class="btn" onclick="addToCart(${p.id},'${p.name}',${p.price})">Add to Cart</button>
-    <a href="product.html?id=${p.id}" class="btn" style="background:#333; margin-top:5px; display:block; text-align:center; text-decoration:none">View</a>
-  </div>
-`).join('');
-</script>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Featured Service Providers</h2>
+        
+        <div id="providerGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            </div>
+    </main>
+
+    <footer class="bg-gray-900 text-gray-400 py-8 border-t border-gray-800 text-center">
+        <p>&copy; 2026 ServiceHub. Connecting communities locally.</p>
+    </footer>
+
+    <script>
+        // Mock data for initial testing (Random Information)
+        const mockProviders = [
+            { id: 1, name: "John Doe", service: "Electrical", location: "Lekki", phone: "+234 801 234 5678", rating: 4.9, bio: "Expert industrial and home inverter & power grid technician with 8 years experience." },
+            { id: 2, name: "Sarah Smith", service: "Web Development", location: "Ikeja", phone: "+234 802 987 6543", rating: 5.0, bio: "Building responsive modern e-commerce websites and automation setups." },
+            { id: 3, name: "Mike Johnson", service: "Plumbing", location: "Lekki", phone: "+234 803 111 2222", rating: 4.7, bio: "Emergency plumbing, leak fixes, and smart home water installation." },
+            { id: 4, name: "Alex Inverted", service: "Electrical", location: "Victoria Island", phone: "+234 805 555 4444", rating: 4.8, bio: "Specialist in solar system setups, hybrid inverters, and battery fixes." }
+        ];
+
+        function displayProviders(providers) {
+            const grid = document.getElementById('providerGrid');
+            grid.innerHTML = '';
+            
+            if(providers.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500"><i class="fa-solid fa-user-slash text-4xl mb-2"></i><p>No providers found matching those filters near you.</p></div>`;
+                return;
+            }
+
+            providers.forEach(p => {
+                grid.innerHTML += `
+                    <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden hover:shadow-lg transition flex flex-col justify-between">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="bg-blue-50 text-blue-700 text-xs font-semibold px-2.5 py-1 rounded-full">${p.service}</span>
+                                <span class="text-amber-500 font-medium text-sm flex items-center gap-1">
+                                    <i class="fa-solid fa-star"></i> ${p.rating}
+                                </span>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-1">${p.name}</h3>
+                            <p class="text-gray-500 text-sm mb-4 flex items-center gap-1">
+                                <i class="fa-solid fa-location-dot text-red-500"></i> ${p.location}
+                            </p>
+                            <p class="text-gray-600 text-sm line-clamp-3">${p.bio}</p>
+                        </div>
+                        <div class="px-6 pb-6 pt-2 border-t border-gray-50 bg-gray-50/50 flex items-center justify-between">
+                            <a href="tel:${p.phone}" class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-green-700 transition flex items-center gap-2">
+                                <i class="fa-solid fa-phone"></i> Call Now
+                            </a>
+                            <a href="https://wa.me/${p.phone.replace(/[^0-9]/g, '')}" target="_blank" class="bg-emerald-500 text-white p-2 rounded-lg hover:bg-emerald-600 transition" title="WhatsApp">
+                                <i class="fa-brands fa-whatsapp text-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function filterServices() {
+            const selectedService = document.getElementById('serviceFilter').value.toLowerCase();
+            const selectedLocation = document.getElementById('locationFilter').value.toLowerCase();
+
+            const filtered = mockProviders.filter(p => {
+                const matchService = selectedService === "" || p.service.toLowerCase().includes(selectedService);
+                const matchLocation = selectedLocation === "" || p.location.toLowerCase().includes(selectedLocation);
+                return matchService && matchLocation;
+            });
+
+            displayProviders(filtered);
+        }
+
+        // Run on initial page load
+        displayProviders(mockProviders);
+    </script>
 </body>
 </html>
