@@ -3,126 +3,513 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ServiceHub | Find Local Experts Near You</title>
+    <title>Jago Supastore - Fresh Foodstuffs at Local Market Prices</title>
+    <!-- Tailwind CSS Engine for styling -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Lucide CDN for beautiful interface icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .view-section { display: none; }
+        .view-section.active { display: block; }
+        /* Hide scrollbars for crisp category slide view */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
 
-    <nav class="bg-white shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <a href="index.html" class="text-2xl font-bold text-blue-600 flex items-center gap-2">
-                        <i class="fa-solid fa-handshake-angle"></i> ServiceHub
-                    </a>
+    <!-- Top Sticky Pricepally-Style Header Bar -->
+    <header class="bg-emerald-800 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex flex-col gap-3">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-xl font-black tracking-tight text-white flex items-center gap-1.5">
+                        <i data-lucide="store" class="w-6 h-6 text-amber-400"></i>
+                        Jago <span class="text-amber-400">Supastore</span>
+                    </h1>
+                    <p class="text-[10px] text-emerald-200 font-medium tracking-wide">Fresh foodstuffs at local market prices</p>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <a href="index.html" class="text-gray-700 hover:text-blue-600 font-medium">Find Services</a>
-                    <a href="register-provider.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition">Join as a Provider</a>
+                <!-- Dynamic Header Shopping Cart Counter Trigger -->
+                <div onclick="showCartDrawer()" class="relative cursor-pointer bg-emerald-900 border border-emerald-700/50 px-3 py-2 rounded-xl flex items-center gap-2 text-sm font-bold hover:bg-emerald-950 transition">
+                    <i data-lucide="shopping-cart" class="w-5 h-5 text-amber-400"></i>
+                    <span id="cart-count" class="bg-amber-400 text-slate-900 rounded-full text-xs w-5 h-5 flex items-center justify-center font-black">0</span>
                 </div>
             </div>
-        </div>
-    </nav>
-
-    <header class="bg-gradient-to-r align-middle from-blue-600 to-indigo-700 text-white py-16 px-4 text-center">
-        <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Find the Perfect Professional, Right Next Door</h1>
-        <p class="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto mb-8">Discover trusted local experts for repairs, cleaning, tech support, and more, filtered instantly by your location.</p>
-        
-        <div class="bg-white p-4 rounded-xl shadow-xl max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 text-gray-800">
+            
+            <!-- Live Active Functional Search Bar Component -->
             <div class="relative">
-                <i class="fa-solid fa-briefcase absolute left-3 top-3.5 text-gray-400"></i>
-                <select id="serviceFilter" class="w-full pl-10 pr-3 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-white">
-                    <option value="">All Services</option>
-                    <option value="Electrical">Electrical Repairs</option>
-                    <option value="Plumbing">Plumbing</option>
-                    <option value="Web Development">Web Development</option>
-                    <option value="Cleaning">Home Cleaning</option>
-                </select>
+                <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5"></i>
+                <input type="text" id="search-input" oninput="handleSearchFilter()" placeholder="Search rice, tomatoes, bread, cooking oil..." class="w-full bg-white text-slate-900 pl-10 pr-4 py-2.5 rounded-xl text-sm border-none focus:outline-none focus:ring-2 focus:ring-amber-400 shadow-inner">
             </div>
-            <div class="relative">
-                <i class="fa-solid fa-location-dot absolute left-3 top-3.5 text-gray-400"></i>
-                <input type="text" id="locationFilter" placeholder="Enter City or Area..." class="w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-            </div>
-            <button onclick="filterServices()" class="bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition flex items-center justify-center gap-2">
-                <i class="fa-solid fa-magnifying-glass"></i> Search Closest
-            </button>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h2 class="text-2xl font-bold text-gray-900 mb-6">Featured Service Providers</h2>
+    <main class="max-w-4xl mx-auto px-4 py-4 min-h-[calc(100vh-120px)] pb-28">
         
-        <div id="providerGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- PAGE 1: CORE MARKETPLACE CATALOG -->
+        <div id="view-catalog" class="view-section active space-y-6">
+            
+            <!-- Horizontal Category Quick Slider -->
+            <div class="space-y-2">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Browse Categories</h3>
+                <div class="flex gap-2 overflow-x-auto no-scrollbar py-1" id="category-slider">
+                    <!-- JavaScript will inject operational filter buttons dynamically -->
+                </div>
             </div>
+
+            <!-- Main Dynamic Grid Space -->
+            <div class="space-y-3">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-md font-extrabold text-slate-900" id="catalog-title">All Products</h2>
+                    <span class="text-xs text-emerald-700 font-bold bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100" id="catalog-count-badge">0 Items Available</span>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="product-grid">
+                    <!-- Target card grid location -->
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 2: SECURE CHECKOUT & LOGISTICS SUBMISSION -->
+        <div id="view-checkout" class="view-section max-w-lg mx-auto space-y-4">
+            <button onclick="showView('view-catalog')" class="inline-flex items-center gap-1.5 text-slate-500 hover:text-slate-900 text-sm font-bold transition">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i> Continue Shopping
+            </button>
+
+            <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-5">
+                <div>
+                    <h2 class="text-xl font-black text-slate-900">Delivery & Address Details</h2>
+                    <p class="text-xs text-slate-500">Provide accurate logistical shipping destination arrays.</p>
+                </div>
+
+                <!-- Strict Name Verification Identity Compliance Banner -->
+                <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl flex gap-3">
+                    <i data-lucide="alert-octagon" class="w-5 h-5 text-amber-600 shrink-0 mt-0.5"></i>
+                    <div class="space-y-1">
+                        <h4 class="text-xs font-black text-amber-950 uppercase tracking-wider">Verification Identity Alert</h4>
+                        <p class="text-[11px] text-amber-900 leading-relaxed font-medium">
+                            <strong>CRITICAL:</strong> The name you type below <strong>MUST match perfectly</strong> with the bank app profile name used to execute your payment transfer. Cross-mismatched profiles will halt shipping validation loops.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Interactive Form Object -->
+                <form id="checkout-form" onsubmit="executeDatabaseOrder(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Your Full Name (Bank Record Name)</label>
+                        <input type="text" id="form-name" required placeholder="Firstname Lastname" class="w-full border border-slate-200 rounded-xl px-4 py-3 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition text-sm font-medium">
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Active Contact Phone Number</label>
+                        <input type="tel" id="form-phone" required placeholder="e.g., 08031234567" class="w-full border border-slate-200 rounded-xl px-4 py-3 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition text-sm font-medium">
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Select Delivery Hub Location</label>
+                        <select id="form-location" onchange="calculateLogisticsPricing()" class="w-full border border-slate-200 rounded-xl px-4 py-3 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition text-sm font-bold text-slate-700">
+                            <option value="Lekki">Lekki Hub (₦2,500 Delivery Fee)</option>
+                            <option value="Ajah">Ajah Hub (₦2,000 Delivery Fee)</option>
+                            <option value="Surulere">Surulere Hub (₦3,000 Delivery Fee)</option>
+                            <option value="Ikeja">Ikeja Hub (₦3,500 Delivery Fee)</option>
+                            <option value="Epe">Epe Hub (₦5,000 Delivery Fee)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Detailed Street Address</label>
+                        <textarea id="form-address" required rows="3" placeholder="House number, Street, Estate, Landmark references..." class="w-full border border-slate-200 rounded-xl px-4 py-3 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition text-sm font-medium"></textarea>
+                    </div>
+
+                    <!-- Complete Accounting Costing Overview Breakdown Card -->
+                    <div class="bg-slate-100 rounded-xl p-4 border border-slate-200/60 space-y-2">
+                        <div class="flex justify-between text-xs text-slate-600">
+                            <span>Basket Items Value:</span>
+                            <span class="font-bold">₦<span id="invoice-subtotal">0</span></span>
+                        </div>
+                        <div class="flex justify-between text-xs text-slate-600">
+                            <span>Hub Logistical Delivery Fee:</span>
+                            <span class="font-bold text-emerald-700">+ ₦<span id="invoice-fee">0</span></span>
+                        </div>
+                        <div class="h-px bg-slate-200 my-1"></div>
+                        <div class="flex justify-between text-sm font-black text-slate-900">
+                            <span>Gross Total Cost Due:</span>
+                            <span class="text-emerald-800">₦<span id="invoice-total">0</span></span>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submit-btn" class="w-full bg-emerald-600 text-white py-4 rounded-xl font-bold shadow-md hover:bg-emerald-700 transition flex items-center justify-center gap-2 text-sm cursor-pointer">
+                        Securely Log Order to Database
+                        <i data-lucide="check-square" class="w-4 h-4"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- PAGE 3: TRANSACTIONAL PAYMENT CONFIRMATION SCREEN -->
+        <div id="view-success" class="view-section max-w-lg mx-auto text-center space-y-4">
+            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-xl space-y-6">
+                <div class="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
+                    <i data-lucide="cloud-lightning" class="w-8 h-8"></i>
+                </div>
+                
+                <div>
+                    <h2 class="text-xl font-black text-slate-900">Order Dispatched to Database</h2>
+                    <p class="text-xs text-slate-500 mt-1">Your selection array has locked safely inside the Jago Supastore master logs spreadsheet cloud. Execute settlement below.</p>
+                </div>
+
+                <!-- Final Invoice Target Breakdown Display -->
+                <div class="bg-slate-50 border border-slate-200/50 rounded-2xl p-4 text-left flex justify-between items-center">
+                    <div>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Final Settlement Due</p>
+                        <p class="text-2xl font-black text-emerald-800">₦<span id="final-total">0</span></p>
+                    </div>
+                    <div class="bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-100 text-xs font-black text-emerald-800 uppercase tracking-wide">
+                        Pending Transfer
+                    </div>
+                </div>
+
+                <!-- Styled Secure Bank Credentials Module -->
+                <div class="bg-slate-900 text-white rounded-2xl p-5 text-left space-y-4 relative overflow-hidden shadow-inner">
+                    <div class="absolute -right-6 -bottom-6 text-slate-800/40 pointer-events-none">
+                        <i data-lucide="shield-check" class="w-32 h-32"></i>
+                    </div>
+
+                    <p class="text-[10px] uppercase font-black tracking-widest text-emerald-400">Palmpay Settling Gateway Channel</p>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[9px] uppercase font-bold text-slate-400 tracking-wider">Receiving Institution</label>
+                            <p class="text-sm font-black text-white">PalmPay</p>
+                        </div>
+                        <div>
+                            <label class="block text-[9px] uppercase font-bold text-slate-400 tracking-wider">Account Name</label>
+                            <p class="text-sm font-black text-white">Nnenna Udeh Ufere</p>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-slate-800 pt-3 flex justify-between items-center">
+                        <div>
+                            <label class="block text-[9px] uppercase font-bold text-emerald-400 tracking-wider">Account Number</label>
+                            <p class="text-xl font-mono font-black tracking-widest text-amber-400" id="bank-number">7045104904</p>
+                        </div>
+                        <button onclick="copyAccountToClipboard('7045104904', this)" class="bg-slate-800 border border-slate-700 text-xs text-white px-3 py-1.5 rounded-xl font-bold flex items-center gap-1 hover:bg-slate-700 transition cursor-pointer">
+                            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Number
+                        </button>
+                    </div>
+                </div>
+
+                <div class="p-3 bg-amber-50/50 border border-amber-200/40 rounded-xl">
+                    <p class="text-[11px] text-amber-800 leading-relaxed font-medium">
+                        💡 **Next Step:** Screenshot your successful payment confirmation voucher receipt graphics asset and push directly to our operations counter via WhatsApp messaging strings to activate shipping dispatch routing instantly.
+                    </p>
+                </div>
+            </div>
+        </div>
     </main>
 
-    <footer class="bg-gray-900 text-gray-400 py-8 border-t border-gray-800 text-center">
-        <p>&copy; 2026 ServiceHub. Connecting communities locally.</p>
-    </footer>
+    <!-- Global Floating Action Footer Cart Sheet Drawer Container Component -->
+    <div id="cart-drawer" class="hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 shadow-2xl p-4 z-40 max-w-4xl mx-auto rounded-t-3xl">
+        <div class="flex justify-between items-center border-b border-slate-100 pb-3 mb-3">
+            <h4 class="text-sm font-black text-slate-900 flex items-center gap-1.5">
+                <i data-lucide="shopping-basket" class="w-4 h-4 text-emerald-700"></i>
+                Your Selected Items
+            </h4>
+            <button onclick="hideCartDrawer()" class="text-slate-400 hover:text-slate-600 text-xs font-bold">Minimize Drawer ✕</button>
+        </div>
+        <div class="max-h-40 overflow-y-auto space-y-2 mb-4 pr-1" id="cart-drawer-items">
+            <!-- Items listing injection map -->
+        </div>
+        <div class="flex justify-between items-center bg-slate-50 p-3 rounded-2xl border border-slate-100">
+            <div>
+                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Running Total</p>
+                <p class="text-lg font-black text-emerald-800">₦<span id="cart-total-value">0</span></p>
+            </div>
+            <button onclick="showView('view-checkout')" class="bg-emerald-600 text-white px-5 py-3 rounded-xl text-xs font-bold shadow-md hover:bg-emerald-700 transition flex items-center gap-1.5 cursor-pointer">
+                Checkout Invoice Summary
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            </button>
+        </div>
+    </div>
 
+    <!-- Application Controller Logic Script Engine Block Module -->
     <script>
-        // Mock data for initial testing (Random Information)
-        const mockProviders = [
-            { id: 1, name: "John Doe", service: "Electrical", location: "Lekki", phone: "+234 801 234 5678", rating: 4.9, bio: "Expert industrial and home inverter & power grid technician with 8 years experience." },
-            { id: 2, name: "Sarah Smith", service: "Web Development", location: "Ikeja", phone: "+234 802 987 6543", rating: 5.0, bio: "Building responsive modern e-commerce websites and automation setups." },
-            { id: 3, name: "Mike Johnson", service: "Plumbing", location: "Lekki", phone: "+234 803 111 2222", rating: 4.7, bio: "Emergency plumbing, leak fixes, and smart home water installation." },
-            { id: 4, name: "Alex Inverted", service: "Electrical", location: "Victoria Island", phone: "+234 805 555 4444", rating: 4.8, bio: "Specialist in solar system setups, hybrid inverters, and battery fixes." }
+        // INSERT YOUR SPECIFIC PRIVATE SUPABASE SECURE ENDPOINT KEYS BELOW HERE
+const SUPABASE_URL = "https://aypzhrjwxghaggqtruoy.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF5cHpocmp3eGdoYWdncXRydW95Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE2MjU2ODUsImV4cCI6MjA5NzIwMTY4NX0.FbBbp_lf6gIhmaTvov6jL0Nv75dD7GPgs9HdGmBd92U";
+
+        // Structured Product Inventory Dataset Database Matrix Array
+        const inventory = [
+            { id: 1, name: "Local Rice (Premium)", category: "Grains", size: "25kg", price: 35000, img: "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&auto=format&fit=crop&q=60" },
+            { id: 2, name: "Local Rice (Premium)", category: "Grains", size: "50kg", price: 65000, img: "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&auto=format&fit=crop&q=60" },
+            { id: 3, name: "Foreign Rice (Imported Long Grain)", category: "Grains", size: "25kg", price: 40000, img: "https://images.unsplash.com/photo-1536304997881-a372c179924b?w=400&auto=format&fit=crop&q=60" },
+            { id: 4, name: "Foreign Rice (Imported Long Grain)", category: "Grains", size: "50kg", price: 75000, img: "https://images.unsplash.com/photo-1536304997881-a372c179924b?w=400&auto=format&fit=crop&q=60" },
+            { id: 5, name: "Pure Vegetable Cooking Oil", category: "Cooking Oil", size: "5L", price: 12500, img: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400&auto=format&fit=crop&q=60" },
+            { id: 6, name: "Fresh Round Farm Tomatoes", category: "Fresh Vegetables", size: "1 Basket", price: 8000, img: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=400&auto=format&fit=crop&q=60" },
+            { id: 7, name: "Fresh Shombo/Rodo Pepper Mix", category: "Fresh Vegetables", size: "1 Basket", price: 15000, img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&auto=format&fit=crop&q=60" },
+            { id: 8, name: "Clean Dry Red Onions", category: "Fresh Vegetables", size: "1 Basket", price: 9000, img: "https://images.unsplash.com/photo-1618265341355-d0a2db160999?w=400&auto=format&fit=crop&q=60" },
+            { id: 9, name: "Sweet Baked Coconut Bread", category: "Pastries", size: "1 Loaf", price: 1700, img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&auto=format&fit=crop&q=60" },
+            { id: 10, name: "Gourmet Sardine Infused Bread", category: "Pastries", size: "1 Loaf", price: 3000, img: "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=400&auto=format&fit=crop&q=60" },
+            { id: 11, name: "Premium Soft Toilet Paper Rolls", category: "Toiletries", size: "10 Packs", price: 5000, img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400&auto=format&fit=crop&q=60" },
+            { id: 12, name: "Imported Shortbread Biscuits Pack", category: "Drinks & Beverages", size: "10 Cartons", price: 35000, img: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400&auto=format&fit=crop&q=60" },
+            { id: 13, name: "Pepsi Cola Carbonated Drinks Soda", category: "Drinks & Beverages", size: "10 Packs (Can/Pet)", price: 25000, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400&auto=format&fit=crop&q=60" },
+            { id: 14, name: "Strong Organic Abuja Yam", category: "Tuber", size: "50 Tubers", price: 40000, img: "https://images.unsplash.com/photo-1590779033100-9f60a05a013d?w=400&auto=format&fit=crop&q=60" },
+            { id: 15, name: "Sweet Juicy Seasonal Mangoes", category: "Fruits", size: "1 Basket", price: 10000, img: "https://images.unsplash.com/photo-1553279768-865429fa0078?w=400&auto=format&fit=crop&q=60" }
         ];
 
-        function displayProviders(providers) {
-            const grid = document.getElementById('providerGrid');
-            grid.innerHTML = '';
+        // Unique dynamic delivery hub mapping database pricing matrix array records
+        const deliveryTariffs = { "Lekki": 2500, "Ajah": 2000, "Surulere": 3000, "Ikeja": 3500, "Epe": 5000 };
+        let currentActiveCartMap = {};
+        let selectedCategoryFilter = "All";
+
+        function showView(viewId) {
+            document.querySelectorAll('.view-section').forEach(view => view.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+            window.scrollTo(0,0);
+            if(viewId === 'view-checkout') {
+                calculateLogisticsPricing();
+                hideCartDrawer();
+            }
+        }
+
+        function buildCategoryInterfaceSelectors() {
+            const categories = ["All", "Grains", "Tuber", "Fresh Vegetables", "Fruits", "Pastries", "Drinks & Beverages", "Toiletries", "Cooking Oil"];
+            const track = document.getElementById('category-slider');
+            track.innerHTML = categories.map(cat => `
+                <button onclick="setCategoryFilter('${cat}')" id="cat-tab-${cat.replace(/ /g, '-')}" class="px-4 py-2 text-xs font-bold rounded-xl whitespace-nowrap border transition cursor-pointer ${cat === 'All' ? 'bg-emerald-800 text-white border-emerald-800 shadow-sm' : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'}">
+                    ${cat}
+                </button>
+            `).join('');
+        }
+
+        function setCategoryFilter(category) {
+            selectedCategoryFilter = category;
+            buildCategoryInterfaceSelectors();
+            // Retain background class colors on targeting array structures
+            document.querySelectorAll('[id^="cat-tab-"]').forEach(btn => {
+                btn.className = "px-4 py-2 text-xs font-bold rounded-xl whitespace-nowrap border transition cursor-pointer bg-white text-slate-600 border-slate-200 hover:bg-slate-50";
+            });
+            const selectedBtn = document.getElementById(`cat-tab-${category.replace(/ /g, '-')}`);
+            if(selectedBtn) selectedBtn.className = "px-4 py-2 text-xs font-bold rounded-xl whitespace-nowrap border transition cursor-pointer bg-emerald-800 text-white border-emerald-800 shadow-sm";
+            renderMarketplaceGrid();
+        }
+
+        function handleSearchFilter() {
+            renderMarketplaceGrid();
+        }
+
+        function renderMarketplaceGrid() {
+            const grid = document.getElementById('product-grid');
+            const query = document.getElementById('search-input').value.toLowerCase().trim();
             
-            if(providers.length === 0) {
-                grid.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500"><i class="fa-solid fa-user-slash text-4xl mb-2"></i><p>No providers found matching those filters near you.</p></div>`;
+            // Comprehensive parsing loop
+            let filtered = inventory.filter(p => {
+                const matchCategory = (selectedCategoryFilter === "All" || p.category === selectedCategoryFilter);
+                const matchQuery = (p.name.toLowerCase().includes(query) || p.category.toLowerCase().includes(query));
+                return matchCategory && matchQuery;
+            });
+
+            document.getElementById('catalog-title').innerText = selectedCategoryFilter === "All" ? "All Catalog Items" : selectedCategoryFilter;
+            document.getElementById('catalog-count-badge').innerText = `${filtered.length} Items Listed`;
+
+            if(filtered.length === 0) {
+                grid.innerHTML = `<div class="col-span-2 sm:col-span-3 text-center py-12 text-slate-400 text-xs font-bold">No product matches found inside inventory arrays.</div>`;
                 return;
             }
 
-            providers.forEach(p => {
-                grid.innerHTML += `
-                    <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden hover:shadow-lg transition flex flex-col justify-between">
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <span class="bg-blue-50 text-blue-700 text-xs font-semibold px-2.5 py-1 rounded-full">${p.service}</span>
-                                <span class="text-amber-500 font-medium text-sm flex items-center gap-1">
-                                    <i class="fa-solid fa-star"></i> ${p.rating}
-                                </span>
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-900 mb-1">${p.name}</h3>
-                            <p class="text-gray-500 text-sm mb-4 flex items-center gap-1">
-                                <i class="fa-solid fa-location-dot text-red-500"></i> ${p.location}
-                            </p>
-                            <p class="text-gray-600 text-sm line-clamp-3">${p.bio}</p>
+            grid.innerHTML = filtered.map(p => {
+                const qty = currentActiveCartMap[p.id] || 0;
+                return `
+                    <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm flex flex-col justify-between p-2.5 space-y-2.5">
+                        <div class="relative">
+                            <img src="${p.img}" alt="${p.name}" class="w-full h-28 object-cover rounded-xl bg-slate-100">
+                            <span class="absolute top-1.5 left-1.5 bg-slate-900/80 text-white text-[9px] font-black uppercase px-2 py-0.5 rounded-md tracking-wider">${p.size}</span>
                         </div>
-                        <div class="px-6 pb-6 pt-2 border-t border-gray-50 bg-gray-50/50 flex items-center justify-between">
-                            <a href="tel:${p.phone}" class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-green-700 transition flex items-center gap-2">
-                                <i class="fa-solid fa-phone"></i> Call Now
-                            </a>
-                            <a href="https://wa.me/${p.phone.replace(/[^0-9]/g, '')}" target="_blank" class="bg-emerald-500 text-white p-2 rounded-lg hover:bg-emerald-600 transition" title="WhatsApp">
-                                <i class="fa-brands fa-whatsapp text-lg"></i>
-                            </a>
+                        <div class="space-y-1 flex-1 flex flex-col justify-between">
+                            <div>
+                                <p class="text-[10px] text-emerald-700 font-extrabold uppercase tracking-wide">${p.category}</p>
+                                <h4 class="text-xs font-bold text-slate-800 line-clamp-2 leading-tight">${p.name}</h4>
+                            </div>
+                            <div class="pt-2">
+                                <p class="text-sm font-black text-slate-900">₦${p.price.toLocaleString()}</p>
+                                <div class="mt-2" id="action-slot-${p.id}">
+                                    ${qty > 0 ? buildQuantityToggleComponent(p.id, qty) : `
+                                        <button onclick="appendCartItem(${p.id})" class="w-full bg-emerald-700 text-white py-2 rounded-xl text-xs font-black shadow-sm hover:bg-emerald-800 transition flex items-center justify-center gap-1 cursor-pointer">
+                                            <i data-lucide="plus" class="w-3.5 h-3.5"></i> Add To Cart
+                                        </button>
+                                    `}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 `;
+            }).join('');
+            lucide.createIcons();
+        }
+
+        function buildQuantityToggleComponent(id, qty) {
+            return `
+                <div class="flex items-center justify-between bg-amber-50 rounded-xl border border-amber-200 overflow-hidden">
+                    <button onclick="modifyCartQty(${id}, -1)" class="px-3 py-1.5 text-amber-900 hover:bg-amber-100 font-black text-xs">-</button>
+                    <span class="text-xs font-black text-amber-950">${qty}</span>
+                    <button onclick="modifyCartQty(${id}, 1)" class="px-3 py-1.5 text-amber-900 hover:bg-amber-100 font-black text-xs">+</button>
+                </div>
+            `;
+        }
+
+        function appendCartItem(id) {
+            currentActiveCartMap[id] = 1;
+            refreshCartMetricStates();
+        }
+
+        function modifyCartQty(id, delta) {
+            if(!currentActiveCartMap[id]) return;
+            currentActiveCartMap[id] += delta;
+            if(currentActiveCartMap[id] <= 0) delete currentActiveCartMap[id];
+            refreshCartMetricStates();
+        }
+
+        function refreshCartMetricStates() {
+            let totalCount = 0;
+            let totalPrice = 0;
+
+            inventory.forEach(p => {
+                const qty = currentActiveCartMap[p.id] || 0;
+                totalCount += qty;
+                totalPrice += (qty * p.price);
+                
+                const slot = document.getElementById(`action-slot-${p.id}`);
+                if(slot) {
+                    slot.innerHTML = qty > 0 ? buildQuantityToggleComponent(p.id, qty) : `
+                        <button onclick="appendCartItem(${p.id})" class="w-full bg-emerald-700 text-white py-2 rounded-xl text-xs font-black shadow-sm hover:bg-emerald-800 transition flex items-center justify-center gap-1 cursor-pointer">
+                            <i data-lucide="plus" class="w-3.5 h-3.5"></i> Add To Cart
+                        </button>
+                    `;
+                }
+            });
+
+            document.getElementById('cart-count').innerText = totalCount;
+            document.getElementById('cart-total-value').innerText = totalPrice.toLocaleString();
+            
+            // Build elements to drawers layout array loops
+            const drawerContainer = document.getElementById('cart-drawer-items');
+            const cartItemKeys = Object.keys(currentActiveCartMap);
+            
+            if(cartItemKeys.length === 0) {
+                drawerContainer.innerHTML = `<p class="text-center text-slate-400 text-xs py-4 font-medium">Your marketplace shopping basket is empty.</p>`;
+            } else {
+                drawerContainer.innerHTML = cartItemKeys.map(id => {
+                    const p = inventory.find(prod => prod.id == id);
+                    const q = currentActiveCartMap[id];
+                    return `
+                        <div class="flex justify-between items-center bg-slate-50 px-3 py-2 rounded-xl text-xs border border-slate-100">
+                            <div>
+                                <p class="font-bold text-slate-800">${p.name} (${p.size})</p>
+                                <p class="text-[10px] font-bold text-slate-400">₦${p.price.toLocaleString()} x ${q}</p>
+                            </div>
+                            <p class="font-black text-slate-900">₦${(p.price * q).toLocaleString()}</p>
+                        </div>
+                    `;
+                }).join('');
+            }
+            lucide.createIcons();
+        }
+
+        function showCartDrawer() {
+            document.getElementById('cart-drawer').classList.remove('hidden');
+        }
+
+        function hideCartDrawer() {
+            document.getElementById('cart-drawer').classList.add('hidden');
+        }
+
+        function calculateLogisticsPricing() {
+            const loc = document.getElementById('form-location').value;
+            const subtotal = inventory.reduce((sum, p) => sum + ((currentActiveCartMap[p.id] || 0) * p.price), 0);
+            const fee = deliveryTariffs[loc] || 0;
+            const gross = subtotal + fee;
+
+            document.getElementById('invoice-subtotal').innerText = subtotal.toLocaleString();
+            document.getElementById('invoice-fee').innerText = fee.toLocaleString();
+            document.getElementById('invoice-total').innerText = gross.toLocaleString();
+        }
+
+        function generateReadableReceiptString() {
+            return Object.keys(currentActiveCartMap).map(id => {
+                const p = inventory.find(prod => prod.id == id);
+                return `${p.name} [${p.size}] (x${currentActiveCartMap[id]})`;
+            }).join(', ');
+        }
+
+        // CONNECT SUBMISSION LOGIC DIRECTLY TO SUPABASE BACKEND VIA DIRECT REST HTTP REQUEST STRINGS
+        async function executeDatabaseOrder(e) {
+            e.preventDefault();
+            const actionBtn = document.getElementById('submit-btn');
+            
+            const subtotal = inventory.reduce((sum, p) => sum + ((currentActiveCartMap[p.id] || 0) * p.price), 0);
+            const loc = document.getElementById('form-location').value;
+            const fee = deliveryTariffs[loc] || 0;
+            const gross = subtotal + fee;
+
+            // Generate payload dictionary architecture matching column layouts
+            const dbPayload = {
+                customer_name: document.getElementById('form-name').value,
+                customer_phone: document.getElementById('form-phone').value,
+                delivery_location: loc,
+                delivery_address: document.getElementById('form-address').value,
+                ordered_items: generateReadableReceiptString(),
+                subtotal: subtotal,
+                delivery_fee: fee,
+                total_amount: gross
+            };
+
+            actionBtn.disabled = true;
+            actionBtn.innerHTML = `<svg class="animate-spin h-4 w-4 text-white inline mr-2" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Connecting Database APIs...`;
+
+            try {
+                // Post directly to Supabase PostgREST operational framework engine
+                const targetUrl = `${SUPABASE_URL}/rest/v1/jago_orders`;
+                
+                const response = await fetch(targetUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify(dbPayload)
+                });
+
+                if(!response.ok) throw new Error("Cloud database rejected pipeline array transaction mapping parameters.");
+
+                // Set value variables on final screen view panels
+                document.getElementById('final-total').innerText = gross.toLocaleString();
+                showView('view-success');
+
+            } catch (err) {
+                alert("Database Synchronization Interruption. Double check network properties and Supabase keys schema configuration settings.");
+                console.error(err);
+            } finally {
+                actionBtn.disabled = false;
+                actionBtn.innerHTML = `Securely Log Order to Database <i data-lucide="check-square" class="w-4 h-4"></i>`;
+                lucide.createIcons();
+            }
+        }
+
+        function copyAccountToClipboard(text, element) {
+            navigator.clipboard.writeText(text).then(() => {
+                const nativeHtml = element.innerHTML;
+                element.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> Copied!`;
+                lucide.createIcons();
+                setTimeout(() => { element.innerHTML = nativeHtml; lucide.createIcons(); }, 2000);
             });
         }
 
-        function filterServices() {
-            const selectedService = document.getElementById('serviceFilter').value.toLowerCase();
-            const selectedLocation = document.getElementById('locationFilter').value.toLowerCase();
-
-            const filtered = mockProviders.filter(p => {
-                const matchService = selectedService === "" || p.service.toLowerCase().includes(selectedService);
-                const matchLocation = selectedLocation === "" || p.location.toLowerCase().includes(selectedLocation);
-                return matchService && matchLocation;
-            });
-
-            displayProviders(filtered);
-        }
-
-        // Run on initial page load
-        displayProviders(mockProviders);
+        // Map initial allocation layouts
+        window.addEventListener('DOMContentLoaded', () => {
+            buildCategoryInterfaceSelectors();
+            renderMarketplaceGrid();
+        });
     </script>
 </body>
 </html>
