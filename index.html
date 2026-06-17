@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jago Supastore - Fresh Foodstuffs at Local Market Prices</title>
-    <!-- Tailwind CSS Engine for styling -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- Lucide CDN for beautiful interface icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         .view-section { display: none; }
@@ -18,7 +16,6 @@
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans antialiased">
 
-    <!-- Top Sticky Pricepally-Style Header Bar -->
     <header class="bg-emerald-800 text-white shadow-md sticky top-0 z-50">
         <div class="max-w-4xl mx-auto px-4 py-3 flex flex-col gap-3">
             <div class="flex justify-between items-center">
@@ -29,14 +26,12 @@
                     </h1>
                     <p class="text-[10px] text-emerald-200 font-medium tracking-wide">Fresh foodstuffs at local market prices</p>
                 </div>
-                <!-- Dynamic Header Shopping Cart Counter Trigger -->
                 <div onclick="showCartDrawer()" class="relative cursor-pointer bg-emerald-900 border border-emerald-700/50 px-3 py-2 rounded-xl flex items-center gap-2 text-sm font-bold hover:bg-emerald-950 transition">
                     <i data-lucide="shopping-cart" class="w-5 h-5 text-amber-400"></i>
                     <span id="cart-count" class="bg-amber-400 text-slate-900 rounded-full text-xs w-5 h-5 flex items-center justify-center font-black">0</span>
                 </div>
             </div>
             
-            <!-- Live Active Functional Search Bar Component -->
             <div class="relative">
                 <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5"></i>
                 <input type="text" id="search-input" oninput="handleSearchFilter()" placeholder="Search rice, tomatoes, bread, cooking oil..." class="w-full bg-white text-slate-900 pl-10 pr-4 py-2.5 rounded-xl text-sm border-none focus:outline-none focus:ring-2 focus:ring-amber-400 shadow-inner">
@@ -46,30 +41,24 @@
 
     <main class="max-w-4xl mx-auto px-4 py-4 min-h-[calc(100vh-120px)] pb-28">
         
-        <!-- PAGE 1: CORE MARKETPLACE CATALOG -->
         <div id="view-catalog" class="view-section active space-y-6">
             
-            <!-- Horizontal Category Quick Slider -->
             <div class="space-y-2">
                 <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Browse Categories</h3>
                 <div class="flex gap-2 overflow-x-auto no-scrollbar py-1" id="category-slider">
-                    <!-- JavaScript will inject operational filter buttons dynamically -->
-                </div>
+                    </div>
             </div>
 
-            <!-- Main Dynamic Grid Space -->
             <div class="space-y-3">
                 <div class="flex justify-between items-center">
                     <h2 class="text-md font-extrabold text-slate-900" id="catalog-title">All Products</h2>
                     <span class="text-xs text-emerald-700 font-bold bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100" id="catalog-count-badge">0 Items Available</span>
                 </div>
                 <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="product-grid">
-                    <!-- Target card grid location -->
-                </div>
+                    </div>
             </div>
         </div>
 
-        <!-- PAGE 2: SECURE CHECKOUT & LOGISTICS SUBMISSION -->
         <div id="view-checkout" class="view-section max-w-lg mx-auto space-y-4">
             <button onclick="showView('view-catalog')" class="inline-flex items-center gap-1.5 text-slate-500 hover:text-slate-900 text-sm font-bold transition">
                 <i data-lucide="arrow-left" class="w-4 h-4"></i> Continue Shopping
@@ -81,7 +70,6 @@
                     <p class="text-xs text-slate-500">Provide accurate logistical shipping destination arrays.</p>
                 </div>
 
-                <!-- Strict Name Verification Identity Compliance Banner -->
                 <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl flex gap-3">
                     <i data-lucide="alert-octagon" class="w-5 h-5 text-amber-600 shrink-0 mt-0.5"></i>
                     <div class="space-y-1">
@@ -92,7 +80,6 @@
                     </div>
                 </div>
 
-                <!-- Interactive Form Object -->
                 <form id="checkout-form" onsubmit="executeDatabaseOrder(event)" class="space-y-4">
                     <div>
                         <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Your Full Name (Bank Record Name)</label>
@@ -120,7 +107,6 @@
                         <textarea id="form-address" required rows="3" placeholder="House number, Street, Estate, Landmark references..." class="w-full border border-slate-200 rounded-xl px-4 py-3 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition text-sm font-medium"></textarea>
                     </div>
 
-                    <!-- Complete Accounting Costing Overview Breakdown Card -->
                     <div class="bg-slate-100 rounded-xl p-4 border border-slate-200/60 space-y-2">
                         <div class="flex justify-between text-xs text-slate-600">
                             <span>Basket Items Value:</span>
@@ -145,7 +131,6 @@
             </div>
         </div>
 
-        <!-- PAGE 3: TRANSACTIONAL PAYMENT CONFIRMATION SCREEN -->
         <div id="view-success" class="view-section max-w-lg mx-auto text-center space-y-4">
             <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-xl space-y-6">
                 <div class="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
@@ -157,7 +142,6 @@
                     <p class="text-xs text-slate-500 mt-1">Your selection array has locked safely inside the Jago Supastore master logs spreadsheet cloud. Execute settlement below.</p>
                 </div>
 
-                <!-- Final Invoice Target Breakdown Display -->
                 <div class="bg-slate-50 border border-slate-200/50 rounded-2xl p-4 text-left flex justify-between items-center">
                     <div>
                         <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Final Settlement Due</p>
@@ -168,7 +152,6 @@
                     </div>
                 </div>
 
-                <!-- Styled Secure Bank Credentials Module -->
                 <div class="bg-slate-900 text-white rounded-2xl p-5 text-left space-y-4 relative overflow-hidden shadow-inner">
                     <div class="absolute -right-6 -bottom-6 text-slate-800/40 pointer-events-none">
                         <i data-lucide="shield-check" class="w-32 h-32"></i>
@@ -207,7 +190,6 @@
         </div>
     </main>
 
-    <!-- Global Floating Action Footer Cart Sheet Drawer Container Component -->
     <div id="cart-drawer" class="hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 shadow-2xl p-4 z-40 max-w-4xl mx-auto rounded-t-3xl">
         <div class="flex justify-between items-center border-b border-slate-100 pb-3 mb-3">
             <h4 class="text-sm font-black text-slate-900 flex items-center gap-1.5">
@@ -217,8 +199,7 @@
             <button onclick="hideCartDrawer()" class="text-slate-400 hover:text-slate-600 text-xs font-bold">Minimize Drawer ✕</button>
         </div>
         <div class="max-h-40 overflow-y-auto space-y-2 mb-4 pr-1" id="cart-drawer-items">
-            <!-- Items listing injection map -->
-        </div>
+            </div>
         <div class="flex justify-between items-center bg-slate-50 p-3 rounded-2xl border border-slate-100">
             <div>
                 <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Running Total</p>
@@ -231,11 +212,10 @@
         </div>
     </div>
 
-    <!-- Application Controller Logic Script Engine Block Module -->
     <script>
         // INSERT YOUR SPECIFIC PRIVATE SUPABASE SECURE ENDPOINT KEYS BELOW HERE
-const SUPABASE_URL = "https://aypzhrjwxghaggqtruoy.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF5cHpocmp3eGdoYWdncXRydW95Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE2MjU2ODUsImV4cCI6MjA5NzIwMTY4NX0.FbBbp_lf6gIhmaTvov6jL0Nv75dD7GPgs9HdGmBd92U";
+        const SUPABASE_URL = "https://aypzhrjwxghaggqtruoy.supabase.co";
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF5cHpocmp3eGdoYWdncXRydW95Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE2MjU2ODUsImV4cCI6MjA5NzIwMTY4NX0.FbBbp_lf6gIhmaTvov6jL0Nv75dD7GPgs9HdGmBd92U";
 
         // Structured Product Inventory Dataset Database Matrix Array
         const inventory = [
@@ -450,7 +430,6 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
             const fee = deliveryTariffs[loc] || 0;
             const gross = subtotal + fee;
 
-            // Generate payload dictionary architecture matching column layouts
             const dbPayload = {
                 customer_name: document.getElementById('form-name').value,
                 customer_phone: document.getElementById('form-phone').value,
@@ -466,7 +445,6 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
             actionBtn.innerHTML = `<svg class="animate-spin h-4 w-4 text-white inline mr-2" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Connecting Database APIs...`;
 
             try {
-                // Post directly to Supabase PostgREST operational framework engine
                 const targetUrl = `${SUPABASE_URL}/rest/v1/jago_orders`;
                 
                 const response = await fetch(targetUrl, {
@@ -480,14 +458,20 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
                     body: JSON.stringify(dbPayload)
                 });
 
-                if(!response.ok) throw new Error("Cloud database rejected pipeline array transaction mapping parameters.");
+                if(!response.ok) {
+                    // This extracts the real raw response error message from Supabase servers
+                    const errData = await response.json().catch(() => ({}));
+                    const detailedError = errData.message || "Unknown database error";
+                    const errorHint = errData.hint ? ` Hint: ${errData.hint}` : "";
+                    throw new Error(`${detailedError}.${errorHint}`);
+                }
 
-                // Set value variables on final screen view panels
                 document.getElementById('final-total').innerText = gross.toLocaleString();
                 showView('view-success');
 
             } catch (err) {
-                alert("Database Synchronization Interruption. Double check network properties and Supabase keys schema configuration settings.");
+                // Shows the exact error on your phone screen
+                alert("Supabase Said: " + err.message);
                 console.error(err);
             } finally {
                 actionBtn.disabled = false;
