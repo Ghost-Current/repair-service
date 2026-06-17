@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jago Supastore - Fresh Foodstuffs at Local Market Prices</title>
+    <!-- Tailwind CSS Engine for styling -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Lucide CDN for beautiful interface icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         .view-section { display: none; }
@@ -16,204 +18,303 @@
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans antialiased">
 
-    <header class="bg-emerald-800 text-white shadow-md sticky top-0 z-50">
-        <div class="max-w-4xl mx-auto px-4 py-3 flex flex-col gap-3">
-            <div class="flex justify-between items-center">
-                <div>
-                    <h1 class="text-xl font-black tracking-tight text-white flex items-center gap-1.5">
-                        <i data-lucide="store" class="w-6 h-6 text-amber-400"></i>
-                        Jago <span class="text-amber-400">Supastore</span>
-                    </h1>
-                    <p class="text-[10px] text-emerald-200 font-medium tracking-wide">Fresh foodstuffs at local market prices</p>
-                </div>
-                <div onclick="showCartDrawer()" class="relative cursor-pointer bg-emerald-900 border border-emerald-700/50 px-3 py-2 rounded-xl flex items-center gap-2 text-sm font-bold hover:bg-emerald-950 transition">
-                    <i data-lucide="shopping-cart" class="w-5 h-5 text-amber-400"></i>
-                    <span id="cart-count" class="bg-amber-400 text-slate-900 rounded-full text-xs w-5 h-5 flex items-center justify-center font-black">0</span>
-                </div>
+    <!-- NEW PAGE VIEW: PRICEPALLY-STYLE AUTH GATING PANEL -->
+    <div id="view-auth" class="view-section active max-w-md mx-auto px-4 py-12 space-y-6">
+        <div class="text-center space-y-2">
+            <div class="w-12 h-12 bg-emerald-100 text-emerald-800 rounded-2xl flex items-center justify-center mx-auto shadow-sm">
+                <i data-lucide="store" class="w-6 h-6 text-emerald-700"></i>
             </div>
-            
-            <div class="relative">
-                <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5"></i>
-                <input type="text" id="search-input" oninput="handleSearchFilter()" placeholder="Search rice, tomatoes, bread, cooking oil..." class="w-full bg-white text-slate-900 pl-10 pr-4 py-2.5 rounded-xl text-sm border-none focus:outline-none focus:ring-2 focus:ring-amber-400 shadow-inner">
+            <div>
+                <h2 class="text-2xl font-black text-slate-900 tracking-tight">
+                    Jago <span class="text-emerald-700">Supastore</span>
+                </h2>
+                <p class="text-xs text-slate-500 font-medium">Sign in to explore fresh foodstuffs at local market prices</p>
             </div>
         </div>
-    </header>
 
-    <main class="max-w-4xl mx-auto px-4 py-4 min-h-[calc(100vh-120px)] pb-28">
-        
-        <div id="view-catalog" class="view-section active space-y-6">
-            
-            <div class="space-y-2">
-                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Browse Categories</h3>
-                <div class="flex gap-2 overflow-x-auto no-scrollbar py-1" id="category-slider">
-                    </div>
+        <!-- Pricepally-style Google OAuth Trigger Button (Option 1) -->
+        <button onclick="loginWithGoogle()" class="w-full bg-white border border-slate-200 text-slate-700 py-3.5 rounded-xl font-bold shadow-sm hover:bg-slate-50 transition flex items-center justify-center gap-2.5 text-xs uppercase tracking-wider cursor-pointer">
+            <svg class="w-4 h-4" viewBox="0 0 24 24">
+                <path fill="#EA4335" d="M12 5.04c1.66 0 3.2.57 4.38 1.69l3.27-3.27C17.67 1.47 15.03 1 12 1 7.24 1 3.21 3.78 1.32 7.82l3.86 3A7 7 0 0112 5.04z"/>
+                <path fill="#4285F4" d="M23.45 12.3c0-.82-.07-1.6-.2-2.3H12v4.4h6.43a5.5 5.5 0 01-2.39 3.61l3.71 2.88c2.17-2 3.7-4.96 3.7-8.59z"/>
+                <path fill="#FBBC05" d="M5.18 10.82a7 7 0 010-4.14L1.32 3.68a11.94 11.94 0 000 10.14l3.86-3z"/>
+                <path fill="#34A853" d="M12 23c3.24 0 5.97-1.07 7.96-2.91l-3.71-2.88c-1.03.69-2.35 1.11-4.25 1.11-3.13 0-5.78-2.12-6.73-4.97l-3.86 3A11.95 11.95 0 0012 23z"/>
+            </svg>
+            Continue with Google
+        </button>
+
+        <!-- Visual Separator Line Break Component -->
+        <div class="relative flex items-center justify-center my-2">
+            <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-200"></div></div>
+            <span class="relative bg-slate-50 px-3 text-[10px] uppercase tracking-widest text-slate-400 font-black">Or use security forms</span>
+        </div>
+
+        <!-- Traditional Email Form Interface Tabs Toggle Buttons -->
+        <div class="bg-slate-200/60 p-1 rounded-xl border border-slate-200/40 flex">
+            <button onclick="toggleAuthTab('login')" id="tab-btn-login" class="flex-1 py-2.5 text-xs font-black rounded-lg transition-all text-emerald-950 bg-white shadow-sm cursor-pointer">Log In</button>
+            <button onclick="toggleAuthTab('signup')" id="tab-btn-signup" class="flex-1 py-2.5 text-xs font-black rounded-lg transition-all text-slate-500 hover:text-slate-800 cursor-pointer">Create Account</button>
+        </div>
+
+        <!-- TRADITIONAL AUTH METHOD: LOGIN FORM FORMULATION (Option 2A) -->
+        <form id="auth-login-form" onsubmit="executeUserLogin(event)" class="space-y-4">
+            <div>
+                <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Email Address</label>
+                <input type="email" id="login-email" required placeholder="yourname@email.com" class="w-full border border-slate-200 rounded-xl px-4 py-3 bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition text-sm font-medium">
             </div>
+            <div>
+                <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Password</label>
+                <input type="password" id="login-password" required placeholder="••••••••" class="w-full border border-slate-200 rounded-xl px-4 py-3 bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition text-sm font-medium">
+            </div>
+            <button type="submit" id="login-submit-btn" class="w-full bg-emerald-700 text-white py-3.5 rounded-xl font-black shadow-md hover:bg-emerald-800 transition text-xs uppercase tracking-wider cursor-pointer">Sign Into Store</button>
+        </form>
 
-            <div class="space-y-3">
+        <!-- TRADITIONAL AUTH METHOD: PRICEPALLY-STYLE COMPREHENSIVE SIGNUP FORM (Option 2B) -->
+        <form id="auth-signup-form" onsubmit="executeUserRegistration(event)" class="hidden space-y-4">
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">First Name</label>
+                    <input type="text" id="reg-fname" required placeholder="John" class="w-full border border-slate-200 rounded-xl px-4 py-3 bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition text-sm font-medium">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Last Name</label>
+                    <input type="text" id="reg-lname" required placeholder="Doe" class="w-full border border-slate-200 rounded-xl px-4 py-3 bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition text-sm font-medium">
+                </div>
+            </div>
+            <div>
+                <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Email Address</label>
+                <input type="email" id="reg-email" required placeholder="john.doe@example.com" class="w-full border border-slate-200 rounded-xl px-4 py-3 bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition text-sm font-medium">
+            </div>
+            <div>
+                <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Active Phone Number</label>
+                <input type="tel" id="reg-phone" required placeholder="e.g., 08031234567" class="w-full border border-slate-200 rounded-xl px-4 py-3 bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition text-sm font-medium">
+            </div>
+            <div>
+                <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Create Secure Password</label>
+                <input type="password" id="reg-password" required minlength="6" placeholder="Minimum 6 characters" class="w-full border border-slate-200 rounded-xl px-4 py-3 bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition text-sm font-medium">
+            </div>
+            <button type="submit" id="signup-submit-btn" class="w-full bg-emerald-700 text-white py-3.5 rounded-xl font-black shadow-md hover:bg-emerald-800 transition text-xs uppercase tracking-wider cursor-pointer">Register Secure Account</button>
+        </form>
+    </div>
+
+    <!-- CORE MARKETPLACE TEMPLATE LAYOUT CONTROLLER SECTIONS -->
+    <div id="store-main-layout" class="hidden">
+        <!-- Top Sticky Pricepally-Style Header Bar -->
+        <header class="bg-emerald-800 text-white shadow-md sticky top-0 z-50">
+            <div class="max-w-4xl mx-auto px-4 py-3 flex flex-col gap-3">
                 <div class="flex justify-between items-center">
-                    <h2 class="text-md font-extrabold text-slate-900" id="catalog-title">All Products</h2>
-                    <span class="text-xs text-emerald-700 font-bold bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100" id="catalog-count-badge">0 Items Available</span>
-                </div>
-                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="product-grid">
-                    </div>
-            </div>
-        </div>
-
-        <div id="view-checkout" class="view-section max-w-lg mx-auto space-y-4">
-            <button onclick="showView('view-catalog')" class="inline-flex items-center gap-1.5 text-slate-500 hover:text-slate-900 text-sm font-bold transition">
-                <i data-lucide="arrow-left" class="w-4 h-4"></i> Continue Shopping
-            </button>
-
-            <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-5">
-                <div>
-                    <h2 class="text-xl font-black text-slate-900">Delivery & Address Details</h2>
-                    <p class="text-xs text-slate-500">Provide accurate logistical shipping destination arrays.</p>
-                </div>
-
-                <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl flex gap-3">
-                    <i data-lucide="alert-octagon" class="w-5 h-5 text-amber-600 shrink-0 mt-0.5"></i>
-                    <div class="space-y-1">
-                        <h4 class="text-xs font-black text-amber-950 uppercase tracking-wider">Verification Identity Alert</h4>
-                        <p class="text-[11px] text-amber-900 leading-relaxed font-medium">
-                            <strong>CRITICAL:</strong> The name you type below <strong>MUST match perfectly</strong> with the bank app profile name used to execute your payment transfer. Cross-mismatched profiles will halt shipping validation loops.
-                        </p>
-                    </div>
-                </div>
-
-                <form id="checkout-form" onsubmit="executeDatabaseOrder(event)" class="space-y-4">
                     <div>
-                        <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Your Full Name (Bank Record Name)</label>
-                        <input type="text" id="form-name" required placeholder="Firstname Lastname" class="w-full border border-slate-200 rounded-xl px-4 py-3 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition text-sm font-medium">
+                        <h1 class="text-xl font-black tracking-tight text-white flex items-center gap-1.5">
+                            <i data-lucide="store" class="w-6 h-6 text-amber-400"></i>
+                            Jago <span class="text-amber-400">Supastore</span>
+                        </h1>
+                        <p class="text-[10px] text-emerald-200 font-medium tracking-wide">Fresh foodstuffs at local market prices</p>
                     </div>
-
-                    <div>
-                        <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Active Contact Phone Number</label>
-                        <input type="tel" id="form-phone" required placeholder="e.g., 08031234567" class="w-full border border-slate-200 rounded-xl px-4 py-3 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition text-sm font-medium">
-                    </div>
-
-                    <div>
-                        <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Select Delivery Hub Location</label>
-                        <select id="form-location" onchange="calculateLogisticsPricing()" class="w-full border border-slate-200 rounded-xl px-4 py-3 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition text-sm font-bold text-slate-700">
-                            <option value="Lekki">Lekki Hub (₦2,500 Delivery Fee)</option>
-                            <option value="Ajah">Ajah Hub (₦2,000 Delivery Fee)</option>
-                            <option value="Surulere">Surulere Hub (₦3,000 Delivery Fee)</option>
-                            <option value="Ikeja">Ikeja Hub (₦3,500 Delivery Fee)</option>
-                            <option value="Epe">Epe Hub (₦5,000 Delivery Fee)</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Detailed Street Address</label>
-                        <textarea id="form-address" required rows="3" placeholder="House number, Street, Estate, Landmark references..." class="w-full border border-slate-200 rounded-xl px-4 py-3 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition text-sm font-medium"></textarea>
-                    </div>
-
-                    <div class="bg-slate-100 rounded-xl p-4 border border-slate-200/60 space-y-2">
-                        <div class="flex justify-between text-xs text-slate-600">
-                            <span>Basket Items Value:</span>
-                            <span class="font-bold">₦<span id="invoice-subtotal">0</span></span>
-                        </div>
-                        <div class="flex justify-between text-xs text-slate-600">
-                            <span>Hub Logistical Delivery Fee:</span>
-                            <span class="font-bold text-emerald-700">+ ₦<span id="invoice-fee">0</span></span>
-                        </div>
-                        <div class="h-px bg-slate-200 my-1"></div>
-                        <div class="flex justify-between text-sm font-black text-slate-900">
-                            <span>Gross Total Cost Due:</span>
-                            <span class="text-emerald-800">₦<span id="invoice-total">0</span></span>
-                        </div>
-                    </div>
-
-                    <button type="submit" id="submit-btn" class="w-full bg-emerald-600 text-white py-4 rounded-xl font-bold shadow-md hover:bg-emerald-700 transition flex items-center justify-center gap-2 text-sm cursor-pointer">
-                        Securely Log Order to Database
-                        <i data-lucide="check-square" class="w-4 h-4"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <div id="view-success" class="view-section max-w-lg mx-auto text-center space-y-4">
-            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-xl space-y-6">
-                <div class="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
-                    <i data-lucide="cloud-lightning" class="w-8 h-8"></i>
-                </div>
-                
-                <div>
-                    <h2 class="text-xl font-black text-slate-900">Order Dispatched to Database</h2>
-                    <p class="text-xs text-slate-500 mt-1">Your selection array has locked safely inside the Jago Supastore master logs spreadsheet cloud. Execute settlement below.</p>
-                </div>
-
-                <div class="bg-slate-50 border border-slate-200/50 rounded-2xl p-4 text-left flex justify-between items-center">
-                    <div>
-                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Final Settlement Due</p>
-                        <p class="text-2xl font-black text-emerald-800">₦<span id="final-total">0</span></p>
-                    </div>
-                    <div class="bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-100 text-xs font-black text-emerald-800 uppercase tracking-wide">
-                        Pending Transfer
-                    </div>
-                </div>
-
-                <div class="bg-slate-900 text-white rounded-2xl p-5 text-left space-y-4 relative overflow-hidden shadow-inner">
-                    <div class="absolute -right-6 -bottom-6 text-slate-800/40 pointer-events-none">
-                        <i data-lucide="shield-check" class="w-32 h-32"></i>
-                    </div>
-
-                    <p class="text-[10px] uppercase font-black tracking-widest text-emerald-400">Palmpay Settling Gateway Channel</p>
                     
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-[9px] uppercase font-bold text-slate-400 tracking-wider">Receiving Institution</label>
-                            <p class="text-sm font-black text-white">PalmPay</p>
+                    <div class="flex items-center gap-2">
+                        <!-- Dynamic Header Shopping Cart Counter Trigger -->
+                        <div onclick="showCartDrawer()" class="relative cursor-pointer bg-emerald-900 border border-emerald-700/50 px-3 py-2 rounded-xl flex items-center gap-2 text-sm font-bold hover:bg-emerald-950 transition">
+                            <i data-lucide="shopping-cart" class="w-5 h-5 text-amber-400"></i>
+                            <span id="cart-count" class="bg-amber-400 text-slate-900 rounded-full text-xs w-5 h-5 flex items-center justify-center font-black">0</span>
                         </div>
-                        <div>
-                            <label class="block text-[9px] uppercase font-bold text-slate-400 tracking-wider">Account Name</label>
-                            <p class="text-sm font-black text-white">Nnenna Udeh Ufere</p>
-                        </div>
-                    </div>
-
-                    <div class="border-t border-slate-800 pt-3 flex justify-between items-center">
-                        <div>
-                            <label class="block text-[9px] uppercase font-bold text-emerald-400 tracking-wider">Account Number</label>
-                            <p class="text-xl font-mono font-black tracking-widest text-amber-400" id="bank-number">7045104904</p>
-                        </div>
-                        <button onclick="copyAccountToClipboard('7045104904', this)" class="bg-slate-800 border border-slate-700 text-xs text-white px-3 py-1.5 rounded-xl font-bold flex items-center gap-1 hover:bg-slate-700 transition cursor-pointer">
-                            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Number
+                        <!-- Logout Safety Switch Control Anchor -->
+                        <button onclick="executeAccountLogout()" title="Sign Out" class="bg-emerald-900/40 border border-emerald-700/30 p-2.5 rounded-xl hover:bg-red-900/60 hover:border-red-700/40 transition text-emerald-200 hover:text-white cursor-pointer">
+                            <i data-lucide="log-out" class="w-4 h-4"></i>
                         </button>
                     </div>
                 </div>
-
-                <div class="p-3 bg-amber-50/50 border border-amber-200/40 rounded-xl">
-                    <p class="text-[11px] text-amber-800 leading-relaxed font-medium">
-                        💡 **Next Step:** Screenshot your successful payment confirmation voucher receipt graphics asset and push directly to our operations counter via WhatsApp messaging strings to activate shipping dispatch routing instantly.
-                    </p>
+                
+                <!-- Live Active Functional Search Bar Component -->
+                <div class="relative">
+                    <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5"></i>
+                    <input type="text" id="search-input" oninput="handleSearchFilter()" placeholder="Search rice, tomatoes, bread, cooking oil..." class="w-full bg-white text-slate-900 pl-10 pr-4 py-2.5 rounded-xl text-sm border-none focus:outline-none focus:ring-2 focus:ring-amber-400 shadow-inner">
                 </div>
             </div>
-        </div>
-    </main>
+        </header>
 
-    <div id="cart-drawer" class="hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 shadow-2xl p-4 z-40 max-w-4xl mx-auto rounded-t-3xl">
-        <div class="flex justify-between items-center border-b border-slate-100 pb-3 mb-3">
-            <h4 class="text-sm font-black text-slate-900 flex items-center gap-1.5">
-                <i data-lucide="shopping-basket" class="w-4 h-4 text-emerald-700"></i>
-                Your Selected Items
-            </h4>
-            <button onclick="hideCartDrawer()" class="text-slate-400 hover:text-slate-600 text-xs font-bold">Minimize Drawer ✕</button>
-        </div>
-        <div class="max-h-40 overflow-y-auto space-y-2 mb-4 pr-1" id="cart-drawer-items">
+        <main class="max-w-4xl mx-auto px-4 py-4 min-h-[calc(100vh-120px)] pb-28">
+            
+            <!-- PAGE 1: CORE MARKETPLACE CATALOG -->
+            <div id="view-catalog" class="view-section active space-y-6">
+                <!-- Horizontal Category Quick Slider -->
+                <div class="space-y-2">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Browse Categories</h3>
+                    <div class="flex gap-2 overflow-x-auto no-scrollbar py-1" id="category-slider"></div>
+                </div>
+
+                <!-- Main Dynamic Grid Space -->
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-md font-extrabold text-slate-900" id="catalog-title">All Products</h2>
+                        <span class="text-xs text-emerald-700 font-bold bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100" id="catalog-count-badge">0 Items Available</span>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="product-grid"></div>
+                </div>
             </div>
-        <div class="flex justify-between items-center bg-slate-50 p-3 rounded-2xl border border-slate-100">
-            <div>
-                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Running Total</p>
-                <p class="text-lg font-black text-emerald-800">₦<span id="cart-total-value">0</span></p>
+
+            <!-- PAGE 2: SECURE CHECKOUT & LOGISTICS SUBMISSION -->
+            <div id="view-checkout" class="view-section max-w-lg mx-auto space-y-4">
+                <button onclick="showView('view-catalog')" class="inline-flex items-center gap-1.5 text-slate-500 hover:text-slate-900 text-sm font-bold transition cursor-pointer">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Continue Shopping
+                </button>
+
+                <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-5">
+                    <div>
+                        <h2 class="text-xl font-black text-slate-900">Delivery & Address Details</h2>
+                        <p class="text-xs text-slate-500">Provide accurate logistical shipping destination arrays.</p>
+                    </div>
+
+                    <!-- Strict Name Verification Identity Compliance Banner -->
+                    <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl flex gap-3">
+                        <i data-lucide="alert-octagon" class="w-5 h-5 text-amber-600 shrink-0 mt-0.5"></i>
+                        <div class="space-y-1">
+                            <h4 class="text-xs font-black text-amber-950 uppercase tracking-wider">Verification Identity Alert</h4>
+                            <p class="text-[11px] text-amber-900 leading-relaxed font-medium">
+                                <strong>CRITICAL:</strong> The name you type below <strong>MUST match perfectly</strong> with the bank app profile name used to execute your payment transfer. Cross-mismatched profiles will halt shipping validation loops.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Form Object -->
+                    <form id="checkout-form" onsubmit="executeDatabaseOrder(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Your Full Name (Bank Record Name)</label>
+                            <input type="text" id="form-name" required placeholder="Firstname Lastname" class="w-full border border-slate-200 rounded-xl px-4 py-3 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition text-sm font-medium">
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Active Contact Phone Number</label>
+                            <input type="tel" id="form-phone" required placeholder="e.g., 08031234567" class="w-full border border-slate-200 rounded-xl px-4 py-3 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition text-sm font-medium">
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Select Delivery Hub Location</label>
+                            <select id="form-location" onchange="calculateLogisticsPricing()" class="w-full border border-slate-200 rounded-xl px-4 py-3 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition text-sm font-bold text-slate-700">
+                                <option value="Lekki">Lekki Hub (₦2,500 Delivery Fee)</option>
+                                <option value="Ajah">Ajah Hub (₦2,000 Delivery Fee)</option>
+                                <option value="Surulere">Surulere Hub (₦3,000 Delivery Fee)</option>
+                                <option value="Ikeja">Ikeja Hub (₦3,500 Delivery Fee)</option>
+                                <option value="Epe">Epe Hub (₦5,000 Delivery Fee)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Detailed Street Address</label>
+                            <textarea id="form-address" required rows="3" placeholder="House number, Street, Estate, Landmark references..." class="w-full border border-slate-200 rounded-xl px-4 py-3 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition text-sm font-medium"></textarea>
+                        </div>
+
+                        <!-- Complete Accounting Costing Overview Breakdown Card -->
+                        <div class="bg-slate-100 rounded-xl p-4 border border-slate-200/60 space-y-2">
+                            <div class="flex justify-between text-xs text-slate-600">
+                                <span>Basket Items Value:</span>
+                                <span class="font-bold">₦<span id="invoice-subtotal">0</span></span>
+                            </div>
+                            <div class="flex justify-between text-xs text-slate-600">
+                                <span>Hub Logistical Delivery Fee:</span>
+                                <span class="font-bold text-emerald-700">+ ₦<span id="invoice-fee">0</span></span>
+                            </div>
+                            <div class="h-px bg-slate-200 my-1"></div>
+                            <div class="flex justify-between text-sm font-black text-slate-900">
+                                <span>Gross Total Cost Due:</span>
+                                <span class="text-emerald-800">₦<span id="invoice-total">0</span></span>
+                            </div>
+                        </div>
+
+                        <button type="submit" id="submit-btn" class="w-full bg-emerald-600 text-white py-4 rounded-xl font-bold shadow-md hover:bg-emerald-700 transition flex items-center justify-center gap-2 text-sm cursor-pointer">
+                            Securely Log Order to Database
+                            <i data-lucide="check-square" class="w-4 h-4"></i>
+                        </button>
+                    </form>
+                </div>
             </div>
-            <button onclick="showView('view-checkout')" class="bg-emerald-600 text-white px-5 py-3 rounded-xl text-xs font-bold shadow-md hover:bg-emerald-700 transition flex items-center gap-1.5 cursor-pointer">
-                Checkout Invoice Summary
-                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-            </button>
+
+            <!-- PAGE 3: TRANSACTIONAL PAYMENT CONFIRMATION SCREEN -->
+            <div id="view-success" class="view-section max-w-lg mx-auto text-center space-y-4">
+                <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-xl space-y-6">
+                    <div class="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
+                        <i data-lucide="cloud-lightning" class="w-8 h-8"></i>
+                    </div>
+                    
+                    <div>
+                        <h2 class="text-xl font-black text-slate-900">Order Dispatched to Database</h2>
+                        <p class="text-xs text-slate-500 mt-1">Your selection array has locked safely inside the Jago Supastore master logs spreadsheet cloud. Execute settlement below.</p>
+                    </div>
+
+                    <!-- Final Invoice Target Breakdown Display -->
+                    <div class="bg-slate-50 border border-slate-200/50 rounded-2xl p-4 text-left flex justify-between items-center">
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Final Settlement Due</p>
+                            <p class="text-2xl font-black text-emerald-800">₦<span id="final-total">0</span></p>
+                        </div>
+                        <div class="bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-100 text-xs font-black text-emerald-800 uppercase tracking-wide">
+                            Pending Transfer
+                        </div>
+                    </div>
+
+                    <!-- Styled Secure Bank Credentials Module -->
+                    <div class="bg-slate-900 text-white rounded-2xl p-5 text-left space-y-4 relative overflow-hidden shadow-inner">
+                        <div class="absolute -right-6 -bottom-6 text-slate-800/40 pointer-events-none">
+                            <i data-lucide="shield-check" class="w-32 h-32"></i>
+                        </div>
+
+                        <p class="text-[10px] uppercase font-black tracking-widest text-emerald-400">Palmpay Settling Gateway Channel</p>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-[9px] uppercase font-bold text-slate-400 tracking-wider">Receiving Institution</label>
+                                <p class="text-sm font-black text-white">PalmPay</p>
+                            </div>
+                            <div>
+                                <label class="block text-[9px] uppercase font-bold text-slate-400 tracking-wider">Account Name</label>
+                                <p class="text-sm font-black text-white">Nnenna Udeh Ufere</p>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-slate-800 pt-3 flex justify-between items-center">
+                            <div>
+                                <label class="block text-[9px] uppercase font-bold text-emerald-400 tracking-wider">Account Number</label>
+                                <p class="text-xl font-mono font-black tracking-widest text-amber-400" id="bank-number">7045104904</p>
+                            </div>
+                            <button onclick="copyAccountToClipboard('7045104904', this)" class="bg-slate-800 border border-slate-700 text-xs text-white px-3 py-1.5 rounded-xl font-bold flex items-center gap-1 hover:bg-slate-700 transition cursor-pointer">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Number
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-amber-50/50 border border-amber-200/40 rounded-xl">
+                        <p class="text-[11px] text-amber-800 leading-relaxed font-medium">
+                            💡 **Next Step:** Screenshot your successful payment confirmation voucher receipt graphics asset and push directly to our operations counter via WhatsApp messaging strings to activate shipping dispatch routing instantly.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Global Floating Action Footer Cart Sheet Drawer Container Component -->
+        <div id="cart-drawer" class="hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 shadow-2xl p-4 z-40 max-w-4xl mx-auto rounded-t-3xl">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3 mb-3">
+                <h4 class="text-sm font-black text-slate-900 flex items-center gap-1.5">
+                    <i data-lucide="shopping-basket" class="w-4 h-4 text-emerald-700"></i>
+                    Your Selected Items
+                </h4>
+                <button onclick="hideCartDrawer()" class="text-slate-400 hover:text-slate-600 text-xs font-bold">Minimize Drawer ✕</button>
+            </div>
+            <div class="max-h-40 overflow-y-auto space-y-2 mb-4 pr-1" id="cart-drawer-items"></div>
+            <div class="flex justify-between items-center bg-slate-50 p-3 rounded-2xl border border-slate-100">
+                <div>
+                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Running Total</p>
+                    <p class="text-lg font-black text-emerald-800">₦<span id="cart-total-value">0</span></p>
+                </div>
+                <button onclick="showView('view-checkout')" class="bg-emerald-600 text-white px-5 py-3 rounded-xl text-xs font-bold shadow-md hover:bg-emerald-700 transition flex items-center gap-1.5 cursor-pointer">
+                    Checkout Invoice Summary
+                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+            </div>
         </div>
     </div>
 
+    <!-- Application Controller Logic Script Engine Block Module -->
     <script>
-        // INSERT YOUR SPECIFIC PRIVATE SUPABASE SECURE ENDPOINT KEYS BELOW HERE
+        // INPUT PRODUCTION ENDPOINT ROUTING URI CREDENTIALS MATRIX
         const SUPABASE_URL = "https://aypzhrjwxghaggqtruoy.supabase.co";
         const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF5cHpocmp3eGdoYWdncXRydW95Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE2MjU2ODUsImV4cCI6MjA5NzIwMTY4NX0.FbBbp_lf6gIhmaTvov6jL0Nv75dD7GPgs9HdGmBd92U";
 
@@ -236,11 +337,168 @@
             { id: 15, name: "Sweet Juicy Seasonal Mangoes", category: "Fruits", size: "1 Basket", price: 10000, img: "https://images.unsplash.com/photo-1553279768-865429fa0078?w=400&auto=format&fit=crop&q=60" }
         ];
 
-        // Unique dynamic delivery hub mapping database pricing matrix array records
         const deliveryTariffs = { "Lekki": 2500, "Ajah": 2000, "Surulere": 3000, "Ikeja": 3500, "Epe": 5000 };
         let currentActiveCartMap = {};
         let selectedCategoryFilter = "All";
 
+        // ==========================================
+        //  AUTHENTICATION ENGINE LOGIC & CALLBACKS
+        // ==========================================
+        function toggleAuthTab(mode) {
+            const loginForm = document.getElementById('auth-login-form');
+            const signupForm = document.getElementById('auth-signup-form');
+            const loginBtn = document.getElementById('tab-btn-login');
+            const signupBtn = document.getElementById('tab-btn-signup');
+
+            if (mode === 'login') {
+                loginForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+                loginBtn.className = "flex-1 py-2.5 text-xs font-black rounded-lg transition-all text-emerald-950 bg-white shadow-sm cursor-pointer";
+                signupBtn.className = "flex-1 py-2.5 text-xs font-black rounded-lg transition-all text-slate-500 hover:text-slate-800 cursor-pointer";
+            } else {
+                loginForm.classList.add('hidden');
+                signupForm.classList.remove('hidden');
+                signupBtn.className = "flex-1 py-2.5 text-xs font-black rounded-lg transition-all text-emerald-950 bg-white shadow-sm cursor-pointer";
+                loginBtn.className = "flex-1 py-2.5 text-xs font-black rounded-lg transition-all text-slate-500 hover:text-slate-800 cursor-pointer";
+            }
+        }
+
+        async function executeUserRegistration(e) {
+            e.preventDefault();
+            const actionBtn = document.getElementById('signup-submit-btn');
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            const firstName = document.getElementById('reg-fname').value;
+            const lastName = document.getElementById('reg-lname').value;
+            const phone = document.getElementById('reg-phone').value;
+
+            actionBtn.disabled = true;
+            actionBtn.innerText = "Creating Account Profile...";
+
+            try {
+                const response = await fetch(`${SUPABASE_URL}/auth/v1/signup`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password,
+                        options: { data: { first_name: firstName, last_name: lastName, phone_number: phone } }
+                    })
+                });
+
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.message || "Registration failed.");
+
+                localStorage.setItem('jago_session_token', data.access_token);
+                alert("Registration complete! Access unlocked.");
+                checkActiveUserSession();
+
+            } catch (err) {
+                alert("Signup Refused: " + err.message);
+            } finally {
+                actionBtn.disabled = false;
+                actionBtn.innerText = "Register Secure Account";
+            }
+        }
+
+        async function executeUserLogin(e) {
+            e.preventDefault();
+            const actionBtn = document.getElementById('login-submit-btn');
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            actionBtn.disabled = true;
+            actionBtn.innerText = "Validating Credentials...";
+
+            try {
+                const response = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY },
+                    body: JSON.stringify({ email: email, password: password })
+                });
+
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.message || "Invalid credentials.");
+
+                localStorage.setItem('jago_session_token', data.access_token);
+                checkActiveUserSession();
+
+            } catch (err) {
+                alert("Login Denied: " + err.message);
+            } finally {
+                actionBtn.disabled = false;
+                actionBtn.innerText = "Sign Into Store";
+            }
+        }
+
+        function loginWithGoogle() {
+            const redirectUrl = window.location.origin + window.location.pathname; 
+            window.location.href = `${SUPABASE_URL}/auth/v1/authorize?provider=google&redirect_to=${encodeURIComponent(redirectUrl)}`;
+        }
+
+        function handleOAuthRedirectCallback() {
+            const hashData = window.location.hash;
+            if (hashData && hashData.includes('access_token=')) {
+                const urlParams = new URLSearchParams(hashData.replace('#', '?'));
+                const accessToken = urlParams.get('access_token');
+                if (accessToken) {
+                    localStorage.setItem('jago_session_token', accessToken);
+                    window.history.replaceState(null, null, window.location.pathname);
+                    checkActiveUserSession();
+                }
+            }
+        }
+
+        function getLoggedUserData() {
+            const token = localStorage.getItem('jago_session_token');
+            if (!token) return null;
+            try {
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                return JSON.parse(window.atob(base64));
+            } catch(e) {
+                return null;
+            }
+        }
+
+        function checkActiveUserSession() {
+            const token = localStorage.getItem('jago_session_token');
+            if (token) {
+                document.getElementById('view-auth').classList.remove('active');
+                document.getElementById('store-main-layout').classList.remove('hidden');
+                showView('view-catalog');
+                prefillCheckoutProfileForm();
+            } else {
+                document.getElementById('store-main-layout').classList.add('hidden');
+                document.getElementById('view-auth').classList.add('active');
+            }
+        }
+
+        function executeAccountLogout() {
+            localStorage.removeItem('jago_session_token');
+            currentActiveCartMap = {};
+            refreshCartMetricStates();
+            checkActiveUserSession();
+        }
+
+        function prefillCheckoutProfileForm() {
+            const userData = getLoggedUserData();
+            if (!userData || !userData.user_metadata) return;
+            
+            const meta = userData.user_metadata;
+            const formName = document.getElementById('form-name');
+            const formPhone = document.getElementById('form-phone');
+
+            // Handle direct inputs matching metadata structures
+            if(meta.full_name) formName.value = meta.full_name;
+            else if(meta.first_name) formName.value = `${meta.first_name} ${meta.last_name || ''}`.trim();
+            
+            if(meta.phone_number) formPhone.value = meta.phone_number;
+        }
+
+        // ==========================================
+        //  CORE APP LOGIC, VIEWS & CHECKOUT MATRIX
+        // ==========================================
         function showView(viewId) {
             document.querySelectorAll('.view-section').forEach(view => view.classList.remove('active'));
             document.getElementById(viewId).classList.add('active');
@@ -264,7 +522,6 @@
         function setCategoryFilter(category) {
             selectedCategoryFilter = category;
             buildCategoryInterfaceSelectors();
-            // Retain background class colors on targeting array structures
             document.querySelectorAll('[id^="cat-tab-"]').forEach(btn => {
                 btn.className = "px-4 py-2 text-xs font-bold rounded-xl whitespace-nowrap border transition cursor-pointer bg-white text-slate-600 border-slate-200 hover:bg-slate-50";
             });
@@ -273,15 +530,12 @@
             renderMarketplaceGrid();
         }
 
-        function handleSearchFilter() {
-            renderMarketplaceGrid();
-        }
+        function handleSearchFilter() { renderMarketplaceGrid(); }
 
         function renderMarketplaceGrid() {
             const grid = document.getElementById('product-grid');
             const query = document.getElementById('search-input').value.toLowerCase().trim();
             
-            // Comprehensive parsing loop
             let filtered = inventory.filter(p => {
                 const matchCategory = (selectedCategoryFilter === "All" || p.category === selectedCategoryFilter);
                 const matchQuery = (p.name.toLowerCase().includes(query) || p.category.toLowerCase().includes(query));
@@ -370,7 +624,6 @@
             document.getElementById('cart-count').innerText = totalCount;
             document.getElementById('cart-total-value').innerText = totalPrice.toLocaleString();
             
-            // Build elements to drawers layout array loops
             const drawerContainer = document.getElementById('cart-drawer-items');
             const cartItemKeys = Object.keys(currentActiveCartMap);
             
@@ -394,13 +647,8 @@
             lucide.createIcons();
         }
 
-        function showCartDrawer() {
-            document.getElementById('cart-drawer').classList.remove('hidden');
-        }
-
-        function hideCartDrawer() {
-            document.getElementById('cart-drawer').classList.add('hidden');
-        }
+        function showCartDrawer() { document.getElementById('cart-drawer').classList.remove('hidden'); }
+        function hideCartDrawer() { document.getElementById('cart-drawer').classList.add('hidden'); }
 
         function calculateLogisticsPricing() {
             const loc = document.getElementById('form-location').value;
@@ -420,7 +668,6 @@
             }).join(', ');
         }
 
-        // CONNECT SUBMISSION LOGIC DIRECTLY TO SUPABASE BACKEND VIA DIRECT REST HTTP REQUEST STRINGS
         async function executeDatabaseOrder(e) {
             e.preventDefault();
             const actionBtn = document.getElementById('submit-btn');
@@ -452,14 +699,13 @@
                     headers: {
                         'Content-Type': 'application/json',
                         'apikey': SUPABASE_ANON_KEY,
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Authorization': `Bearer ${localStorage.getItem('jago_session_token') || SUPABASE_ANON_KEY}`,
                         'Prefer': 'return=minimal'
                     },
                     body: JSON.stringify(dbPayload)
                 });
 
                 if(!response.ok) {
-                    // This extracts the real raw response error message from Supabase servers
                     const errData = await response.json().catch(() => ({}));
                     const detailedError = errData.message || "Unknown database error";
                     const errorHint = errData.hint ? ` Hint: ${errData.hint}` : "";
@@ -470,7 +716,6 @@
                 showView('view-success');
 
             } catch (err) {
-                // Shows the exact error on your phone screen
                 alert("Supabase Said: " + err.message);
                 console.error(err);
             } finally {
@@ -489,8 +734,10 @@
             });
         }
 
-        // Map initial allocation layouts
+        // Initialize state arrays on DOM mount execution
         window.addEventListener('DOMContentLoaded', () => {
+            handleOAuthRedirectCallback();
+            checkActiveUserSession();
             buildCategoryInterfaceSelectors();
             renderMarketplaceGrid();
         });
