@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar Pro Audit - Strings & Cables</title>
+    <style>
+        :root { --primary: #0f172a; --accent: #0284c7; --bg: #f8fafc; --card: #ffffff; --text: #334155; }
+        body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 15px; }
+        nav { background: var(--primary); padding: 12px; border-radius: 8px; margin-bottom: 20px; text-align: center; }
+        nav a { color: #f8fafc; text-decoration: none; margin: 0 10px; font-weight: bold; font-size: 0.9rem; }
+        nav a.active { color: #38bdf8; border-bottom: 2px solid #38bdf8; padding-bottom: 3px; }
+        .container { max-width: 800px; margin: 0 auto; background: var(--card); padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        h1, h2 { color: var(--primary); }
+        h1 { text-align: center; font-size: 1.5rem; margin-top: 0; }
+        h2 { font-size: 1.1rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; background: #f1f5f9; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+        label { font-size: 0.75rem; font-weight: bold; color: #475569; display: block; margin-bottom: 4px; }
+        input { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; }
+        .results { padding: 15px; background: #f0f9ff; border-radius: 8px; border: 1px solid #bae6fd; margin-bottom: 20px; }
+        .res-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #e0f2fe; font-size: 0.9rem; }
+        .val { font-weight: bold; color: #0c4a6e; }
+        button { background: var(--accent); color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html">1. Load Audit</a>
+    <a href="strings.html" class="active">2. Strings & Cables</a>
+    <a href="financials.html">3. Financials & PDF</a>
+</nav>
+
+<div class="container">
+    <h1>Page 2: String Sizing & Cable Drops</h1>
+
+    <h2>1. Cold Temperature MPPT String Engine</h2>
+    <div class="grid">
+        <div>
+            <label>Panel Rating (Wp)</label>
+            <input type="number" id="pWp" value="550" onchange="calcStrings()">
+        </div>
+        <div>
+            <label>Panel Voc (V)</label>
+            <input type="number" id="pVoc" value="49.8" step="0.1" onchange="calcStrings()">
+        </div>
+        <div>
+            <label>Panel Temp Coeff (%/°C)</label>
+            <input type="number" id="pCoeff" value="-0.27" step="0.01" onchange="calcStrings()">
+        </div>
+        <div>
+            <label>Min. Local Temp (°C)</label>
+            <input type="number" id="minTemp" value="10" onchange="calcStrings()">
+        </div>
+        <div>
+            <label>MPPT Max Voltage (V)</label>
+            <input type="number" id="mpptMaxV" value="500" onchange="calcStrings()">
+        </div>
+    </div>
+
+    <div class="results">
+        <div class="res-row"><span>Cold Corrected Voc per Panel:</span> <span class="val" id="corrVoc">0 V</span></div>
+        <div class="res-row"><span>Max Panels per String (Series):</span> <span class="val" id="maxSeries">0 Panels</span></div>
+        <div class="res-row"><span>Recommended Array Wiring:</span> <span class="val" id="stringConfig">0 Strings</span></div>
+    </div>
+
+    <h2>2. Copper Cable & Voltage Drop Calculator</h2>
+    <div class="grid">
+        <div>
+            <label>One-Way Cable Distance (m)</label>
+            <input type="number" id="dist" value="25" onchange="calcCables()">
+        </div>
+        <div>
+            <label>Allowable Drop (%)</label>
+            <input type="number" id="maxDrop" value="2.5" step="0.1" onchange="calcCables()">
+        </div>
+        <div>
+            <label>Array Operating Current (A)</label>
+            <input type="number" id="pvAmps" value="13" step="0.1" onchange="calcCables()">
+        </div>
+    </div>
+
+    <div class="results">
+        <div class="res-row"><span>PV Array Cable Area:</span> <span class="val" id="pvCable">0 mm²</span></div>
+        <div class="res-row"><span>Battery to Inverter Cable Area:</span> <span class="val" id="batCable">0 mm²</span></div>
+        <div class="res-row"><span>Recommended DC Breakers:</span> <span class="val" id="breakerSize">0 A</span></div>
+    </div>
+
+    <button onclick="saveAndNext()">Proceed to Financials & PDF Export →</button>
+</div>
+
+<script>
+    let auditData = JSON.parse(localStorage.getItem('solar_audit_data')) || {};
+
+    function calcStrings() {
+        const pWp = parseFloat(document.getElementById('pWp').value) || 550;
+        const pVoc = parseFloat(document.getElementById('pVoc').value) || 49.8;
+        const pCoeff = parseFloat(document.getElementById('pCoeff').value) || -0.27;
+        const minTemp = parseFloat(document.getElementById('minTemp').value) || 10;
+        const mpptMaxV = parseFloat(document.getElementById('mpptMaxV').value) || 500;
+
+        // Temperature correction equation: Voc_cold = Voc * [1 + (Coeff/100 * (Tmin - 25))]
+        const corrVoc = pVoc * (1 + ((pCoeff / 100) * (minTemp - 25)));
+        const maxSeries = Math.floor(mpptMaxV / corrVoc);
+
+        const totalPvWp = auditData.pvWp || 2000;
+        const totalPanels = Math.ceil(totalPvWp / pWp);
+        const parallelStrings = Math.ceil(totalPanels / maxSeries);
+
+        document.getElementById('corrVoc').innerText = corrVoc.toFixed(2) + " V";
+        document.getElementById('maxSeries').innerText = maxSeries + " Panels Max";
+        document.getElementById('stringConfig').innerText = parallelStrings + " Parallel String(s) of " + Math.ceil(totalPanels / parallelStrings) + " Panels";
+
+        auditData.panelWp = pWp;
+        auditData.totalPanels = totalPanels;
+        auditData.stringConfig = parallelStrings + "x" + Math.ceil(totalPanels / parallelStrings);
+        localStorage.setItem('solar_audit_data', JSON.stringify(auditData));
+    }
+
+    function calcCables() {
+        const dist = parseFloat(document.getElementById('dist').value) || 25;
+        const maxDrop = parseFloat(document.getElementById('maxDrop').value) || 2.5;
+        const pvAmps = parseFloat(document.getElementById('pvAmps').value) || 13;
+        const sysV = auditData.sysV || 48;
+        const invKva = parseFloat(auditData.invKva) || 3;
+
+        // Copper resistivity = 0.0175 ohm*mm^2/m
+        // Area = (2 * Dist * Current * 0.0175) / (Volts * Drop%)
+        const pvVoltDropLimit = 150 * (maxDrop / 100);
+        const pvCableArea = (2 * dist * pvAmps * 0.0175) / pvVoltDropLimit;
+
+        // Battery Current = (Inverter VA) / SysV
+        const batAmps = (invKva * 1000) / sysV;
+        const batVoltDropLimit = sysV * (maxDrop / 100);
+        const batCableArea = (2 * 3 * batAmps * 0.0175) / batVoltDropLimit; // assuming 3m battery lead
+
+        document.getElementById('pvCable').innerText = Math.max(pvCableArea, 4).toFixed(1) + " mm² (Use 4mm² or 6mm² PV Cable)";
+        document.getElementById('batCable').innerText = Math.max(batCableArea, 16).toFixed(1) + " mm² Heavy Copper Cable";
+        document.getElementById('breakerSize').innerText = "PV: " + Math.ceil(pvAmps * 1.25) + "A DC | Bat: " + Math.ceil(batAmps * 1.25) + "A DC";
+
+        auditData.pvCable = Math.max(pvCableArea, 4).toFixed(1) + " mm²";
+        auditData.batCable = Math.max(batCableArea, 16).toFixed(1) + " mm²";
+        localStorage.setItem('solar_audit_data', JSON.stringify(auditData));
+    }
+
+    calcStrings();
+    calcCables();
+
+    function saveAndNext() {
+        window.location.href = "financials.html";
+    }
+</script>
+</body>
+</html>
