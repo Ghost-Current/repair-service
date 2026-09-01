@@ -3,79 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solar System Sizing Calculator</title>
+    <title>Pro Solar & Inverter System Sizing Tool</title>
     <style>
-        :root { --primary: #0284c7; --bg: #f8fafc; --card: #ffffff; --text: #1e293b; }
+        :root { --primary: #0f172a; --accent: #0284c7; --bg: #f1f5f9; --card: #ffffff; --text: #334155; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 15px; }
-        .container { max-width: 650px; margin: 0 auto; background: var(--card); padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-        h1 { color: var(--primary); text-align: center; font-size: 1.5rem; margin-top: 0; }
-        p.subtitle { text-align: center; color: #64748b; font-size: 0.9rem; margin-bottom: 20px; }
-        table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
-        th, td { padding: 8px 4px; text-align: left; }
-        th { font-size: 0.85rem; color: #475569; border-bottom: 2px solid #e2e8f0; }
-        input { width: 90%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem; }
-        button { background: var(--primary); color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .container { max-width: 750px; margin: 0 auto; background: var(--card); padding: 25px; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+        h1 { color: var(--primary); text-align: center; font-size: 1.6rem; margin-top: 0; }
+        .subtitle { text-align: center; color: #64748b; font-size: 0.9rem; margin-bottom: 20px; }
+        
+        /* System Settings Panel */
+        .settings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 20px; }
+        .setting-item label { display: block; font-size: 0.8rem; font-weight: bold; color: #475569; margin-bottom: 5px; }
+        .setting-item select, .setting-item input { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem; background: #fff; }
+
+        /* Load Table */
+        .table-responsive { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 15px; min-width: 500px; }
+        th, td { padding: 10px 6px; text-align: left; }
+        th { font-size: 0.8rem; color: #475569; border-bottom: 2px solid #e2e8f0; text-transform: uppercase; }
+        input[type="text"], input[type="number"], select { width: 95%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem; }
+        
+        button { background: var(--accent); color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 10px; }
         button.add-btn { background: #10b981; margin-top: 5px; margin-bottom: 15px; padding: 8px; }
         .remove-btn { background: #ef4444; width: auto; padding: 6px 10px; font-size: 0.8rem; }
-        .results { margin-top: 25px; padding: 15px; background: #f0f9ff; border-radius: 8px; border: 1px solid #bae6fd; display: none; }
-        .results h2 { margin-top: 0; color: #0369a1; font-size: 1.2rem; }
-        .res-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #e0f2fe; }
+        
+        /* Results Section */
+        .results { margin-top: 25px; padding: 20px; background: #f0f9ff; border-radius: 8px; border: 1px solid #bae6fd; display: none; }
+        .results h2 { margin-top: 0; color: #0369a1; font-size: 1.3rem; border-bottom: 2px solid #bae6fd; padding-bottom: 8px; }
+        .res-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #e0f2fe; font-size: 0.95rem; }
         .res-item:last-child { border-bottom: none; }
         .res-val { font-weight: bold; color: #0c4a6e; }
+        .highlight { background: #e0f2fe; padding: 4px 8px; border-radius: 4px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Solar System Calculator</h1>
-    <p class="subtitle">Enter your household loads to get exact system specifications</p>
+    <h1>Pro Solar & Inverter Calculator</h1>
+    <p class="subtitle">Advanced sizing engine considering inductive surge loads and battery chemistry</p>
 
-    <table id="loadTable">
-        <thead>
-            <tr>
-                <th>Appliance</th>
-                <th>Watts</th>
-                <th>Qty</th>
-                <th>Hours/Day</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody id="loadBody">
-            <tr>
-                <td><input type="text" value="LED Bulb" class="name"></td>
-                <td><input type="number" value="15" class="watts"></td>
-                <td><input type="number" value="6" class="qty"></td>
-                <td><input type="number" value="8" class="hours"></td>
-                <td><button class="remove-btn" onclick="removeRow(this)">X</button></td>
-            </tr>
-            <tr>
-                <td><input type="text" value="Standing Fan" class="name"></td>
-                <td><input type="number" value="60" class="watts"></td>
-                <td><input type="number" value="2" class="qty"></td>
-                <td><input type="number" value="10" class="hours"></td>
-                <td><button class="remove-btn" onclick="removeRow(this)">X</button></td>
-            </tr>
-            <tr>
-                <td><input type="text" value="TV" class="name"></td>
-                <td><input type="number" value="100" class="watts"></td>
-                <td><input type="number" value="1" class="qty"></td>
-                <td><input type="number" value="6" class="hours"></td>
-                <td><button class="remove-btn" onclick="removeRow(this)">X</button></td>
-            </tr>
-        </tbody>
-    </table>
+    <!-- Global System Settings -->
+    <div class="settings-grid">
+        <div class="setting-item">
+            <label>Battery Technology</label>
+            <select id="batteryTech">
+                <option value="0.8">Lithium-ion / LiFePO4 (80% DOD)</option>
+                <option value="0.5">Lead-Acid / AGM / Gel (50% DOD)</option>
+            </select>
+        </div>
+        <div class="setting-item">
+            <label>Days of Autonomy (Backup)</label>
+            <select id="autonomy">
+                <option value="1">1 Day (Standard)</option>
+                <option value="1.5">1.5 Days</option>
+                <option value="2">2 Days (Cloudy Area)</option>
+            </select>
+        </div>
+        <div class="setting-item">
+            <label>Peak Sun Hours (PSH)</label>
+            <input type="number" id="psh" value="4.5" step="0.1" min="1" max="8">
+        </div>
+    </div>
+
+    <!-- Appliance Load Table -->
+    <div class="table-responsive">
+        <table id="loadTable">
+            <thead>
+                <tr>
+                    <th style="width:25%">Appliance</th>
+                    <th style="width:15%">Watts</th>
+                    <th style="width:10%">Qty</th>
+                    <th style="width:15%">Hrs/Day</th>
+                    <th style="width:25%">Load Type</th>
+                    <th style="width:10%"></th>
+                </tr>
+            </thead>
+            <tbody id="loadBody">
+                <tr>
+                    <td><input type="text" value="Fridge / Freezer" class="name"></td>
+                    <td><input type="number" value="150" class="watts"></td>
+                    <td><input type="number" value="1" class="qty"></td>
+                    <td><input type="number" value="12" class="hours"></td>
+                    <td>
+                        <select class="type">
+                            <option value="inductive" selected>Inductive (Motor)</option>
+                            <option value="resistive">Resistive (Normal)</option>
+                        </select>
+                    </td>
+                    <td><button class="remove-btn" onclick="removeRow(this)">X</button></td>
+                </tr>
+                <tr>
+                    <td><input type="text" value="Air Conditioner (1HP)" class="name"></td>
+                    <td><input type="number" value="800" class="watts"></td>
+                    <td><input type="number" value="1" class="qty"></td>
+                    <td><input type="number" value="6" class="hours"></td>
+                    <td>
+                        <select class="type">
+                            <option value="inductive" selected>Inductive (Motor)</option>
+                            <option value="resistive">Resistive (Normal)</option>
+                        </select>
+                    </td>
+                    <td><button class="remove-btn" onclick="removeRow(this)">X</button></td>
+                </tr>
+                <tr>
+                    <td><input type="text" value="LED Lighting" class="name"></td>
+                    <td><input type="number" value="15" class="watts"></td>
+                    <td><input type="number" value="8" class="qty"></td>
+                    <td><input type="number" value="6" class="hours"></td>
+                    <td>
+                        <select class="type">
+                            <option value="resistive" selected>Resistive (Normal)</option>
+                            <option value="inductive">Inductive (Motor)</option>
+                        </select>
+                    </td>
+                    <td><button class="remove-btn" onclick="removeRow(this)">X</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <button class="add-btn" onclick="addRow()">+ Add Appliance</button>
-    <button onclick="calculateSystem()">Calculate Solar System</button>
+    <button onclick="calculateSystem()">Calculate System Specifications</button>
 
+    <!-- Results Display -->
     <div id="results" class="results">
-        <h2>Recommended Specifications</h2>
-        <div class="res-item"><span>Total Connected Peak Load:</span> <span class="res-val" id="peakWatts">0 W</span></div>
-        <div class="res-item"><span>Total Daily Energy:</span> <span class="res-val" id="dailyWh">0 Wh/day</span></div>
-        <div class="res-item"><span>Recommended Inverter:</span> <span class="res-val" id="inverterSize">0 kVA</span></div>
-        <div class="res-item"><span>System Voltage:</span> <span class="res-val" id="sysVoltage">0 V</span></div>
-        <div class="res-item"><span>Battery Capacity (Lithium @ 80% DOD):</span> <span class="res-val" id="batteryAh">0 Ah</span></div>
-        <div class="res-item"><span>Solar Array Required:</span> <span class="res-val" id="solarPanels">0 Wp</span></div>
+        <h2>Engineering System Specifications</h2>
+        <div class="res-item"><span>Total Daily Energy Demand:</span> <span class="res-val" id="dailyWh">0 kWh/day</span></div>
+        <div class="res-item"><span>Continuous Running Power:</span> <span class="res-val" id="runningWatts">0 W</span></div>
+        <div class="res-item"><span>Estimated Peak Surge Power:</span> <span class="res-val" id="surgeWatts">0 W</span></div>
+        <div class="res-item"><span>Recommended Inverter Rating:</span> <span class="res-val highlight" id="inverterSize">0 kVA</span></div>
+        <div class="res-item"><span>Recommended System DC Voltage:</span> <span class="res-val" id="sysVoltage">0 V DC</span></div>
+        <div class="res-item"><span>Bank Capacity Required:</span> <span class="res-val highlight" id="batteryAh">0 Ah</span></div>
+        <div class="res-item"><span>Total Solar Array Power:</span> <span class="res-val highlight" id="solarWatts">0 Wp</span></div>
+        <div class="res-item"><span>Panel Array Example:</span> <span class="res-val" id="panelBreakdown">0 panels</span></div>
     </div>
 </div>
 
@@ -84,10 +144,16 @@
         const tbody = document.getElementById('loadBody');
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td><input type="text" placeholder="Device" class="name"></td>
+            <td><input type="text" placeholder="Device Name" class="name"></td>
             <td><input type="number" value="0" class="watts"></td>
             <td><input type="number" value="1" class="qty"></td>
             <td><input type="number" value="1" class="hours"></td>
+            <td>
+                <select class="type">
+                    <option value="resistive">Resistive (Normal)</option>
+                    <option value="inductive">Inductive (Motor)</option>
+                </select>
+            </td>
             <td><button class="remove-btn" onclick="removeRow(this)">X</button></td>
         `;
         tbody.appendChild(row);
@@ -102,44 +168,68 @@
         const watts = document.querySelectorAll('.watts');
         const qtys = document.querySelectorAll('.qty');
         const hours = document.querySelectorAll('.hours');
+        const types = document.querySelectorAll('.type');
 
-        let totalPeakWatts = 0;
+        const dod = parseFloat(document.getElementById('batteryTech').value);
+        const autonomy = parseFloat(document.getElementById('autonomy').value);
+        const psh = parseFloat(document.getElementById('psh').value) || 4.5;
+
+        let totalRunningWatts = 0;
+        let totalSurgeWatts = 0;
         let totalDailyWh = 0;
 
         for (let i = 0; i < watts.length; i++) {
             const w = parseFloat(watts[i].value) || 0;
             const q = parseFloat(qtys[i].value) || 0;
             const h = parseFloat(hours[i].value) || 0;
+            const isInductive = types[i].value === 'inductive';
 
-            totalPeakWatts += w * q;
-            totalDailyWh += w * q * h;
+            const itemPower = w * q;
+            totalRunningWatts += itemPower;
+            totalDailyWh += itemPower * h;
+
+            // Inductive loads apply a 3x surge factor for inverter sizing
+            if (isInductive) {
+                totalSurgeWatts += itemPower * 3;
+            } else {
+                totalSurgeWatts += itemPower;
+            }
         }
 
-        // 1. Inverter Sizing (Peak Watts / 0.8 Power Factor * 1.25 Safety Margin)
-        const inverterVA = (totalPeakWatts / 0.8) * 1.25;
-        const inverterKVA = (inverterVA / 1000).toFixed(1);
+        // 1. Inverter Sizing Logic
+        // Takes the higher requirement between continuous load (+ 25% headroom) and peak surge requirement
+        const pf = 0.8; // Standard power factor
+        const continuousVA = (totalRunningWatts / pf) * 1.25;
+        const surgeVA = totalSurgeWatts / pf;
+        const requiredVA = Math.max(continuousVA, surgeVA);
+        const inverterKVA = (requiredVA / 1000).toFixed(1);
 
         // 2. System Voltage Selection
         let systemVoltage = 12;
-        if (totalDailyWh > 4000 || totalPeakWatts > 1500) {
+        if (totalDailyWh > 4500 || totalRunningWatts > 2000) {
             systemVoltage = 48;
-        } else if (totalDailyWh > 1500 || totalPeakWatts > 800) {
+        } else if (totalDailyWh > 1800 || totalRunningWatts > 1000) {
             systemVoltage = 24;
         }
 
-        // 3. Battery Calculation (Daily Wh / (Voltage * 0.8 DoD * 0.9 Efficiency))
-        const batteryAh = Math.ceil(totalDailyWh / (systemVoltage * 0.8 * 0.9));
+        // 3. Battery Capacity Calculation (including efficiency loss & DOD)
+        const inverterEfficiency = 0.90;
+        const requiredWh = (totalDailyWh * autonomy) / (dod * inverterEfficiency);
+        const batteryAh = Math.ceil(requiredWh / systemVoltage);
 
-        // 4. Solar Array Calculation (Daily Wh * 1.3 loss factor / 4.5 Peak Sun Hours)
-        const solarWatts = Math.ceil((totalDailyWh * 1.3) / 4.5);
+        // 4. Solar Array Sizing (1.35 factor for system charging and conversion losses)
+        const totalSolarWatts = Math.ceil((totalDailyWh * 1.35) / psh);
+        const panels550w = Math.ceil(totalSolarWatts / 550);
 
-        // Display Results
-        document.getElementById('peakWatts').innerText = totalPeakWatts + " W";
+        // Output Results
         document.getElementById('dailyWh').innerText = (totalDailyWh / 1000).toFixed(2) + " kWh/day";
-        document.getElementById('inverterSize').innerText = inverterKVA + " kVA (" + Math.ceil(inverterVA) + " VA)";
+        document.getElementById('runningWatts').innerText = totalRunningWatts + " W";
+        document.getElementById('surgeWatts').innerText = totalSurgeWatts + " W";
+        document.getElementById('inverterSize').innerText = inverterKVA + " kVA (" + Math.ceil(requiredVA) + " VA)";
         document.getElementById('sysVoltage').innerText = systemVoltage + " V DC";
         document.getElementById('batteryAh').innerText = batteryAh + " Ah @ " + systemVoltage + "V";
-        document.getElementById('solarPanels').innerText = solarWatts + " Wp (e.g., " + Math.ceil(solarWatts / 550) + "x 550W panels)";
+        document.getElementById('solarWatts').innerText = totalSolarWatts + " Wp";
+        document.getElementById('panelBreakdown').innerText = panels550w + "x 550W Panels (or " + Math.ceil(totalSolarWatts / 450) + "x 450W Panels)";
 
         document.getElementById('results').style.display = 'block';
     }
