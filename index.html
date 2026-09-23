@@ -3,37 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CircuitHub - Electronics & Circuit Diagrams</title>
+  <title>CircuitHub Pro - Interactive Circuit Diagrams & Schematics</title>
   <style>
     :root {
-      --bg-dark: #0f172a;
-      --card-bg: #1e293b;
+      --bg-dark: #0b0f19;
+      --card-bg: #151d2a;
       --accent: #38bdf8;
       --accent-hover: #0284c7;
+      --accent-gold: #f59e0b;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
-      --border: #334155;
+      --border: #233145;
+      --success: #10b981;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+    body { background-color: var(--bg-dark); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; }
 
     header {
-      background-color: #020617;
+      background-color: #050811;
       border-bottom: 1px solid var(--border);
-      padding: 1rem 2rem;
+      padding: 1rem 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -41,235 +31,285 @@
       gap: 1rem;
     }
 
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
+    .logo { font-size: 1.4rem; font-weight: 800; color: var(--accent); display: flex; align-items: center; gap: 0.5rem; }
     .search-box input {
-      padding: 0.6rem 1rem;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background-color: #0f172a;
-      color: var(--text-main);
-      width: 280px;
-      outline: none;
+      padding: 0.6rem 1rem; border-radius: 8px; border: 1px solid var(--border);
+      background-color: #0f172a; color: var(--text-main); width: 260px; outline: none;
+    }
+    .search-box input:focus { border-color: var(--accent); }
+
+    .controls-bar {
+      display: flex; flex-wrap: wrap; gap: 0.8rem; padding: 1rem 1.5rem 0;
+      align-items: center; justify-content: space-between;
     }
 
-    .search-box input:focus {
-      border-color: var(--accent);
+    .filter-group { display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.5rem; }
+    .btn-filter {
+      padding: 0.4rem 0.9rem; border-radius: 20px; background-color: var(--card-bg);
+      border: 1px solid var(--border); color: var(--text-muted); cursor: pointer;
+      font-size: 0.85rem; white-space: nowrap; transition: all 0.2s ease;
     }
+    .btn-filter.active, .btn-filter:hover { background-color: var(--accent); color: #000; font-weight: 600; border-color: var(--accent); }
 
-    .categories {
-      display: flex;
-      gap: 0.5rem;
-      padding: 1.5rem 2rem 0;
-      overflow-x: auto;
-    }
-
-    .cat-btn {
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      background-color: var(--card-bg);
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.2s ease;
-    }
-
-    .cat-btn:hover, .cat-btn.active {
-      background-color: var(--accent);
-      color: #000;
-      border-color: var(--accent);
-      font-weight: bold;
-    }
-
-    main {
-      padding: 2rem;
-      flex-grow: 1;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
+    main { padding: 1.5rem; flex-grow: 1; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
 
     .card {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      cursor: pointer;
+      background-color: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden; transition: transform 0.2s, border-color 0.2s;
+      display: flex; flex-direction: column; position: relative;
+    }
+    .card:hover { transform: translateY(-3px); border-color: var(--accent); }
+
+    .card-canvas-wrapper {
+      width: 100%; height: 160px; background-color: #070a12;
+      display: flex; align-items: center; justify-content: center;
+      border-bottom: 1px solid var(--border); position: relative;
     }
 
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
-      border-color: var(--accent);
+    .fav-star {
+      position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.6);
+      border: 1px solid var(--border); border-radius: 50%; width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+      color: var(--text-muted); font-size: 1.1rem; z-index: 2; transition: all 0.2s;
     }
+    .fav-star.active { color: var(--accent-gold); border-color: var(--accent-gold); }
 
-    .card-img {
-      width: 100%;
-      height: 180px;
-      background-color: #020617;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-      border-bottom: 1px solid var(--border);
+    .card-body { padding: 1rem; flex-grow: 1; display: flex; flex-direction: column; }
+    .card-tags { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
+    .badge { font-size: 0.7rem; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: bold; text-transform: uppercase; }
+    .badge-cat { background: rgba(56, 189, 248, 0.15); color: var(--accent); }
+    .badge-diff { background: rgba(245, 158, 11, 0.15); color: var(--accent-gold); }
+
+    .card-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .card-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 1rem; }
+
+    .btn-view {
+      margin-top: auto; padding: 0.5rem; border-radius: 6px; background-color: transparent;
+      border: 1px solid var(--accent); color: var(--accent); font-weight: 600;
+      cursor: pointer; text-align: center; transition: all 0.2s;
     }
+    .btn-view:hover { background-color: var(--accent); color: #000; }
 
-    .card-content {
-      padding: 1rem;
-    }
-
-    .card-tag {
-      font-size: 0.75rem;
-      color: var(--accent);
-      text-transform: uppercase;
-      font-weight: bold;
-      margin-bottom: 0.4rem;
-    }
-
-    .card-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-
-    .card-desc {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      line-height: 1.4;
-    }
-
-    /* Modal Styling */
+    /* Interactive Modal */
     .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      justify-content: center;
-      align-items: center;
-      padding: 1rem;
-      z-index: 100;
+      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85); justify-content: center; align-items: center;
+      padding: 1rem; z-index: 100; backdrop-filter: blur(4px);
     }
-
     .modal-content {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border);
-      padding: 1.5rem;
-      border-radius: 12px;
-      max-width: 500px;
-      width: 100%;
-      position: relative;
+      background-color: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 12px; max-width: 650px; width: 100%; max-height: 90vh;
+      overflow-y: auto; padding: 1.5rem; position: relative;
+    }
+    .close-btn { position: absolute; top: 12px; right: 16px; font-size: 1.5rem; color: var(--text-muted); cursor: pointer; }
+
+    .modal-canvas-container {
+      width: 100%; height: 220px; background: #050811; border-radius: 8px;
+      border: 1px solid var(--border); margin: 1rem 0; display: flex;
+      justify-content: center; align-items: center;
     }
 
-    .close-btn {
-      position: absolute;
-      top: 10px; right: 15px;
-      font-size: 1.5rem;
-      color: var(--text-muted);
-      cursor: pointer;
+    .bom-section { margin-top: 1rem; background: #0b0f19; padding: 1rem; border-radius: 8px; border: 1px solid var(--border); }
+    .bom-title { font-weight: 700; color: var(--accent); margin-bottom: 0.5rem; display: flex; justify-content: space-between; }
+    .bom-item { display: flex; align-items: center; justify-content: space-between; padding: 0.4rem 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+    .bom-item:last-child { border-bottom: none; }
+    .bom-item label { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
+
+    .code-box {
+      background: #050811; padding: 0.8rem; border-radius: 6px; font-family: monospace;
+      font-size: 0.8rem; color: var(--accent); border: 1px solid var(--border);
+      margin-top: 0.5rem; white-space: pre-wrap; position: relative;
     }
 
-    footer {
-      text-align: center;
-      padding: 1.5rem;
-      border-top: 1px solid var(--border);
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      background-color: #020617;
-    }
+    footer { text-align: center; padding: 1.2rem; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.85rem; background-color: #050811; }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="logo">⚡ CircuitHub</div>
+    <div class="logo">⚡ CircuitHub Pro</div>
     <div class="search-box">
-      <input type="text" id="searchInput" placeholder="Search circuits (e.g. 555 timer, LED)..." onkeyup="filterCircuits()" />
+      <input type="text" id="searchInput" placeholder="Search circuits or parts..." onkeyup="filterCircuits()" />
     </div>
   </header>
 
-  <div class="categories">
-    <button class="cat-btn active" onclick="filterCategory('all', this)">All Circuits</button>
-    <button class="cat-btn" onclick="filterCategory('timers', this)">Timers & Oscillators</button>
-    <button class="cat-btn" onclick="filterCategory('power', this)">Power Supplies</button>
-    <button class="cat-btn" onclick="filterCategory('audio', this)">Audio & Amplifiers</button>
-    <button class="cat-btn" onclick="filterCategory('micro', this)">Microcontrollers</button>
+  <div class="controls-bar">
+    <div class="filter-group">
+      <button class="btn-filter active" onclick="setCategory('all', this)">All Categories</button>
+      <button class="btn-filter" onclick="setCategory('timers', this)">Timers</button>
+      <button class="btn-filter" onclick="setCategory('power', this)">Power</button>
+      <button class="btn-filter" onclick="setCategory('audio', this)">Audio</button>
+      <button class="btn-filter" onclick="setCategory('micro', this)">Microcontrollers</button>
+    </div>
+
+    <div class="filter-group">
+      <button class="btn-filter" onclick="toggleFavoritesFilter(this)">★ Saved (<span id="favCount">0</span>)</button>
+    </div>
   </div>
 
   <main>
-    <div class="grid" id="circuitGrid">
-      <!-- Circuit cards injected via JavaScript -->
-    </div>
+    <div class="grid" id="circuitGrid"></div>
   </main>
 
-  <!-- Detail Modal -->
+  <!-- Interactive Detail Modal -->
   <div class="modal" id="circuitModal">
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal()">&times;</span>
-      <h2 id="modalTitle" style="color: var(--accent); margin-bottom: 0.5rem;"></h2>
-      <p id="modalCategory" style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;"></p>
-      <p id="modalDesc" style="line-height: 1.5; margin-bottom: 1rem;"></p>
-      <p style="font-size: 0.85rem; color: var(--text-muted);"><strong>Components needed:</strong> ICs, Resistors, Capacitors, Breadboard, 9V Power Source.</p>
+      <h2 id="mTitle" style="color: var(--accent);"></h2>
+      <div style="display:flex; gap:0.5rem; margin-top:0.4rem;">
+        <span class="badge badge-cat" id="mCat"></span>
+        <span class="badge badge-diff" id="mDiff"></span>
+      </div>
+
+      <div class="modal-canvas-container">
+        <canvas id="modalCanvas" width="400" height="200"></canvas>
+      </div>
+
+      <p id="mDesc" style="font-size:0.9rem; line-height:1.5; color: var(--text-main);"></p>
+
+      <div class="bom-section">
+        <div class="bom-title">
+          <span>Bill of Materials (Interactive BOM)</span>
+          <span id="mCost" style="color: var(--success); font-size:0.9rem;"></span>
+        </div>
+        <div id="bomList"></div>
+      </div>
+
+      <div id="codeContainer" style="display:none; margin-top:1rem;">
+        <p style="font-weight:700; font-size:0.85rem; color: var(--text-muted);">Pinout / Source Code:</p>
+        <div class="code-box" id="mCode"></div>
+      </div>
     </div>
   </div>
 
   <footer>
-    <p>&copy; 2026 CircuitHub. Built for Electronics Enthusiasts.</p>
+    <p>&copy; 2026 CircuitHub Pro. Open-Source Hardware Directory.</p>
   </footer>
 
   <script>
     const circuits = [
-      { id: 1, title: '555 LED Flasher Circuit', category: 'timers', icon: '🚨', desc: 'A simple astable multivibrator using a 555 timer IC to flash dual LEDs alternately.' },
-      { id: 2, title: 'LM317 Variable Power Supply', category: 'power', icon: '🔋', desc: 'Adjustable linear voltage regulator capable of supplying 1.25V to 30V DC.' },
-      { id: 3, title: 'LM386 Audio Amplifier', category: 'audio', icon: '🔊', desc: 'Low-voltage audio power amplifier for battery-powered speakers and mini radios.' },
-      { id: 4, title: 'Arduino Automatic Plant Waterer', category: 'micro', icon: '🌱', desc: 'Uses a soil moisture sensor and relay module to auto-trigger a mini water pump.' },
-      { id: 5, title: 'Dark Sensor using LDR', category: 'power', icon: '🌙', desc: 'Automatically switches on an LED light when ambient light levels drop below threshold.' },
-      { id: 6, title: 'Simple Tone Generator', category: 'audio', icon: '🎵', desc: 'Generates audible square wave tones using a 555 IC and a mini 8-ohm speaker.' }
+      {
+        id: 1, title: '555 LED Flasher Circuit', category: 'timers', diff: 'Beginner',
+        desc: 'Classic astable multivibrator flashing dual LEDs alternately. Great starter project.',
+        bom: [
+          { name: '555 Timer IC', cost: 0.50 },
+          { name: '10uF Capacitor', cost: 0.15 },
+          { name: '1kΩ Resistors (x2)', cost: 0.10 },
+          { name: 'LEDs (Red & Blue)', cost: 0.30 },
+          { name: '9V Battery Clip', cost: 0.80 }
+        ],
+        draw: (ctx) => draw555Schematic(ctx),
+        code: null
+      },
+      {
+        id: 2, title: 'LM317 Adjustable Power Supply', category: 'power', diff: 'Intermediate',
+        desc: 'Provides smooth regulated adjustable DC voltage output from 1.25V up to 30V DC.',
+        bom: [
+          { name: 'LM317 Regulator IC', cost: 1.20 },
+          { name: '5kΩ Potentiometer', cost: 0.60 },
+          { name: '240Ω Resistor', cost: 0.05 },
+          { name: '100uF Filter Capacitor', cost: 0.25 },
+          { name: '1N4007 Diode', cost: 0.10 }
+        ],
+        draw: (ctx) => drawPowerSupplySchematic(ctx),
+        code: null
+      },
+      {
+        id: 3, title: 'LM386 Audio Amplifier', category: 'audio', diff: 'Beginner',
+        desc: 'Low-voltage audio amplifier suitable for mini battery-powered speakers and radios.',
+        bom: [
+          { name: 'LM386 Audio IC', cost: 0.80 },
+          { name: '10kΩ Potentiometer', cost: 0.50 },
+          { name: '250uF Capacitor', cost: 0.30 },
+          { name: '8Ω 1W Speaker', cost: 2.50 }
+        ],
+        draw: (ctx) => drawAudioSchematic(ctx),
+        code: null
+      },
+      {
+        id: 4, title: 'Arduino Soil Moisture Pump Controller', category: 'micro', diff: 'Advanced',
+        desc: 'Automated plant watering system using capacitive moisture monitoring.',
+        bom: [
+          { name: 'Arduino Nano', cost: 4.50 },
+          { name: 'Capacitive Moisture Sensor', cost: 1.80 },
+          { name: '5V Relay Module', cost: 1.20 },
+          { name: '5V Mini Water Pump', cost: 3.00 }
+        ],
+        draw: (ctx) => drawArduinoSchematic(ctx),
+        code: `void setup() {\n  pinMode(A0, INPUT);\n  pinMode(13, OUTPUT);\n}\nvoid loop() {\n  if(analogRead(A0) > 600) {\n    digitalWrite(13, HIGH); // Pump ON\n  } else {\n    digitalWrite(13, LOW);  // Pump OFF\n  }\n}`
+      }
     ];
 
     let currentCat = 'all';
+    let showFavsOnly = false;
+    let favorites = JSON.parse(localStorage.getItem('ch_favs') || '[]');
 
-    function renderCircuits(items) {
+    function updateFavCount() {
+      document.getElementById('favCount').innerText = favorites.length;
+    }
+
+    function toggleFav(id, e) {
+      e.stopPropagation();
+      if (favorites.includes(id)) {
+        favorites = favorites.filter(f => f !== id);
+      } else {
+        favorites.push(id);
+      }
+      localStorage.setItem('ch_favs', JSON.stringify(favorites));
+      updateFavCount();
+      filterCircuits();
+    }
+
+    function renderCards(items) {
       const grid = document.getElementById('circuitGrid');
       grid.innerHTML = '';
 
       if (items.length === 0) {
-        grid.innerHTML = '<p style="color: var(--text-muted);">No matching circuits found.</p>';
+        grid.innerHTML = '<p style="color: var(--text-muted); grid-column: 1/-1;">No matching circuits found.</p>';
         return;
       }
 
-      items.forEach(c => {
+      items.forEach(item => {
+        const isFav = favorites.includes(item.id);
         const card = document.createElement('div');
         card.className = 'card';
-        card.onclick = () => openModal(c);
         card.innerHTML = `
-          <div class="card-img">${c.icon}</div>
-          <div class="card-content">
-            <div class="card-tag">${c.category}</div>
-            <div class="card-title">${c.title}</div>
-            <div class="card-desc">${c.desc}</div>
+          <div class="card-canvas-wrapper">
+            <button class="fav-star ${isFav ? 'active' : ''}" onclick="toggleFav(${item.id}, event)">★</button>
+            <canvas id="canvas_${item.id}" width="280" height="150"></canvas>
+          </div>
+          <div class="card-body">
+            <div class="card-tags">
+              <span class="badge badge-cat">${item.category}</span>
+              <span class="badge badge-diff">${item.diff}</span>
+            </div>
+            <div class="card-title">${item.title}</div>
+            <div class="card-desc">${item.desc}</div>
+            <button class="btn-view" onclick="openModal(${item.id})">Inspect Schematic & BOM</button>
           </div>
         `;
         grid.appendChild(card);
+
+        setTimeout(() => {
+          const cvs = document.getElementById(`canvas_${item.id}`);
+          if (cvs) item.draw(cvs.getContext('2d'));
+        }, 50);
       });
     }
 
-    function filterCategory(cat, btn) {
+    function setCategory(cat, btn) {
       currentCat = cat;
-      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      showFavsOnly = false;
+      document.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      filterCircuits();
+    }
+
+    function toggleFavoritesFilter(btn) {
+      showFavsOnly = !showFavsOnly;
+      document.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active'));
+      if (showFavsOnly) btn.classList.add('active');
       filterCircuits();
     }
 
@@ -278,24 +318,101 @@
       const filtered = circuits.filter(c => {
         const matchesCat = currentCat === 'all' || c.category === currentCat;
         const matchesQuery = c.title.toLowerCase().includes(query) || c.desc.toLowerCase().includes(query);
-        return matchesCat && matchesQuery;
+        const matchesFav = !showFavsOnly || favorites.includes(c.id);
+        return matchesCat && matchesQuery && matchesFav;
       });
-      renderCircuits(filtered);
+      renderCards(filtered);
     }
 
-    function openModal(c) {
-      document.getElementById('modalTitle').innerText = c.title;
-      document.getElementById('modalCategory').innerText = 'Category: ' + c.category.toUpperCase();
-      document.getElementById('modalDesc').innerText = c.desc;
+    /* Modal Handling */
+    function openModal(id) {
+      const item = circuits.find(c => c.id === id);
+      if (!item) return;
+
+      document.getElementById('mTitle').innerText = item.title;
+      document.getElementById('mCat').innerText = item.category;
+      document.getElementById('mDiff').innerText = item.diff;
+      document.getElementById('mDesc').innerText = item.desc;
+
+      // Calculate BOM cost
+      const totalCost = item.bom.reduce((sum, p) => sum + p.cost, 0);
+      document.getElementById('mCost').innerText = `Est. Cost: $${totalCost.toFixed(2)}`;
+
+      // Render BOM List
+      const bomContainer = document.getElementById('bomList');
+      bomContainer.innerHTML = '';
+      item.bom.forEach(part => {
+        const row = document.createElement('div');
+        row.className = 'bom-item';
+        row.innerHTML = `
+          <label><input type="checkbox"> ${part.name}</label>
+          <span style="color: var(--text-muted);">$${part.cost.toFixed(2)}</span>
+        `;
+        bomContainer.appendChild(row);
+      });
+
+      // Code Section
+      const codeBox = document.getElementById('codeContainer');
+      if (item.code) {
+        codeBox.style.display = 'block';
+        document.getElementById('mCode').innerText = item.code;
+      } else {
+        codeBox.style.display = 'none';
+      }
+
       document.getElementById('circuitModal').style.display = 'flex';
+
+      setTimeout(() => {
+        const mCanvas = document.getElementById('modalCanvas');
+        item.draw(mCanvas.getContext('2d'));
+      }, 50);
     }
 
     function closeModal() {
       document.getElementById('circuitModal').style.display = 'none';
     }
 
-    // Initial Render
-    renderCircuits(circuits);
+    /* Canvas Vector Drawing Routines */
+    function draw555Schematic(ctx) {
+      ctx.clearRect(0,0,400,200);
+      ctx.strokeStyle = '#38bdf8'; ctx.lineWidth = 2; ctx.fillStyle = '#38bdf8';
+      // IC Box
+      ctx.strokeRect(100, 40, 100, 80);
+      ctx.font = '12px sans-serif'; ctx.fillText('555 TIMER', 120, 85);
+      // Wires
+      ctx.beginPath();
+      ctx.moveTo(40, 80); ctx.lineTo(100, 80);
+      ctx.moveTo(200, 80); ctx.lineTo(260, 80);
+      ctx.stroke();
+      // LED Symbol
+      ctx.beginPath(); ctx.arc(270, 80, 8, 0, Math.PI*2); ctx.fill();
+    }
+
+    function drawPowerSupplySchematic(ctx) {
+      ctx.clearRect(0,0,400,200);
+      ctx.strokeStyle = '#f59e0b'; ctx.lineWidth = 2; ctx.fillStyle = '#f59e0b';
+      ctx.strokeRect(100, 40, 100, 60);
+      ctx.font = '12px sans-serif'; ctx.fillText('LM317', 130, 75);
+      ctx.beginPath(); ctx.moveTo(30, 70); ctx.lineTo(100, 70); ctx.moveTo(200, 70); ctx.lineTo(270, 70); ctx.stroke();
+    }
+
+    function drawAudioSchematic(ctx) {
+      ctx.clearRect(0,0,400,200);
+      ctx.strokeStyle = '#10b981'; ctx.lineWidth = 2; ctx.fillStyle = '#10b981';
+      ctx.beginPath(); ctx.moveTo(100,30); ctx.lineTo(180,70); ctx.lineTo(100,110); ctx.closePath(); ctx.stroke();
+      ctx.font = '12px sans-serif'; ctx.fillText('LM386', 110, 75);
+    }
+
+    function drawArduinoSchematic(ctx) {
+      ctx.clearRect(0,0,400,200);
+      ctx.strokeStyle = '#38bdf8'; ctx.lineWidth = 2; ctx.fillStyle = '#151d2a';
+      ctx.fillRect(80, 30, 120, 90); ctx.strokeRect(80, 30, 120, 90);
+      ctx.fillStyle = '#38bdf8'; ctx.font = '12px sans-serif'; ctx.fillText('ARDUINO', 110, 80);
+    }
+
+    // Initial Setup
+    updateFavCount();
+    renderCards(circuits);
   </script>
 </body>
 </html>
