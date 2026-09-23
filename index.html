@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CircuitHub - Electronics & Circuit Diagrams</title>
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --card-bg: #1e293b;
+      --accent: #38bdf8;
+      --accent-hover: #0284c7;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: #020617;
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .search-box input {
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background-color: #0f172a;
+      color: var(--text-main);
+      width: 280px;
+      outline: none;
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent);
+    }
+
+    .categories {
+      display: flex;
+      gap: 0.5rem;
+      padding: 1.5rem 2rem 0;
+      overflow-x: auto;
+    }
+
+    .cat-btn {
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .cat-btn:hover, .cat-btn.active {
+      background-color: var(--accent);
+      color: #000;
+      border-color: var(--accent);
+      font-weight: bold;
+    }
+
+    main {
+      padding: 2rem;
+      flex-grow: 1;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+      border-color: var(--accent);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 180px;
+      background-color: #020617;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-content {
+      padding: 1rem;
+    }
+
+    .card-tag {
+      font-size: 0.75rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      font-weight: bold;
+      margin-bottom: 0.4rem;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Modal Styling */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      z-index: 100;
+    }
+
+    .modal-content {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 100%;
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px; right: 15px;
+      font-size: 1.5rem;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      background-color: #020617;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">⚡ CircuitHub</div>
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search circuits (e.g. 555 timer, LED)..." onkeyup="filterCircuits()" />
+    </div>
+  </header>
+
+  <div class="categories">
+    <button class="cat-btn active" onclick="filterCategory('all', this)">All Circuits</button>
+    <button class="cat-btn" onclick="filterCategory('timers', this)">Timers & Oscillators</button>
+    <button class="cat-btn" onclick="filterCategory('power', this)">Power Supplies</button>
+    <button class="cat-btn" onclick="filterCategory('audio', this)">Audio & Amplifiers</button>
+    <button class="cat-btn" onclick="filterCategory('micro', this)">Microcontrollers</button>
+  </div>
+
+  <main>
+    <div class="grid" id="circuitGrid">
+      <!-- Circuit cards injected via JavaScript -->
+    </div>
+  </main>
+
+  <!-- Detail Modal -->
+  <div class="modal" id="circuitModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h2 id="modalTitle" style="color: var(--accent); margin-bottom: 0.5rem;"></h2>
+      <p id="modalCategory" style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;"></p>
+      <p id="modalDesc" style="line-height: 1.5; margin-bottom: 1rem;"></p>
+      <p style="font-size: 0.85rem; color: var(--text-muted);"><strong>Components needed:</strong> ICs, Resistors, Capacitors, Breadboard, 9V Power Source.</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 CircuitHub. Built for Electronics Enthusiasts.</p>
+  </footer>
+
+  <script>
+    const circuits = [
+      { id: 1, title: '555 LED Flasher Circuit', category: 'timers', icon: '🚨', desc: 'A simple astable multivibrator using a 555 timer IC to flash dual LEDs alternately.' },
+      { id: 2, title: 'LM317 Variable Power Supply', category: 'power', icon: '🔋', desc: 'Adjustable linear voltage regulator capable of supplying 1.25V to 30V DC.' },
+      { id: 3, title: 'LM386 Audio Amplifier', category: 'audio', icon: '🔊', desc: 'Low-voltage audio power amplifier for battery-powered speakers and mini radios.' },
+      { id: 4, title: 'Arduino Automatic Plant Waterer', category: 'micro', icon: '🌱', desc: 'Uses a soil moisture sensor and relay module to auto-trigger a mini water pump.' },
+      { id: 5, title: 'Dark Sensor using LDR', category: 'power', icon: '🌙', desc: 'Automatically switches on an LED light when ambient light levels drop below threshold.' },
+      { id: 6, title: 'Simple Tone Generator', category: 'audio', icon: '🎵', desc: 'Generates audible square wave tones using a 555 IC and a mini 8-ohm speaker.' }
+    ];
+
+    let currentCat = 'all';
+
+    function renderCircuits(items) {
+      const grid = document.getElementById('circuitGrid');
+      grid.innerHTML = '';
+
+      if (items.length === 0) {
+        grid.innerHTML = '<p style="color: var(--text-muted);">No matching circuits found.</p>';
+        return;
+      }
+
+      items.forEach(c => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.onclick = () => openModal(c);
+        card.innerHTML = `
+          <div class="card-img">${c.icon}</div>
+          <div class="card-content">
+            <div class="card-tag">${c.category}</div>
+            <div class="card-title">${c.title}</div>
+            <div class="card-desc">${c.desc}</div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function filterCategory(cat, btn) {
+      currentCat = cat;
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterCircuits();
+    }
+
+    function filterCircuits() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const filtered = circuits.filter(c => {
+        const matchesCat = currentCat === 'all' || c.category === currentCat;
+        const matchesQuery = c.title.toLowerCase().includes(query) || c.desc.toLowerCase().includes(query);
+        return matchesCat && matchesQuery;
+      });
+      renderCircuits(filtered);
+    }
+
+    function openModal(c) {
+      document.getElementById('modalTitle').innerText = c.title;
+      document.getElementById('modalCategory').innerText = 'Category: ' + c.category.toUpperCase();
+      document.getElementById('modalDesc').innerText = c.desc;
+      document.getElementById('circuitModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('circuitModal').style.display = 'none';
+    }
+
+    // Initial Render
+    renderCircuits(circuits);
+  </script>
+</body>
+</html>
